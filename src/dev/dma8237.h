@@ -22,8 +22,8 @@
 
 enum dma_transfer_type {
     DMA_XFER_VERIFY = 0,
-    DMA_XFER_WRITE  = 1, /* I/O → memory */
-    DMA_XFER_READ   = 2, /* memory → I/O */
+    DMA_XFER_WRITE  = 1, // I/O → memory
+    DMA_XFER_READ   = 2, // memory → I/O
     DMA_XFER_INVALID = 3
 };
 
@@ -40,7 +40,7 @@ struct dma_channel {
     u16 base_count;
     u16 current_count;
     u8  page;
-    u8  mode;            /* raw mode byte */
+    u8  mode;            // raw mode byte
     bool masked;
     bool request;
     bool terminal_count;
@@ -48,25 +48,25 @@ struct dma_channel {
     bool decrement;
 };
 
-struct memory;
+typedef struct memory PhysicalMemory;
 
 struct dma8237 {
-    struct dma_channel ch[8];   /* 0-3 master (8-bit), 4-7 slave (16-bit) */
+    struct dma_channel ch[8];   // 0-3 master (8-bit), 4-7 slave (16-bit)
     bool flipflop[2];
     u8   command[2];
     u8   status[2];
-    struct memory *mem;
+    PhysicalMemory *mem;
 };
 
-void dma_init(struct dma8237 *dma, struct memory *mem);
+void dma_init(struct dma8237 *dma, PhysicalMemory *mem);
 void dma_reset(struct dma8237 *dma);
-u32  dma_io_read(void *ctx, u16 port, u8 size);
+u32 dma_io_read(void *ctx, u16 port, u8 size);
 void dma_io_write(void *ctx, u16 port, u8 size, u32 value);
 bool dma_channel_active(const struct dma8237 *dma, u8 channel);
-u32  dma_physical_address(const struct dma8237 *dma, u8 channel);
-u32  dma_remaining_bytes(const struct dma8237 *dma, u8 channel);
+u32 dma_physical_address(const struct dma8237 *dma, u8 channel);
+u32 dma_remaining_bytes(const struct dma8237 *dma, u8 channel);
 /* Device→memory and memory→device transfers; return bytes moved, set terminal count when exhausted. */
-u32  dma_write_memory(struct dma8237 *dma, u8 channel, const u8 *src, u32 len);
-u32  dma_read_memory(struct dma8237 *dma, u8 channel, u8 *dst, u32 len);
+u32 dma_write_memory(struct dma8237 *dma, u8 channel, const u8 *src, u32 len);
+u32 dma_read_memory(struct dma8237 *dma, u8 channel, u8 *dst, u32 len);
 
 #endif /* open386_DEV_DMA8237_H */

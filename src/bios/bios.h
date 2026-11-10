@@ -36,7 +36,7 @@ enum bda_offset {
     BDA_KBD_FLAGS2      = 0x18,
     BDA_KBD_BUF_HEAD    = 0x1A,
     BDA_KBD_BUF_TAIL    = 0x1C,
-    BDA_KBD_BUFFER      = 0x1E, /* 32 bytes */
+    BDA_KBD_BUFFER      = 0x1E, // 32 bytes
     BDA_FLOPPY_RECAL    = 0x3E,
     BDA_FLOPPY_MOTOR    = 0x3F,
     BDA_FLOPPY_TIMEOUT  = 0x40,
@@ -45,7 +45,7 @@ enum bda_offset {
     BDA_VIDEO_COLS      = 0x4A,
     BDA_VIDEO_PAGE_SIZE = 0x4C,
     BDA_VIDEO_PAGE_OFF  = 0x4E,
-    BDA_CURSOR_POS      = 0x50, /* 8 pages × 2 bytes */
+    BDA_CURSOR_POS      = 0x50, // 8 pages × 2 bytes
     BDA_CURSOR_SHAPE    = 0x60,
     BDA_VIDEO_PAGE      = 0x62,
     BDA_CRTC_BASE       = 0x63,
@@ -81,7 +81,7 @@ enum bios_vector {
     BIOS_INT_VIDEO_FONT     = 0x1F,
     BIOS_INT_RTC_IRQ8       = 0x70,
     BIOS_INT_MOUSE_IRQ12    = 0x74,
-    BIOS_INT_UNHANDLED      = 0xFF /* catch-all stub: IRET */
+    BIOS_INT_UNHANDLED      = 0xFF // catch-all stub: IRET
 };
 
 /* INT 15h E820h memory map. */
@@ -101,13 +101,13 @@ struct e820_entry {
 
 struct bios_disk {
     bool present;
-    u8   drive_number;      /* 00h/01h floppies, 80h+ hard disks */
+    u8   drive_number;      // 00h/01h floppies, 80h+ hard disks
     bool is_floppy;
     u16  cylinders;
     u8   heads;
     u8   sectors_per_track;
     u16  bytes_per_sector;
-    u8   cmos_type;         /* floppy type nibble (4 = 1.44 MB) */
+    u8   cmos_type;         // floppy type nibble (4 = 1.44 MB)
 };
 
 struct machine;
@@ -116,25 +116,25 @@ struct cpu;
 struct bios {
     struct machine *m;
     u8   rom[BIOS_ROM_SIZE];
-    u32  entry_points[256];   /* physical address of each vector's trap stub, 0 if none */
+    u32  entry_points[256];   // physical address of each vector's trap stub, 0 if none
     u32  trap_count;
     struct bios_disk disks[4];
     struct e820_entry e820[BIOS_E820_MAX];
     u8   e820_count;
-    u32  base_mem_kb;         /* 640 */
-    u32  ext_mem_kb;          /* above 1 MiB */
-    u8   boot_order[2];       /* drive numbers to try */
+    u32  base_mem_kb;         // 640
+    u32  ext_mem_kb;          // above 1 MiB
+    u8   boot_order[2];       // drive numbers to try
     struct {
         u8 mode, cols, rows, active_page;
         u8 cursor_start, cursor_end;
     } video;
     u64  tick_base_cycle;
-    bool int13_extensions;    /* report EDD support? GRUB falls back to CHS when false */
+    bool int13_extensions;    // report EDD support? GRUB falls back to CHS when false
     u32  services_handled;
     u32  services_unhandled;
 };
 
-int  bios_init(struct bios *bios, struct machine *m);
+int bios_init(struct bios *bios, struct machine *m);
 void bios_build_rom(struct bios *bios);                 /* fill rom[] with IVT stubs, reset jump, signature */
 void bios_post(struct bios *bios);                      /* IVT, BDA, CMOS, PIC/PIT defaults, then INT 19h */
 bool bios_is_entry_point(const struct bios *bios, u32 phys_addr);
@@ -159,8 +159,8 @@ void bios_unhandled(struct bios *bios, struct cpu *cpu, u8 vector);
 /* Helpers operating on the trapped frame (FLAGS image at SS:SP+4 in real mode). */
 void bios_set_carry(struct cpu *cpu, bool set);
 void bios_set_zero(struct cpu *cpu, bool set);
-u8   bios_bda_read8(struct bios *bios, u16 offset);
-u16  bios_bda_read16(struct bios *bios, u16 offset);
+u8 bios_bda_read8(struct bios *bios, u16 offset);
+u16 bios_bda_read16(struct bios *bios, u16 offset);
 void bios_bda_write8(struct bios *bios, u16 offset, u8 value);
 void bios_bda_write16(struct bios *bios, u16 offset, u16 value);
 void bios_bda_write32(struct bios *bios, u16 offset, u32 value);

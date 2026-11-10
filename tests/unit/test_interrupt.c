@@ -6,16 +6,36 @@
 #include "test.h"
 #include "cpu/cpu.h"
 
-TEST_CASE(error_code_presence_matches_table_9_7) { TEST_SKIP(M2); }
-TEST_CASE(exception_classes_match_table_9_6) { TEST_SKIP(M1); }
-TEST_CASE(real_mode_frame_is_flags_cs_ip) { TEST_SKIP(M1); }
-TEST_CASE(same_level_frame_with_and_without_error_code) { TEST_SKIP(M2); }
-TEST_CASE(inter_level_frame_pushes_ss_esp_from_tss) { TEST_SKIP(M2); }
-TEST_CASE(v86_frame_pushes_gs_fs_ds_es) { TEST_SKIP(M5); }
-TEST_CASE(interrupt_gate_clears_if_trap_gate_keeps_if_both_clear_tf) { TEST_SKIP(M2); }
-TEST_CASE(int_n_from_cpl3_into_dpl0_gate_raises_gp) { TEST_SKIP(M2); }
-TEST_CASE(double_fault_classes_match_table_7_5) { TEST_SKIP(M2); }
-TEST_CASE(mov_ss_inhibits_interrupts_for_one_instruction) { TEST_SKIP(M1); }
+TEST_CASE(error_code_presence_matches_table_9_7) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(exception_classes_match_table_9_6) {
+    TEST_SKIP(M1);
+}
+TEST_CASE(real_mode_frame_is_flags_cs_ip) {
+    TEST_SKIP(M1);
+}
+TEST_CASE(same_level_frame_with_and_without_error_code) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(inter_level_frame_pushes_ss_esp_from_tss) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(v86_frame_pushes_gs_fs_ds_es) {
+    TEST_SKIP(M5);
+}
+TEST_CASE(interrupt_gate_clears_if_trap_gate_keeps_if_both_clear_tf) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(int_n_from_cpl3_into_dpl0_gate_raises_gp) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(double_fault_classes_match_table_7_5) {
+    TEST_SKIP(M2);
+}
+TEST_CASE(mov_ss_inhibits_interrupts_for_one_instruction) {
+    TEST_SKIP(M1);
+}
 
 TEST_MAIN_BEGIN("interrupt")
 TEST_RUN(error_code_presence_matches_table_9_7);

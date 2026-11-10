@@ -45,7 +45,7 @@ struct cpu;
 void cpuid_execute(struct cpu *cpu);
 bool cpuid_lookup(const struct cpu_model *model, u32 leaf, struct cpuid_leaf_desc *out);
 /* Build leaf 1 EAX (type/family/model/stepping) and EDX feature bits from a model's gates. */
-u32  cpuid_signature_from_model(const struct cpu_model *model);
-u32  cpuid_features_from_model(const struct cpu_model *model);
+u32 cpuid_signature_from_model(const struct cpu_model *model);
+u32 cpuid_features_from_model(const struct cpu_model *model);
 
 #endif /* open386_CPU_CPUID_H */

@@ -24,8 +24,8 @@
 
 /* Raw 8-byte descriptor as stored in memory. */
 struct descriptor_raw {
-    u32 lo; /* bytes 0-3: limit 15:0, base 15:0 */
-    u32 hi; /* bytes 4-7: base 23:16, access, limit 19:16 + flags, base 31:24 */
+    u32 lo; // bytes 0-3: limit 15:0, base 15:0
+    u32 hi; // bytes 4-7: base 23:16, access, limit 19:16 + flags, base 31:24
 };
 
 /* Access-rights byte (byte 5) bits. [i386 Fig 5-3 p.93; Fig 6-1 p.107] */
@@ -71,26 +71,26 @@ enum desc_sys_type {
 /* Decoded segment (code/data/LDT/TSS) descriptor. */
 struct segment_descriptor {
     u32  base;
-    u32  limit_raw;    /* 20-bit field */
-    u32  limit;        /* byte-granular: limit_raw, or (limit_raw << 12) | 0xFFF when G=1 [i386 §5.1.1 p.92] */
-    u8   type;         /* 4-bit type */
+    u32  limit_raw;    // 20-bit field
+    u32  limit;        // byte-granular: limit_raw, or (limit_raw << 12) | 0xFFF when G=1 [i386 §5.1.1 p.92]
+    u8   type;         // 4-bit type
     bool s;
     u8   dpl;
     bool present;
     bool avl;
     bool db;
     bool granularity;
-    bool reserved_set; /* bit 21 set — reject on the 386 */
+    bool reserved_set; // bit 21 set — reject on the 386
 };
 
 /* Decoded gate (call/interrupt/trap/task) descriptor. [i386 Fig 6-5 p.117; Fig 9-3 p.157; Fig 7-4 p.135] */
 struct gate_descriptor {
     u16  selector;
-    u32  offset;       /* 16-bit for 286 gates */
+    u32  offset;       // 16-bit for 286 gates
     u8   type;
     u8   dpl;
     bool present;
-    u8   param_count;  /* call gates: dword count (386) / word count (286) */
+    u8   param_count;  // call gates: dword count (386) / word count (286)
 };
 
 struct cpu;
@@ -104,7 +104,7 @@ void descriptor_pack(const struct segment_descriptor *desc, struct descriptor_ra
 /* Fetch the descriptor for `selector` from the GDT or current LDT. Checks the table limit and raises
  * `fault_vector` with `fault_error_code` when out of range. Returns the linear address of the entry for
  * later Accessed/Busy updates. [i386 §5.1.2 p.94; §6.3.1.2 p.110] */
-u32  descriptor_fetch(struct cpu *cpu, u16 selector, struct descriptor_raw *out, u8 fault_vector,
+u32 descriptor_fetch(struct cpu *cpu, u16 selector, struct descriptor_raw *out, u8 fault_vector,
                       u32 fault_error_code);
 bool descriptor_in_table_limit(const struct cpu *cpu, u16 selector);
 /* Locked read-modify-write of the Accessed bit (always performed on the 386). [SDM 3B §25.22.4 p.4142] */

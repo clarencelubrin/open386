@@ -35,7 +35,7 @@ struct monitor {
     struct machine *m;
     FILE *in;
     FILE *out;
-    bool attached;        /* machine stops and reads commands */
+    bool attached;        // machine stops and reads commands
     bool single_step;
     u64  step_count;
     struct monitor_breakpoint bps[MONITOR_MAX_BREAKPOINTS];
@@ -46,10 +46,10 @@ struct monitor {
 void monitor_init(struct monitor *mon, struct machine *m, FILE *in, FILE *out);
 void monitor_attach(struct monitor *mon);
 void monitor_detach(struct monitor *mon);
-int  monitor_run_command(struct monitor *mon, const char *line);
+int monitor_run_command(struct monitor *mon, const char *line);
 void monitor_repl(struct monitor *mon);            /* read commands until 'c' (continue) */
 bool monitor_should_break(struct monitor *mon);   /* called before each instruction */
-int  monitor_add_breakpoint(struct monitor *mon, enum monitor_bp_kind kind, u32 address, u32 length);
+int monitor_add_breakpoint(struct monitor *mon, enum monitor_bp_kind kind, u32 address, u32 length);
 void monitor_remove_breakpoint(struct monitor *mon, int id);
 
 void monitor_dump_regs(struct monitor *mon);

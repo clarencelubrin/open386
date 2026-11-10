@@ -43,9 +43,26 @@ const struct cpu_model cpu_model_i386_icsos = {
 const struct cpu_model cpu_model_i486dx = { .name = "i486dx", .description = "Intel486 DX (M7)" };
 const struct cpu_model cpu_model_pentium = { .name = "pentium", .description = "Pentium (M7)" };
 
-const struct cpu_model *cpu_model_find(const char *name) { O386_STUB_TODO(M1); return NULL; }
-int  cpu_model_apply_overrides(struct cpu_model *dst, const struct cpu_model *base, const char *overrides) { O386_STUB_TODO(M1); return 0; }
-const char *cpu_feature_name(enum cpu_feature f) { O386_STUB_TODO(M1); return ""; }
-int  cpu_feature_from_name(const char *name) { O386_STUB_TODO(M1); return -1; }
-void cpu_model_list(void) { O386_STUB_TODO(M1); }
-bool cpu_has_feature(const struct cpu *cpu, enum cpu_feature f) { O386_STUB_TODO(M1); return false; }
+const struct cpu_model *cpu_model_find(const char *name) {
+    O386_STUB_TODO(M1);
+    return NULL;
+}
+int cpu_model_apply_overrides(struct cpu_model *dst, const struct cpu_model *base, const char *overrides) {
+    O386_STUB_TODO(M1);
+    return 0;
+}
+const char *cpu_feature_name(enum cpu_feature f) {
+    O386_STUB_TODO(M1);
+    return "";
+}
+int cpu_feature_from_name(const char *name) {
+    O386_STUB_TODO(M1);
+    return -1;
+}
+void cpu_model_list(void) {
+    O386_STUB_TODO(M1);
+}
+bool cpu_has_feature(const struct cpu *cpu, enum cpu_feature f) {
+    O386_STUB_TODO(M1);
+    return false;
+}

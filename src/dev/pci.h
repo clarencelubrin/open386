@@ -21,7 +21,7 @@ typedef void (*pci_config_write_fn)(struct pci_device *dev, u8 offset, u8 size, 
 struct pci_device {
     u8  bus, slot, function;
     u8  config[PCI_CONFIG_SPACE_SIZE];
-    pci_config_read_fn  read;   /* NULL = plain config array */
+    pci_config_read_fn  read;   // NULL = plain config array
     pci_config_write_fn write;
     void *priv;
     const char *name;
@@ -35,9 +35,9 @@ struct pci_bus {
 
 void pci_init(struct pci_bus *bus);
 void pci_reset(struct pci_bus *bus);
-int  pci_register_device(struct pci_bus *bus, struct pci_device *dev);
+int pci_register_device(struct pci_bus *bus, struct pci_device *dev);
 struct pci_device *pci_find_device(struct pci_bus *bus, u8 busno, u8 slot, u8 function);
-u32  pci_io_read(void *ctx, u16 port, u8 size);
+u32 pci_io_read(void *ctx, u16 port, u8 size);
 void pci_io_write(void *ctx, u16 port, u8 size, u32 value);
 
 #endif /* open386_DEV_PCI_H */

@@ -39,25 +39,25 @@ enum prefix_flags {
 
 enum operand_kind {
     OPK_NONE = 0,
-    OPK_REG,      /* 16/32-bit general register (reg = enum x86_gpr) */
-    OPK_REG8,     /* 8-bit general register (reg = enum x86_reg8) */
-    OPK_SREG,     /* segment register */
+    OPK_REG,      // 16/32-bit general register (reg = enum x86_gpr)
+    OPK_REG8,     // 8-bit general register (reg = enum x86_reg8)
+    OPK_SREG,     // segment register
     OPK_CREG,
     OPK_DREG,
     OPK_TREG,
-    OPK_MEM,      /* memory operand: seg:ea */
-    OPK_IMM,      /* immediate */
-    OPK_REL,      /* relative branch target (already sign-extended) */
-    OPK_FAR_PTR,  /* ptr16:16 / ptr16:32 immediate (far_sel:imm) */
-    OPK_MOFFS     /* moffs8/16/32: direct offset without ModR/M (MOV A0-A3) */
+    OPK_MEM,      // memory operand: seg:ea
+    OPK_IMM,      // immediate
+    OPK_REL,      // relative branch target (already sign-extended)
+    OPK_FAR_PTR,  // ptr16:16 / ptr16:32 immediate (far_sel:imm)
+    OPK_MOFFS     // moffs8/16/32: direct offset without ModR/M (MOV A0-A3)
 };
 
 struct operand {
     enum operand_kind kind;
-    u8  size;     /* bytes */
+    u8  size;     // bytes
     u8  reg;
-    u8  seg;      /* segment used for OPK_MEM / OPK_MOFFS */
-    u32 ea;       /* effective address (offset within seg) */
+    u8  seg;      // segment used for OPK_MEM / OPK_MOFFS
+    u32 ea;       // effective address (offset within seg)
     u32 imm;
     u16 far_sel;
 };
@@ -65,44 +65,44 @@ struct operand {
 struct modrm_byte {
     bool present;
     u8 raw;
-    u8 mod;  /* bits 7:6 */
-    u8 reg;  /* bits 5:3 — register or opcode extension */
-    u8 rm;   /* bits 2:0 */
+    u8 mod;  // bits 7:6
+    u8 reg;  // bits 5:3 — register or opcode extension
+    u8 rm;   // bits 2:0
 };
 
 struct sib_byte {
     bool present;
     u8 raw;
-    u8 scale; /* bits 7:6 (ss) */
-    u8 index; /* bits 5:3 */
-    u8 base;  /* bits 2:0 */
+    u8 scale; // bits 7:6 (ss)
+    u8 index; // bits 5:3
+    u8 base;  // bits 2:0
 };
 
 struct opcode_entry; /* cpu/exec.h */
 
 struct x86_insn {
-    u32 start_eip;          /* EIP of the first byte; faults restore this */
+    u32 start_eip;          // EIP of the first byte; faults restore this
     u8  len;
     u8  bytes[X86_MAX_INSN_LEN];
 
-    u8  prefixes;           /* enum prefix_flags */
+    u8  prefixes;           // enum prefix_flags
     u8  prefix_count;
-    u8  seg_override;       /* enum x86_sreg or SEG_NONE */
-    u8  rep;                /* 0, PREFIX_REP or PREFIX_REPNE */
+    u8  seg_override;       // enum x86_sreg or SEG_NONE
+    u8  rep;                // 0, PREFIX_REP or PREFIX_REPNE
 
-    bool two_byte;          /* 0F xx */
-    u8  opcode;             /* primary opcode byte (second byte when two_byte) */
+    bool two_byte;          // 0F xx
+    u8  opcode;             // primary opcode byte (second byte when two_byte)
     struct modrm_byte modrm;
     struct sib_byte   sib;
     s32 disp;
     u8  disp_size;
     u32 imm;
     u8  imm_size;
-    u32 imm2;               /* second immediate: ENTER level, far pointer selector */
+    u32 imm2;               // second immediate: ENTER level, far pointer selector
     u8  imm2_size;
 
-    u8  opsize;             /* effective operand size: 2 or 4 */
-    u8  addrsize;           /* effective address size: 2 or 4 */
+    u8  opsize;             // effective operand size: 2 or 4
+    u8  addrsize;           // effective address size: 2 or 4
 
     const struct opcode_entry *entry;
     struct operand ops[3];
@@ -115,12 +115,12 @@ struct cpu;
  * (including LOCK on a non-lockable form, [i386 LOCK p.336]). */
 void decode_instruction(struct cpu *cpu, struct x86_insn *insn);
 /* Compute the effective address for the ModR/M/SIB form in `insn`. [i386 §2.5.3.2 p.40, Fig 2-10] */
-u32  decode_effective_address(struct cpu *cpu, const struct x86_insn *insn);
+u32 decode_effective_address(struct cpu *cpu, const struct x86_insn *insn);
 /* Default segment for a memory operand: SS for BP/EBP/ESP-based forms, else DS. [i386 §2.5.3.1 p.39] */
-u8   decode_default_segment(const struct x86_insn *insn);
+u8 decode_default_segment(const struct x86_insn *insn);
 /* Resolve operand descriptors (App. A codes) into struct operand entries. */
 void decode_operands(struct cpu *cpu, struct x86_insn *insn);
 /* Decode without touching CPU state (debugger/disassembler path). Returns length or -1. */
-int  decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, struct x86_insn *insn);
+int decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, struct x86_insn *insn);
 
 #endif /* open386_CPU_DECODE_H */

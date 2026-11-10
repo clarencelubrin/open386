@@ -19,13 +19,13 @@ struct pcspeaker {
     bool pit_out;
     bool refresh_toggle;
     struct pit8254 *pit;
-    void (*audio_cb)(void *ctx, bool gate, bool data); /* optional host audio hook */
+    void (*audio_cb)(void *ctx, bool gate, bool data); // optional host audio hook
     void *audio_ctx;
 };
 
 void speaker_init(struct pcspeaker *spk, struct pit8254 *pit);
 void speaker_reset(struct pcspeaker *spk);
-u32  speaker_io_read(void *ctx, u16 port, u8 size);
+u32 speaker_io_read(void *ctx, u16 port, u8 size);
 void speaker_io_write(void *ctx, u16 port, u8 size, u32 value);
 void speaker_set_pit_out(void *ctx, bool level);
 

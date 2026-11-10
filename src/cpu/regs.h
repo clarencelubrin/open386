@@ -43,15 +43,15 @@ enum x86_sreg {
     SEG_FS,
     SEG_GS,
     SEG_COUNT,
-    SEG_NONE = 0xFF /* "no override" marker in the decoder */
+    SEG_NONE = 0xFF // "no override" marker in the decoder
 };
 
 enum x86_creg {
     CREG_CR0 = 0,
-    CREG_CR1, /* reserved on the 386 [i386 Fig 4-2] */
+    CREG_CR1, // reserved on the 386 [i386 Fig 4-2]
     CREG_CR2,
     CREG_CR3,
-    CREG_CR4, /* Pentium+ [SDM 3B §25.21 p.4140] */
+    CREG_CR4, // Pentium+ [SDM 3B §25.21 p.4140]
     CREG_COUNT = 8
 };
 
@@ -60,8 +60,8 @@ enum x86_dreg {
     DREG_DR1,
     DREG_DR2,
     DREG_DR3,
-    DREG_DR4, /* aliases DR6 on the 386 [SDM 3B §25.23.3 p.4142] */
-    DREG_DR5, /* aliases DR7 on the 386 */
+    DREG_DR4, // aliases DR6 on the 386 [SDM 3B §25.23.3 p.4142]
+    DREG_DR5, // aliases DR7 on the 386
     DREG_DR6,
     DREG_DR7,
     DREG_COUNT

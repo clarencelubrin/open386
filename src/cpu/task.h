@@ -27,10 +27,10 @@ enum tss32_offset {
     TSS32_ESP = 56, TSS32_EBP = 60, TSS32_ESI = 64, TSS32_EDI = 68,
     TSS32_ES = 72, TSS32_CS = 76, TSS32_SS = 80, TSS32_DS = 84, TSS32_FS = 88, TSS32_GS = 92,
     TSS32_LDT = 96,
-    TSS32_TRAP = 100,      /* bit 0 = T (debug trap on task switch) [i386 §12.3.1.5 p.203] */
+    TSS32_TRAP = 100,      // bit 0 = T (debug trap on task switch) [i386 §12.3.1.5 p.203]
     TSS32_IOMAP_BASE = 102,
     TSS32_SIZE = 104,
-    TSS32_MIN_LIMIT = 103  /* limit < 103 → #TS [i386 §9.8.10 p.165] */
+    TSS32_MIN_LIMIT = 103  // limit < 103 → #TS [i386 §9.8.10 p.165]
 };
 
 /* Byte offsets inside a 16-bit (80286) TSS. [SDM 3A Fig 10-10 p.3460] */
@@ -60,8 +60,8 @@ struct tss32 {
     u32 eax, ecx, edx, ebx, esp, ebp, esi, edi;
     u16 es, rsvd4, cs, rsvd5, ss, rsvd6, ds, rsvd7, fs, rsvd8, gs, rsvd9;
     u16 ldt, rsvd10;
-    u16 trap;        /* bit 0 = T */
-    u16 iomap_base;  /* offset of the I/O permission bit map [i386 §8.3.2 p.149] */
+    u16 trap;        // bit 0 = T
+    u16 iomap_base;  // offset of the I/O permission bit map [i386 §8.3.2 p.149]
 };
 
 struct tss16 {
@@ -75,10 +75,10 @@ struct tss16 {
 
 /* What triggered the switch — decides privilege checks and busy/NT/back-link handling. [SDM 3A Table 10-2] */
 enum task_switch_reason {
-    TASK_SWITCH_JMP = 0,  /* old TSS → available, no link */
-    TASK_SWITCH_CALL,     /* old stays busy, NT=1, back link = old TR */
-    TASK_SWITCH_INT,      /* interrupt/exception through a task gate: like CALL */
-    TASK_SWITCH_IRET      /* NT=1 return: old → available, new must be busy */
+    TASK_SWITCH_JMP = 0,  // old TSS → available, no link
+    TASK_SWITCH_CALL,     // old stays busy, NT=1, back link = old TR
+    TASK_SWITCH_INT,      // interrupt/exception through a task gate: like CALL
+    TASK_SWITCH_IRET      // NT=1 return: old → available, new must be busy
 };
 
 struct cpu;

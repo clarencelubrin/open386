@@ -32,11 +32,11 @@ extern const struct display_ops display_null_ops;  /* headless */
 extern const struct display_ops display_term_ops;  /* curses text console */
 extern const struct display_ops display_sdl_ops;   /* SDL2 (compile-time optional) */
 
-int  display_create(struct display *d, enum display_kind kind, const struct config *cfg);
+int display_create(struct display *d, enum display_kind kind, const struct config *cfg);
 void display_destroy(struct display *d);
 void display_render(struct display *d, const struct vga *vga);
 bool display_poll(struct display *d, struct kbd8042 *kbd);
 /* Host key → scan code set 1 translation shared by the front ends. */
-int  display_key_to_scancode(int host_key, bool pressed, u8 *out, size_t out_len);
+int display_key_to_scancode(int host_key, bool pressed, u8 *out, size_t out_len);
 
 #endif /* open386_UI_DISPLAY_H */

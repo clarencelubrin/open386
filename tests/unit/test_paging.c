@@ -5,14 +5,30 @@
 #include "test.h"
 #include "cpu/cpu.h"
 
-TEST_CASE(two_level_walk_produces_frame_plus_offset) { TEST_SKIP(M3); }
-TEST_CASE(accessed_set_on_pde_and_pte_dirty_on_write) { TEST_SKIP(M3); }
-TEST_CASE(not_present_raises_pf_with_p0_and_cr2) { TEST_SKIP(M3); }
-TEST_CASE(user_write_to_supervisor_page_raises_pf_p1_wr_us) { TEST_SKIP(M3); }
-TEST_CASE(supervisor_write_to_read_only_allowed_on_i386) { TEST_SKIP(M3); }
-TEST_CASE(reserved_bits_ignored_on_i386_fault_when_gated) { TEST_SKIP(M7); }
-TEST_CASE(mov_cr3_flushes_tlb) { TEST_SKIP(M3); }
-TEST_CASE(invlpg_flushes_single_entry_when_gated) { TEST_SKIP(M3); }
+TEST_CASE(two_level_walk_produces_frame_plus_offset) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(accessed_set_on_pde_and_pte_dirty_on_write) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(not_present_raises_pf_with_p0_and_cr2) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(user_write_to_supervisor_page_raises_pf_p1_wr_us) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(supervisor_write_to_read_only_allowed_on_i386) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(reserved_bits_ignored_on_i386_fault_when_gated) {
+    TEST_SKIP(M7);
+}
+TEST_CASE(mov_cr3_flushes_tlb) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(invlpg_flushes_single_entry_when_gated) {
+    TEST_SKIP(M3);
+}
 
 TEST_MAIN_BEGIN("paging")
 TEST_RUN(two_level_walk_produces_frame_plus_offset);

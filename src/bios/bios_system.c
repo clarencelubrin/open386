@@ -2,6 +2,12 @@
 #include "bios/bios.h"
 #include "machine/machine.h"
 
-void bios_int11_equipment(struct bios *bios, struct cpu *cpu) { O386_STUB_TODO(M1); }
-void bios_int12_memsize(struct bios *bios, struct cpu *cpu) { O386_STUB_TODO(M1); }
-void bios_int15_system(struct bios *bios, struct cpu *cpu) { O386_STUB_TODO(M1); }
+void bios_int11_equipment(struct bios *bios, struct cpu *cpu) {
+    O386_STUB_TODO(M1);
+}
+void bios_int12_memsize(struct bios *bios, struct cpu *cpu) {
+    O386_STUB_TODO(M1);
+}
+void bios_int15_system(struct bios *bios, struct cpu *cpu) {
+    O386_STUB_TODO(M1);
+}

@@ -44,8 +44,8 @@ struct ide_channel {
 
 void ide_init(struct ide_channel *ide, u16 base, u16 ctrl, const struct irq_line *irq);
 void ide_reset(struct ide_channel *ide);
-int  ide_attach_image(struct ide_channel *ide, u8 drive, const char *path);
-u32  ide_io_read(void *ctx, u16 port, u8 size);
+int ide_attach_image(struct ide_channel *ide, u8 drive, const char *path);
+u32 ide_io_read(void *ctx, u16 port, u8 size);
 void ide_io_write(void *ctx, u16 port, u8 size, u32 value);
 
 #endif /* open386_DEV_IDE_H */

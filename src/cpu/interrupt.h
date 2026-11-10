@@ -15,46 +15,46 @@
 
 /* Vector assignments. [i386 Table 9-1 p.153; SDM 3A Table 7-1 p.3351] */
 enum x86_exception {
-    EXC_DE = 0,          /* divide error (fault) */
-    EXC_DB = 1,          /* debug (fault or trap) */
+    EXC_DE = 0,          // divide error (fault)
+    EXC_DB = 1,          // debug (fault or trap)
     EXC_NMI = 2,
-    EXC_BP = 3,          /* INT 3 (trap) */
-    EXC_OF = 4,          /* INTO (trap) */
-    EXC_BR = 5,          /* BOUND (fault) */
-    EXC_UD = 6,          /* invalid opcode (fault) */
-    EXC_NM = 7,          /* coprocessor not available (fault) */
-    EXC_DF = 8,          /* double fault (abort), error code 0 */
-    EXC_COPROC_SEG = 9,  /* coprocessor segment overrun (abort) — 386/387 only */
-    EXC_TS = 10,         /* invalid TSS (fault), error code */
-    EXC_NP = 11,         /* segment not present (fault), error code */
-    EXC_SS = 12,         /* stack fault (fault), error code */
-    EXC_GP = 13,         /* general protection (fault), error code */
-    EXC_PF = 14,         /* page fault (fault), error code + CR2 */
+    EXC_BP = 3,          // INT 3 (trap)
+    EXC_OF = 4,          // INTO (trap)
+    EXC_BR = 5,          // BOUND (fault)
+    EXC_UD = 6,          // invalid opcode (fault)
+    EXC_NM = 7,          // coprocessor not available (fault)
+    EXC_DF = 8,          // double fault (abort), error code 0
+    EXC_COPROC_SEG = 9,  // coprocessor segment overrun (abort) — 386/387 only
+    EXC_TS = 10,         // invalid TSS (fault), error code
+    EXC_NP = 11,         // segment not present (fault), error code
+    EXC_SS = 12,         // stack fault (fault), error code
+    EXC_GP = 13,         // general protection (fault), error code
+    EXC_PF = 14,         // page fault (fault), error code + CR2
     EXC_RESERVED15 = 15,
-    EXC_MF = 16,         /* coprocessor error (fault) */
+    EXC_MF = 16,         // coprocessor error (fault)
     /* Post-386 (gated): */
-    EXC_AC = 17,         /* alignment check, Intel486 */
-    EXC_MC = 18,         /* machine check, Pentium */
-    EXC_XM = 19,         /* SIMD FP, Pentium III */
+    EXC_AC = 17,         // alignment check, Intel486
+    EXC_MC = 18,         // machine check, Pentium
+    EXC_XM = 19,         // SIMD FP, Pentium III
     EXC_VE = 20,
     EXC_CP = 21,
     EXC_FIRST_EXTERNAL = 32
 };
 
 enum exception_class {
-    EXC_CLASS_FAULT = 0, /* return address = faulting instruction */
-    EXC_CLASS_TRAP,      /* return address = next instruction */
-    EXC_CLASS_ABORT      /* not restartable */
+    EXC_CLASS_FAULT = 0, // return address = faulting instruction
+    EXC_CLASS_TRAP,      // return address = next instruction
+    EXC_CLASS_ABORT      // not restartable
 };
 
 /* Origin of an event, which decides EXT bit, DPL checks and inhibit rules. [i386 §3.5.3 p.68; §9.7 p.161] */
 enum event_source {
-    EVENT_EXCEPTION = 0, /* processor-detected */
-    EVENT_SOFTWARE_INT,  /* INT n — gate DPL >= CPL check applies, EXT = 0 */
+    EVENT_EXCEPTION = 0, // processor-detected
+    EVENT_SOFTWARE_INT,  // INT n — gate DPL >= CPL check applies, EXT = 0
     EVENT_INT3,
     EVENT_INTO,
     EVENT_BOUND,
-    EVENT_EXTERNAL_INTR, /* INTR pin via 8259A — EXT = 1 */
+    EVENT_EXTERNAL_INTR, // INTR pin via 8259A — EXT = 1
     EVENT_NMI
 };
 
@@ -78,7 +78,7 @@ struct pending_exception {
     bool has_error_code;
     u32  error_code;
     enum event_source source;
-    u32  cr2;         /* for #PF */
+    u32  cr2;         // for #PF
 };
 
 /* Real-mode IVT entry. [i386 §14.3 p.209] */

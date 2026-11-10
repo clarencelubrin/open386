@@ -1,11 +1,23 @@
 /* open386 — headless front end: no rendering, no input; VGA text can still be dumped (stub, M0). */
 #include "ui/display.h"
 
-static int  null_init(struct display *d, const struct config *cfg) { O386_STUB_TODO(M1); return 0; }
-static void null_shutdown(struct display *d) { O386_STUB_TODO(M1); }
-static void null_render_text(struct display *d, const struct vga *vga) { O386_STUB_TODO(M1); }
-static void null_render_graphics(struct display *d, const struct vga *vga) { O386_STUB_TODO(M1); }
-static bool null_poll_input(struct display *d, struct kbd8042 *kbd) { O386_STUB_TODO(M1); return true; }
+static int null_init(struct display *d, const struct config *cfg) {
+    O386_STUB_TODO(M1);
+    return 0;
+}
+static void null_shutdown(struct display *d) {
+    O386_STUB_TODO(M1);
+}
+static void null_render_text(struct display *d, const struct vga *vga) {
+    O386_STUB_TODO(M1);
+}
+static void null_render_graphics(struct display *d, const struct vga *vga) {
+    O386_STUB_TODO(M1);
+}
+static bool null_poll_input(struct display *d, struct kbd8042 *kbd) {
+    O386_STUB_TODO(M1);
+    return true;
+}
 
 const struct display_ops display_null_ops = {
     .name = "none",

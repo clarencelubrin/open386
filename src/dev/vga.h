@@ -39,10 +39,10 @@
 
 enum vga_mode_kind {
     VGA_MODE_TEXT = 0,
-    VGA_MODE_PLANAR,   /* 16-colour, 4 planes (640x480x16) */
-    VGA_MODE_CHAIN4,   /* 256-colour linear (320x200x256, mode 13h) */
-    VGA_MODE_MODEX,    /* 256-colour unchained */
-    VGA_MODE_CGA2,     /* 2/4-colour CGA-compatible */
+    VGA_MODE_PLANAR,   // 16-colour, 4 planes (640x480x16)
+    VGA_MODE_CHAIN4,   // 256-colour linear (320x200x256, mode 13h)
+    VGA_MODE_MODEX,    // 256-colour unchained
+    VGA_MODE_CGA2,     // 2/4-colour CGA-compatible
     VGA_MODE_UNKNOWN
 };
 
@@ -58,28 +58,28 @@ struct vga {
     u8 gc[VGA_GC_REGS];
     u8 ac_index;
     u8 ac[VGA_AC_REGS];
-    bool ac_flipflop;     /* false = index expected */
+    bool ac_flipflop;     // false = index expected
     bool ac_palette_enabled;
     u8 dac_read_index, dac_write_index, dac_sub_index, dac_state;
-    u8 palette[256][3];   /* 6-bit DAC values */
+    u8 palette[256][3];   // 6-bit DAC values
     u8 pel_mask;
-    u8 latches[4];        /* graphics-controller read latches */
+    u8 latches[4];        // graphics-controller read latches
     u32 frame_counter;
     bool in_vretrace;
     u64 last_retrace_cycle;
     enum vga_mode_kind mode;
     u16 text_cols, text_rows;
-    u16 width, height;    /* current graphics resolution */
-    u32 start_address;    /* CRTC 0Ch/0Dh */
+    u16 width, height;    // current graphics resolution
+    u32 start_address;    // CRTC 0Ch/0Dh
     u16 cursor_pos;
     bool dirty;
 };
 
 void vga_init(struct vga *vga);
 void vga_reset(struct vga *vga);
-u32  vga_io_read(void *ctx, u16 port, u8 size);
+u32 vga_io_read(void *ctx, u16 port, u8 size);
 void vga_io_write(void *ctx, u16 port, u8 size, u32 value);
-u32  vga_mmio_read(void *ctx, u32 paddr, u8 size);     /* A0000h-BFFFFh with GC read modes */
+u32 vga_mmio_read(void *ctx, u32 paddr, u8 size);     /* A0000h-BFFFFh with GC read modes */
 void vga_mmio_write(void *ctx, u32 paddr, u8 size, u32 value); /* write modes 0-3, plane masks */
 void vga_tick(struct vga *vga, u64 now_cycles);        /* retrace timing for 3DAh */
 void vga_update_mode(struct vga *vga);                 /* derive mode kind/resolution from registers */

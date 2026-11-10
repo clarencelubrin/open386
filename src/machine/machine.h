@@ -45,8 +45,8 @@ struct gdbstub;
 struct machine {
     struct config cfg;
     struct cpu    cpu;
-    struct memory mem;
-    struct iobus  io;
+    PhysicalMemory mem;
+    IOBus  io;
 
     struct pic_pair    pic;
     struct pit8254     pit;
@@ -66,7 +66,7 @@ struct machine {
     struct monitor *monitor;
     struct gdbstub *gdb;
 
-    u64  clock;                 /* virtual cycles */
+    u64  clock;                 // virtual cycles
     u32  core_hz;
     struct machine_timer timers[MACHINE_MAX_TIMERS];
     u64  next_ui_poll;
@@ -76,37 +76,37 @@ struct machine {
     int  exit_code;
 };
 
-int  machine_create(struct machine *m, const struct config *cfg);
+int machine_create(struct machine *m, const struct config *cfg);
 void machine_destroy(struct machine *m);
 void machine_reset(struct machine *m);                  /* power-on: CPU reset [i386 §10.1] + devices + BIOS POST */
-int  machine_run(struct machine *m);                    /* until shutdown; returns exit code */
-u32  machine_step(struct machine *m);                   /* one CPU step + device ticks */
+int machine_run(struct machine *m);                    /* until shutdown; returns exit code */
+u32 machine_step(struct machine *m);                   /* one CPU step + device ticks */
 void machine_request_reset(void *ctx);
 void machine_request_shutdown(void *ctx);
 
 /* IRQ / INTA plumbing between devices, the 8259A pair and the CPU. */
 void machine_set_irq(void *ctx, u8 irq, bool level);
 void machine_pic_intr_out(void *ctx, bool level);
-u8   machine_intr_ack(void *ctx);
+u8 machine_intr_ack(void *ctx);
 void machine_set_a20(void *ctx, bool enabled);
 bool machine_code_fetch_hook(void *ctx, u32 phys_eip);  /* HLE BIOS trap */
 void machine_cpu_halted(void *ctx);
 
 /* Timer queue. */
-int  machine_add_timer(struct machine *m, machine_timer_fn fire, void *ctx, const char *name);
+int machine_add_timer(struct machine *m, machine_timer_fn fire, void *ctx, const char *name);
 void machine_arm_timer(struct machine *m, int id, u64 deadline);
 void machine_cancel_timer(struct machine *m, int id);
 void machine_process_timers(struct machine *m);
-u64  machine_next_deadline(const struct machine *m);
-u64  machine_cycles_from_ns(const struct machine *m, u64 ns);
-u64  machine_cycles_from_pit_ticks(const struct machine *m, u64 ticks);
+u64 machine_next_deadline(const struct machine *m);
+u64 machine_cycles_from_ns(const struct machine *m, u64 ns);
+u64 machine_cycles_from_pit_ticks(const struct machine *m, u64 ticks);
 
 /* Media. */
-int  machine_attach_floppy(struct machine *m, u8 drive, const char *path);
-int  machine_load_bios_rom(struct machine *m, const char *path); /* real ROM instead of HLE (M6+) */
+int machine_attach_floppy(struct machine *m, u8 drive, const char *path);
+int machine_load_bios_rom(struct machine *m, const char *path); /* real ROM instead of HLE (M6+) */
 
 /* Misc port handlers owned by the board (80h POST, 92h fast A20). */
-u32  machine_port_io_read(void *ctx, u16 port, u8 size);
+u32 machine_port_io_read(void *ctx, u16 port, u8 size);
 void machine_port_io_write(void *ctx, u16 port, u8 size, u32 value);
 
 #endif /* open386_MACHINE_MACHINE_H */

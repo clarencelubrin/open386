@@ -18,13 +18,27 @@ TEST_CASE(tss32_struct_offsets_match_figure_7_1) {
     TEST_ASSERT_EQ_U32(sizeof(struct tss32), TSS32_SIZE);
     TEST_ASSERT_EQ_U32(sizeof(struct tss16), TSS16_SIZE);
 }
-TEST_CASE(jmp_to_tss_clears_old_busy_sets_new_busy) { TEST_SKIP(M3); }
-TEST_CASE(call_to_tss_sets_nt_and_back_link) { TEST_SKIP(M3); }
-TEST_CASE(iret_with_nt_returns_to_back_link_task) { TEST_SKIP(M3); }
-TEST_CASE(jmp_to_busy_tss_raises_gp_selector) { TEST_SKIP(M3); }
-TEST_CASE(tss_limit_below_103_raises_ts) { TEST_SKIP(M3); }
-TEST_CASE(task_gate_on_page_fault_pushes_error_code_on_new_stack) { TEST_SKIP(M3); }
-TEST_CASE(task_switch_sets_cr0_ts_and_flushes_tlb) { TEST_SKIP(M3); }
+TEST_CASE(jmp_to_tss_clears_old_busy_sets_new_busy) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(call_to_tss_sets_nt_and_back_link) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(iret_with_nt_returns_to_back_link_task) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(jmp_to_busy_tss_raises_gp_selector) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(tss_limit_below_103_raises_ts) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(task_gate_on_page_fault_pushes_error_code_on_new_stack) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(task_switch_sets_cr0_ts_and_flushes_tlb) {
+    TEST_SKIP(M3);
+}
 
 TEST_MAIN_BEGIN("task")
 TEST_RUN(tss32_struct_offsets_match_figure_7_1);

@@ -17,62 +17,62 @@ struct cpu;
 typedef void (*insn_handler)(struct cpu *cpu, struct x86_insn *insn);
 
 enum opcode_flags {
-    OPF_MODRM          = 1u << 0,  /* a ModR/M byte follows */
-    OPF_GROUP          = 1u << 1,  /* ModR/M.reg selects the entry in opcode_groups[] */
-    OPF_PRIVILEGED     = 1u << 2,  /* CPL must be 0 [i386 §6.3.5.1 p.123] */
-    OPF_IOPL_SENSITIVE = 1u << 3,  /* IN/OUT/INS/OUTS/CLI/STI [i386 §6.3.5.2 p.124; §8.3 p.148] */
-    OPF_LOCKABLE       = 1u << 4,  /* LOCK prefix legal with a memory destination [i386 LOCK p.336] */
-    OPF_STRING         = 1u << 5,  /* REP prefixes apply [i386 §3.6.1 p.70] */
-    OPF_FPU_ESC        = 1u << 6,  /* D8-DF escape: route to fpu_exec_esc() [i386 §11.1.2 p.189] */
-    OPF_INVALID        = 1u << 7,  /* #UD [i386 §9.8.6 p.164] */
-    OPF_MEM_ONLY       = 1u << 8,  /* ModR/M must address memory (M, Mp, Ma forms) else #UD */
-    OPF_REAL_UD        = 1u << 9,  /* #UD in real mode: VERR VERW LAR LSL LTR STR LLDT SLDT [i386 §14.2 p.208] */
-    OPF_V86_SENSITIVE  = 1u << 10, /* sensitive in V86 mode [i386 §15.4 p.224] */
-    OPF_ALIAS          = 1u << 11, /* reserved encoding that aliases another instruction [SDM 3B §25.15 p.4128] */
-    OPF_PREFIX         = 1u << 12  /* byte is a prefix, consumed by the decoder */
+    OPF_MODRM          = 1u << 0,  // a ModR/M byte follows
+    OPF_GROUP          = 1u << 1,  // ModR/M.reg selects the entry in opcode_groups[]
+    OPF_PRIVILEGED     = 1u << 2,  // CPL must be 0 [i386 §6.3.5.1 p.123]
+    OPF_IOPL_SENSITIVE = 1u << 3,  // IN/OUT/INS/OUTS/CLI/STI [i386 §6.3.5.2 p.124; §8.3 p.148]
+    OPF_LOCKABLE       = 1u << 4,  // LOCK prefix legal with a memory destination [i386 LOCK p.336]
+    OPF_STRING         = 1u << 5,  // REP prefixes apply [i386 §3.6.1 p.70]
+    OPF_FPU_ESC        = 1u << 6,  // D8-DF escape: route to fpu_exec_esc() [i386 §11.1.2 p.189]
+    OPF_INVALID        = 1u << 7,  // #UD [i386 §9.8.6 p.164]
+    OPF_MEM_ONLY       = 1u << 8,  // ModR/M must address memory (M, Mp, Ma forms) else #UD
+    OPF_REAL_UD        = 1u << 9,  // #UD in real mode: VERR VERW LAR LSL LTR STR LLDT SLDT [i386 §14.2 p.208]
+    OPF_V86_SENSITIVE  = 1u << 10, // sensitive in V86 mode [i386 §15.4 p.224]
+    OPF_ALIAS          = 1u << 11, // reserved encoding that aliases another instruction [SDM 3B §25.15 p.4128]
+    OPF_PREFIX         = 1u << 12  // byte is a prefix, consumed by the decoder
 };
 
 /* Operand specifiers: addressing-method letter + operand-type letter. [i386 App. A p.412-413] */
 enum operand_spec {
     OPS_NONE = 0,
-    OPS_Eb, OPS_Ev, OPS_Ew, OPS_Ed,         /* ModR/M r/m: reg or mem */
-    OPS_Gb, OPS_Gv, OPS_Gw,                 /* ModR/M reg field */
-    OPS_Ib, OPS_Iv, OPS_Iw, OPS_Ibs,        /* immediates (Ibs = sign-extended byte) */
-    OPS_Jb, OPS_Jv,                         /* relative offsets */
-    OPS_Ap,                                 /* far pointer immediate */
-    OPS_Ob, OPS_Ov,                         /* moffs */
-    OPS_M,  OPS_Ma, OPS_Mp, OPS_Ms, OPS_Mq, /* memory-only forms (LEA, BOUND, LxS, LGDT/LIDT, x87) */
-    OPS_Sw,                                 /* segment register in reg field */
-    OPS_Cd, OPS_Dd, OPS_Td,                 /* control/debug/test register in reg field */
-    OPS_Rd,                                 /* general register in r/m (mod must be 11) */
-    OPS_Xb, OPS_Xv,                         /* DS:[E]SI string source */
-    OPS_Yb, OPS_Yv,                         /* ES:[E]DI string destination */
-    OPS_Zb, OPS_Zv,                         /* register encoded in opcode bits 2:0 */
-    OPS_AL, OPS_eAX, OPS_DX, OPS_CL, OPS_1, /* fixed operands */
+    OPS_Eb, OPS_Ev, OPS_Ew, OPS_Ed,         // ModR/M r/m: reg or mem
+    OPS_Gb, OPS_Gv, OPS_Gw,                 // ModR/M reg field
+    OPS_Ib, OPS_Iv, OPS_Iw, OPS_Ibs,        // immediates (Ibs = sign-extended byte)
+    OPS_Jb, OPS_Jv,                         // relative offsets
+    OPS_Ap,                                 // far pointer immediate
+    OPS_Ob, OPS_Ov,                         // moffs
+    OPS_M,  OPS_Ma, OPS_Mp, OPS_Ms, OPS_Mq, // memory-only forms (LEA, BOUND, LxS, LGDT/LIDT, x87)
+    OPS_Sw,                                 // segment register in reg field
+    OPS_Cd, OPS_Dd, OPS_Td,                 // control/debug/test register in reg field
+    OPS_Rd,                                 // general register in r/m (mod must be 11)
+    OPS_Xb, OPS_Xv,                         // DS:[E]SI string source
+    OPS_Yb, OPS_Yv,                         // ES:[E]DI string destination
+    OPS_Zb, OPS_Zv,                         // register encoded in opcode bits 2:0
+    OPS_AL, OPS_eAX, OPS_DX, OPS_CL, OPS_1, // fixed operands
     OPS_ES, OPS_CS, OPS_SS, OPS_DS, OPS_FS, OPS_GS,
     OPS_COUNT
 };
 
 enum opcode_group {
-    GRP1_80 = 0, GRP1_81, GRP1_82, GRP1_83,              /* ADD OR ADC SBB AND SUB XOR CMP */
-    GRP2_C0, GRP2_C1, GRP2_D0, GRP2_D1, GRP2_D2, GRP2_D3, /* ROL ROR RCL RCR SHL SHR (SAL alias) SAR */
-    GRP3_F6, GRP3_F7,                                     /* TEST (/1 alias) NOT NEG MUL IMUL DIV IDIV */
-    GRP4_FE,                                              /* INC DEC */
-    GRP5_FF,                                              /* INC DEC CALL CALLF JMP JMPF PUSH */
-    GRP6_0F00,                                            /* SLDT STR LLDT LTR VERR VERW */
-    GRP7_0F01,                                            /* SGDT SIDT LGDT LIDT SMSW LMSW (INVLPG gated) */
-    GRP8_0FBA,                                            /* BT BTS BTR BTC with imm8 */
+    GRP1_80 = 0, GRP1_81, GRP1_82, GRP1_83,              // ADD OR ADC SBB AND SUB XOR CMP
+    GRP2_C0, GRP2_C1, GRP2_D0, GRP2_D1, GRP2_D2, GRP2_D3, // ROL ROR RCL RCR SHL SHR (SAL alias) SAR
+    GRP3_F6, GRP3_F7,                                     // TEST (/1 alias) NOT NEG MUL IMUL DIV IDIV
+    GRP4_FE,                                              // INC DEC
+    GRP5_FF,                                              // INC DEC CALL CALLF JMP JMPF PUSH
+    GRP6_0F00,                                            // SLDT STR LLDT LTR VERR VERW
+    GRP7_0F01,                                            // SGDT SIDT LGDT LIDT SMSW LMSW (INVLPG gated)
+    GRP8_0FBA,                                            // BT BTS BTR BTC with imm8
     OPCODE_GROUP_COUNT
 };
 
 struct opcode_entry {
     const char  *mnemonic;
     insn_handler handler;
-    u16  flags;               /* enum opcode_flags */
-    u8   operands[3];         /* enum operand_spec */
-    u8   clocks;              /* base clock count, "Clocks" column [i386 §17.2.2.3 p.248]; 0 = n/a */
-    u8   required_feature;    /* enum cpu_feature, CPUF_NONE if part of the 386 base */
-    u8   group;               /* enum opcode_group when OPF_GROUP */
+    u16  flags;               // enum opcode_flags
+    u8   operands[3];         // enum operand_spec
+    u8   clocks;              // base clock count, "Clocks" column [i386 §17.2.2.3 p.248]; 0 = n/a
+    u8   required_feature;    // enum cpu_feature, CPUF_NONE if part of the 386 base
+    u8   group;               // enum opcode_group when OPF_GROUP
 };
 
 /* Populated by exec_tables_init() from the transcription of [i386 App. A] (see tools/README.md). */
@@ -86,10 +86,10 @@ void exec_instruction(struct cpu *cpu, struct x86_insn *insn);
 void exec_precheck(struct cpu *cpu, const struct x86_insn *insn);
 
 /* Operand access helpers shared by all handlers. */
-u32  exec_read_operand(struct cpu *cpu, const struct x86_insn *insn, const struct operand *op);
+u32 exec_read_operand(struct cpu *cpu, const struct x86_insn *insn, const struct operand *op);
 void exec_write_operand(struct cpu *cpu, const struct x86_insn *insn, const struct operand *op, u32 value);
-u32  exec_sign_extend(u32 value, u8 from_size, u8 to_size);
-u32  exec_size_mask(u8 size);
+u32 exec_sign_extend(u32 value, u8 from_size, u8 to_size);
+u32 exec_size_mask(u8 size);
 
 /* ---- exec_data.c — data movement [i386 §3.1 p.45-50] ---- */
 void op_mov(struct cpu *, struct x86_insn *);        /* [i386 MOV p.345] */

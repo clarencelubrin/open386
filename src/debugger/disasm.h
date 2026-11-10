@@ -11,14 +11,14 @@
 struct disasm_options {
     bool opsize32;
     bool addrsize32;
-    u32  eip;           /* address of the first byte, for relative targets */
+    u32  eip;           // address of the first byte, for relative targets
     bool show_bytes;
     bool uppercase;
 };
 
 /* Disassemble one instruction. Returns its length in bytes, or -1 for an invalid/undecodable sequence. */
-int  disasm_one(const u8 *code, size_t len, const struct disasm_options *opts, char *out, size_t out_len);
-int  disasm_insn(const struct x86_insn *insn, const struct disasm_options *opts, char *out, size_t out_len);
+int disasm_one(const u8 *code, size_t len, const struct disasm_options *opts, char *out, size_t out_len);
+int disasm_insn(const struct x86_insn *insn, const struct disasm_options *opts, char *out, size_t out_len);
 const char *disasm_operand_spec_name(u8 spec);
 void disasm_format_operand(const struct x86_insn *insn, const struct operand *op, const struct disasm_options *opts,
                            char *out, size_t out_len);

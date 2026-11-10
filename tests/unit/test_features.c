@@ -19,9 +19,15 @@ TEST_CASE(icsos_model_enables_exactly_what_ics_os_needs) {
     TEST_ASSERT((cpu_model_i386_icsos.features & CPUF_BIT(CPUF_CR4)) == 0);
     TEST_ASSERT_EQ_U32(cpu_model_i386_icsos.reset_cr0, CR0_ET);
 }
-TEST_CASE(reset_state_matches_manuals) { TEST_SKIP(M1); }
-TEST_CASE(cpuid_raises_ud_on_i386dx_and_works_on_icsos) { TEST_SKIP(M3); }
-TEST_CASE(feature_override_string_parses) { TEST_SKIP(M1); }
+TEST_CASE(reset_state_matches_manuals) {
+    TEST_SKIP(M1);
+}
+TEST_CASE(cpuid_raises_ud_on_i386dx_and_works_on_icsos) {
+    TEST_SKIP(M3);
+}
+TEST_CASE(feature_override_string_parses) {
+    TEST_SKIP(M1);
+}
 
 TEST_MAIN_BEGIN("features")
 TEST_RUN(i386dx_model_has_no_post_386_gates);

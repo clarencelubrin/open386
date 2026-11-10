@@ -1,43 +1,33 @@
-# open386
+# Open386 Emulator
 
-An Intel 80386 emulator written in C11 whose first target workload is booting
-[ICS-OS](ics-os/) from its GRUB Legacy floppy image. The design, scope and every
-architectural decision are documented in [PLAN.md](PLAN.md); the two Intel manuals
-in this folder (`i386.pdf`, `ia32.pdf`) are the sole normative references
-(see `PLAN.md` §0 and `docs/REFERENCES.md`).
-
-## Status
-
-Milestone **M0 — scaffolding**. Headers declare every data structure, enum and
-function of the planned architecture; all function bodies are stubs. Nothing
-executes guest code yet.
-
-## Layout
-
-```
-src/               headers and implementation side by side (cpu/, mem/, io/, dev/, bios/, machine/, debugger/, ui/, util/)
-tests/unit/        C unit tests keyed to manual tables
-tests/asm/         NASM micro-tests (see tests/asm/README.md)
-tools/             trace diffing and table generation helpers
-docs/              manual section/page maps, errata log
-```
+Open386 is an i836 emulator implemented in C. It includes an emulation of the Intel i386 processor, support for I/O devices, paging and segmentation. This emulator is designed to run the ICS-OS operating system.
 
 ## Build
 
+Optional: Clean previous builds
 ```
-make            # builds bin/open386 and the unit-test binaries
-make test       # runs the unit tests
 make clean
 ```
 
-Requirements: a C11 compiler (gcc 15 and clang are known to work), GNU make 4.x.
-Optional for later milestones: `nasm` (assembly tests), `qemu-system-i386`
-(differential traces), `libncurses` (terminal front end), `libsdl2` (graphics).
-
-## Run (target command line, not functional in M0)
-
+Build from the source.
 ```
-./bin/open386 -fda ics-os/ics-os/ics-os-demo-floppy.img -m 64
-./bin/open386 -fda ... -cpu i386dx        # strict 80386 (ICS-OS will fault on CPUID)
-./bin/open386 -fda ... -cpu i386-icsos    # default: 80386 + CPUID/INVLPG/WBINVD + 80387
+make
 ```
+
+Run the executable.
+```
+cd ./build
+./open386 <FLOPPY_IMAGE>
+```
+
+Clean the build file (if you want to rebuild from source).
+```
+make clean
+```
+
+## Citations
+
+- Intel Corporation. (1986). 80386 programmer’s reference manual. https://pdos.csail.mit.edu/6.828/2011/readings/i386.pdf
+- Intel Corporation. (2026). Intel® 64 and IA-32 architectures software developer’s manual: Combined volumes 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C, 3D, and 4 (Order No. 325462-093US). https://cdrdv2-public.intel.com/929349/325462-093-sdm-vol-1-2abcd-3abcd-4.pdf
+- srg-ics-uplb. (n.d.). ics-os: An instructional operating system [Computer software]. GitHub. Retrieved November 2, 2026, from https://github.com/srg-ics-uplb/ics-os
+- The Bochs Project. (2025). Bochs (Version 3.0) [Computer software]. https://bochs.sourceforge.io/

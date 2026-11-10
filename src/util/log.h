@@ -12,7 +12,8 @@ enum log_level {
     LOG_WARN,
     LOG_INFO,
     LOG_DEBUG,
-    LOG_TRACE
+    LOG_TRACE,
+    LOG_IO
 };
 
 enum log_category {

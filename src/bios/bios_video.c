@@ -2,5 +2,9 @@
 #include "bios/bios.h"
 #include "machine/machine.h"
 
-void bios_int10_video(struct bios *bios, struct cpu *cpu) { O386_STUB_TODO(M1); }
-void bios_teletype(struct bios *bios, u8 ch, u8 attr) { O386_STUB_TODO(M1); }
+void bios_int10_video(struct bios *bios, struct cpu *cpu) {
+    O386_STUB_TODO(M1);
+}
+void bios_teletype(struct bios *bios, u8 ch, u8 attr) {
+    O386_STUB_TODO(M1);
+}

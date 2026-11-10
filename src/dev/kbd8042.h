@@ -53,28 +53,28 @@ struct kbd_queue {
 };
 
 struct ps2_mouse {
-    bool enabled;         /* data reporting enabled (F4h) */
+    bool enabled;         // data reporting enabled (F4h)
     bool streaming;
     u8   sample_rate;
     u8   resolution;
     bool scaling_2to1;
     u8   buttons;
     s32  acc_dx, acc_dy;
-    u8   pending_cmd;     /* expecting an argument byte */
+    u8   pending_cmd;     // expecting an argument byte
 };
 
 struct kbd8042 {
     u8 status;
     u8 command_byte;
-    u8 output_port;       /* bit 1 = A20 */
-    u8 pending_cmd;       /* controller command awaiting its data byte, 0 if none */
+    u8 output_port;       // bit 1 = A20
+    u8 pending_cmd;       // controller command awaiting its data byte, 0 if none
     u8 output_buffer;
     bool output_is_aux;
     struct kbd_queue kbd_queue;
     struct kbd_queue aux_queue;
     bool kbd_enabled;
     bool aux_enabled;
-    u8   kbd_pending_cmd; /* keyboard device command awaiting argument (e.g. EDh LEDs, F3h typematic) */
+    u8   kbd_pending_cmd; // keyboard device command awaiting argument (e.g. EDh LEDs, F3h typematic)
     u8   leds;
     u8   scancode_set;
     struct ps2_mouse mouse;
@@ -88,7 +88,7 @@ struct kbd8042 {
 void kbd_init(struct kbd8042 *kbd, const struct irq_line *irq1, const struct irq_line *irq12,
               void (*a20_set)(void *ctx, bool enabled), void (*system_reset)(void *ctx), void *ctx);
 void kbd_reset(struct kbd8042 *kbd);
-u32  kbd_io_read(void *ctx, u16 port, u8 size);
+u32 kbd_io_read(void *ctx, u16 port, u8 size);
 void kbd_io_write(void *ctx, u16 port, u8 size, u32 value);
 /* Host input: scan code set 1 bytes (make/break), mouse motion/buttons. */
 void kbd_push_scancode(struct kbd8042 *kbd, u8 scancode);

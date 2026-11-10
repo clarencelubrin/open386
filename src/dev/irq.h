@@ -11,7 +11,7 @@ typedef void (*irq_set_fn)(void *ctx, u8 irq, bool level);
 struct irq_line {
     irq_set_fn set;
     void *ctx;
-    u8 irq;      /* 0-15 (ISA numbering through the 8259A pair) */
+    u8 irq;      // 0-15 (ISA numbering through the 8259A pair)
 };
 
 void irq_line_init(struct irq_line *line, irq_set_fn set, void *ctx, u8 irq);

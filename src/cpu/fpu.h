@@ -16,8 +16,8 @@
 
 /* 80-bit double extended precision value. [SDM 1 §4.8.2 p.104; Fig 8-13] */
 struct fp80 {
-    u64 mantissa;   /* explicit integer bit 63 */
-    u16 sign_exp;   /* bit 15 sign, bits 14:0 biased exponent (bias 16383) */
+    u64 mantissa;   // explicit integer bit 63
+    u16 sign_exp;   // bit 15 sign, bits 14:0 biased exponent (bias 16383)
 };
 
 /* Control word. [SDM 1 Fig 8-6 p.215] */
@@ -60,24 +60,24 @@ enum fpu_tag { FPU_TAG_VALID = 0, FPU_TAG_ZERO = 1, FPU_TAG_SPECIAL = 2, FPU_TAG
 #define FPU_TW_RESET     0x5555u /* power-up value (all zero) [SDM 3A Table 12-1] */
 
 struct x87_state {
-    struct fp80 st[8];      /* physical registers R0-R7; ST(i) = R[(TOP + i) & 7] */
+    struct fp80 st[8];      // physical registers R0-R7; ST(i) = R[(TOP + i) & 7]
     u16 control;
     u16 status;
     u16 tag;
-    u32 fip;                /* last instruction pointer (offset) */
-    u16 fcs;                /* last instruction CS selector */
-    u32 fdp;                /* last data operand offset */
-    u16 fds;                /* last data operand selector */
-    u16 last_opcode;        /* 11 bits [SDM 1 §8.1.9 p.218] */
-    bool error_pending;     /* unmasked exception awaiting the next ESC/WAIT → #MF [i386 §11.1.5.3 p.192] */
+    u32 fip;                // last instruction pointer (offset)
+    u16 fcs;                // last instruction CS selector
+    u32 fdp;                // last data operand offset
+    u16 fds;                // last data operand selector
+    u16 last_opcode;        // 11 bits [SDM 1 §8.1.9 p.218]
+    bool error_pending;     // unmasked exception awaiting the next ESC/WAIT → #MF [i386 §11.1.5.3 p.192]
 };
 
 /* Memory image formats for FSTENV/FLDENV/FNSAVE/FRSTOR. [SDM 1 §8.1.10 p.219, Fig 8-9..8-12] */
 enum fpu_env_format {
-    FPU_ENV_REAL16 = 0,   /* 14-byte env */
-    FPU_ENV_REAL32,       /* 28-byte env */
-    FPU_ENV_PROT16,       /* 14-byte env */
-    FPU_ENV_PROT32        /* 28-byte env; + 80 bytes of registers = 108-byte FNSAVE image used by ICS-OS */
+    FPU_ENV_REAL16 = 0,   // 14-byte env
+    FPU_ENV_REAL32,       // 28-byte env
+    FPU_ENV_PROT16,       // 14-byte env
+    FPU_ENV_PROT32        // 28-byte env; + 80 bytes of registers = 108-byte FNSAVE image used by ICS-OS
 };
 #define FPU_ENV16_SIZE   14
 #define FPU_ENV32_SIZE   28
@@ -100,7 +100,7 @@ void fpu_store_env(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt)
 void fpu_load_env(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);
 void fpu_save_state(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);    /* FNSAVE then FNINIT */
 void fpu_restore_state(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt); /* FRSTOR */
-u8   fpu_top(const struct x87_state *fpu);
+u8 fpu_top(const struct x87_state *fpu);
 void fpu_set_top(struct x87_state *fpu, u8 top);
 enum fpu_tag fpu_tag_of(const struct fp80 *value);
 void fpu_set_tag(struct x87_state *fpu, u8 phys_reg, enum fpu_tag tag);
@@ -111,7 +111,7 @@ struct fp80 fpu_from_i16(s16 v);
 struct fp80 fpu_from_i32(s32 v);
 struct fp80 fpu_from_i64(s64 v);
 struct fp80 fpu_from_bcd80(const u8 bcd[10]);
-u32  fpu_to_f32(struct cpu *cpu, struct fp80 v);
-u64  fpu_to_f64(struct cpu *cpu, struct fp80 v);
+u32 fpu_to_f32(struct cpu *cpu, struct fp80 v);
+u64 fpu_to_f64(struct cpu *cpu, struct fp80 v);
 
 #endif /* open386_CPU_FPU_H */

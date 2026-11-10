@@ -25,7 +25,7 @@ struct rtl8139 {
 
 void rtl8139_init(struct rtl8139 *nic, struct pci_bus *bus, const struct irq_line *irq);
 void rtl8139_reset(struct rtl8139 *nic);
-u32  rtl8139_io_read(void *ctx, u16 port, u8 size);
+u32 rtl8139_io_read(void *ctx, u16 port, u8 size);
 void rtl8139_io_write(void *ctx, u16 port, u8 size, u32 value);
 void rtl8139_receive(struct rtl8139 *nic, const u8 *frame, u32 len);
 

@@ -40,64 +40,64 @@
 
 /* Operations whose status flags are computed lazily from (src1, src2, result). */
 enum flag_op {
-    FLAGOP_NONE = 0, /* eflags holds materialised status flags */
+    FLAGOP_NONE = 0, // eflags holds materialised status flags
     FLAGOP_ADD,
     FLAGOP_ADC,
     FLAGOP_SUB,
     FLAGOP_SBB,
-    FLAGOP_INC,      /* CF preserved */
-    FLAGOP_DEC,      /* CF preserved */
+    FLAGOP_INC,      // CF preserved
+    FLAGOP_DEC,      // CF preserved
     FLAGOP_NEG,
-    FLAGOP_LOGIC,    /* AND/OR/XOR/TEST: CF=OF=0, AF undefined */
+    FLAGOP_LOGIC,    // AND/OR/XOR/TEST: CF=OF=0, AF undefined
     FLAGOP_SHL,
     FLAGOP_SHR,
     FLAGOP_SAR,
     FLAGOP_SHLD,
     FLAGOP_SHRD,
-    FLAGOP_ROL,      /* only CF/OF affected */
+    FLAGOP_ROL,      // only CF/OF affected
     FLAGOP_ROR,
     FLAGOP_RCL,
     FLAGOP_RCR,
-    FLAGOP_MUL,      /* CF=OF set when upper half non-zero; SF/ZF/AF/PF undefined */
+    FLAGOP_MUL,      // CF=OF set when upper half non-zero; SF/ZF/AF/PF undefined
     FLAGOP_IMUL,
-    FLAGOP_BSF_BSR,  /* ZF only */
-    FLAGOP_BT,       /* CF only */
+    FLAGOP_BSF_BSR,  // ZF only
+    FLAGOP_BT,       // CF only
     FLAGOP_COUNT
 };
 
 struct lazy_flags {
     enum flag_op op;
-    u8  size;     /* operand size in bytes */
+    u8  size;     // operand size in bytes
     u32 src1;
     u32 src2;
     u32 result;
-    u32 aux;      /* carry-in for ADC/SBB/RCx, shift count, etc. */
+    u32 aux;      // carry-in for ADC/SBB/RCx, shift count, etc.
 };
 
 /* Condition codes (tttn) shared by Jcc, SETcc and (gated) CMOVcc. [i386 App. D p.421] */
 enum x86_cond {
     COND_O = 0,
     COND_NO,
-    COND_B,   /* C */
-    COND_NB,  /* NC / AE */
-    COND_E,   /* Z */
-    COND_NE,  /* NZ */
-    COND_BE,  /* NA */
-    COND_NBE, /* A */
+    COND_B,   // C
+    COND_NB,  // NC / AE
+    COND_E,   // Z
+    COND_NE,  // NZ
+    COND_BE,  // NA
+    COND_NBE, // A
     COND_S,
     COND_NS,
-    COND_P,   /* PE */
-    COND_NP,  /* PO */
-    COND_L,   /* NGE */
-    COND_NL,  /* GE */
-    COND_LE,  /* NG */
-    COND_NLE  /* G */
+    COND_P,   // PE
+    COND_NP,  // PO
+    COND_L,   // NGE
+    COND_NL,  // GE
+    COND_LE,  // NG
+    COND_NLE  // G
 };
 
 struct cpu;
 
 /* Read the architectural EFLAGS with lazily-computed status flags folded in. */
-u32  cpu_get_eflags(struct cpu *cpu);
+u32 cpu_get_eflags(struct cpu *cpu);
 /* Write EFLAGS honouring `mask` (caller computes the mask from CPL/IOPL/mode per POPF/IRET rules). */
 void cpu_set_eflags(struct cpu *cpu, u32 value, u32 mask);
 void flags_set_lazy(struct cpu *cpu, enum flag_op op, u8 size, u32 src1, u32 src2, u32 result, u32 aux);
@@ -107,7 +107,7 @@ void flags_set(struct cpu *cpu, u32 flag_bit, bool value);
 bool cpu_test_condition(struct cpu *cpu, enum x86_cond cond);
 bool flags_parity_even(u8 value);
 /* Mask of EFLAGS bits that POPF/IRET may change for the current CPL/IOPL/mode. [i386 POPF p.366] */
-u32  flags_popf_writable_mask(const struct cpu *cpu, u8 opsize);
+u32 flags_popf_writable_mask(const struct cpu *cpu, u8 opsize);
 extern const char *const x86_cond_names[16];
 
 #endif /* open386_CPU_FLAGS_H */

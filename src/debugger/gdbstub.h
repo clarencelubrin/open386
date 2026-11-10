@@ -13,9 +13,9 @@
 
 enum gdb_stop_reason {
     GDB_STOP_NONE = 0,
-    GDB_STOP_TRAP,       /* SIGTRAP: breakpoint / step */
-    GDB_STOP_INT,        /* SIGINT: ^C from GDB */
-    GDB_STOP_SEGV        /* unrecoverable guest fault surfaced to the debugger */
+    GDB_STOP_TRAP,       // SIGTRAP: breakpoint / step
+    GDB_STOP_INT,        // SIGINT: ^C from GDB
+    GDB_STOP_SEGV        // unrecoverable guest fault surfaced to the debugger
 };
 
 struct machine;
@@ -36,14 +36,14 @@ struct gdbstub {
     u8   bp_count;
 };
 
-int  gdbstub_init(struct gdbstub *gdb, struct machine *m, u16 port);
-int  gdbstub_listen(struct gdbstub *gdb);
+int gdbstub_init(struct gdbstub *gdb, struct machine *m, u16 port);
+int gdbstub_listen(struct gdbstub *gdb);
 void gdbstub_close(struct gdbstub *gdb);
 /* Non-blocking: handle any pending packets; returns true if the machine should stay stopped. */
 bool gdbstub_poll(struct gdbstub *gdb, bool machine_stopped);
 void gdbstub_notify_stop(struct gdbstub *gdb, enum gdb_stop_reason reason);
 bool gdbstub_has_breakpoint(const struct gdbstub *gdb, u32 linear);
-int  gdbstub_handle_packet(struct gdbstub *gdb, const char *packet, size_t len);
-int  gdbstub_send_packet(struct gdbstub *gdb, const char *payload);
+int gdbstub_handle_packet(struct gdbstub *gdb, const char *packet, size_t len);
+int gdbstub_send_packet(struct gdbstub *gdb, const char *payload);
 
 #endif /* open386_DEBUGGER_GDBSTUB_H */
