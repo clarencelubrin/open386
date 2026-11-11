@@ -10,8 +10,9 @@
 #define open386_IO_IOPORT_H
 
 #include "types.h"
-#include "util/log.h"
+
 #define IO_PORT_COUNT 65536u
+#define MASK(s) ((s)==1 ? 0xFFu : ((s)==2 ? 0xFFFFu : ((s)==4 ? 0xFFFFFFFFu : 0x0)))
 
 typedef u32  (*io_read_fn)(void *ctx, u16 port, u8 size);
 typedef void (*io_write_fn)(void *ctx, u16 port, u8 size, u32 value);

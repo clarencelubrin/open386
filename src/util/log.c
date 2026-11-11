@@ -48,6 +48,7 @@ const char *log_level_name(enum log_level level) {
     case LOG_INFO:  return "info";
     case LOG_DEBUG: return "debug";
     case LOG_TRACE: return "trace";
+    case LOG_IO:    return "io";
     }
     return "?";
 }

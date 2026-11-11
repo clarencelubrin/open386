@@ -59,9 +59,9 @@
  * - REP prefix modifies INS/OUTS repeats execution.
  * 
  * INS (Input string from port) - INSB/INSW/INSD
- * - Transfers byte/word/dword to the memory location indicated by ES:EDI
+ * - Transfers byte/word/dword to the memory location indicated by ES;EDI
  * OUTS (Output string to port) - OUTSB/OUTSW/OUTSD
- * - Transfers byte/word/dword from the memory location indicated by ES:EDI
+ * - Transfers byte/word/dword from the memory location indicated by ES;EDI
  * 
  * Protection and I/O
  * - Two mechanisms provide protection for I/O functions:
@@ -78,14 +78,18 @@
  * - Task can change IOPL only with POPF instruction, requires privilege level of 0. Results to unaltered IF when accessed by underprivilege level.
  * 
  * I/O Permission Bit Map
- * - 
+ * - TODO: Research about permission bit map
  */
 #include "io/ioport.h"
+#include "util/log.h"
+#include <string.h>
 
+/* Initialize and zero out the memory for the IOBus data structure */
 void iobus_init(IOBus *bus) {
     if(bus == NULL) return;
     memset(bus, 0, sizeof(*bus));         
 }
+/* Register the I/O device to the port on the IOBus */
 int iobus_register(IOBus *bus, u16 base, u16 count, io_read_fn read, io_write_fn write, void *ctx, const char *name) { 
     // Validate the arguments: bus, both callbacks, and a non-zero count.
     if(!bus || !read || !write || count == 0) return -1;
@@ -94,7 +98,7 @@ int iobus_register(IOBus *bus, u16 base, u16 count, io_read_fn read, io_write_fn
     // No overlap, check if there is existing device on port
     for (u32 p = base; p < (u32) base + count; p++) {
         if (bus->ports[p].read) {                                  // already claimed
-            LOG(LOG_ERROR, LOG_IO, "port %04Xh: %s conflicts with %s", p, name, bus->ports[p].name);
+            LOG(LOG_ERROR, LOGC_IO, "port %04Xh: %s conflicts with %s", p, name, bus->ports[p].name);
             return -1;
         }
     }
@@ -108,34 +112,112 @@ int iobus_register(IOBus *bus, u16 base, u16 count, io_read_fn read, io_write_fn
     }
     return 0; 
 }
+/* Unregister the I/O device from the port(s) */
 void iobus_unregister(IOBus *bus, u16 base, u16 count) {
     if (!bus) return;
     for (u32 p = base; p < (u32)base + count && p < IO_PORT_COUNT; p++)
         bus->ports[p] = (IOHandler){0};
 }
+/* Get the IOHandler from port and index */
+static IOHandler *slot_at(IOBus *bus, u16 port, u32 i) {
+    if ((u32) port + i >= IO_PORT_COUNT) return NULL;
+    return &bus->ports[(u16)(port + i)];
+}
+/* Checks if the IOHandlers in the ports have the same handler */
+static bool is_same_handler(IOBus *bus, u16 port, u8 size) {
+    IOHandler *prev = NULL, *curr = NULL;
+    for (u32 i=0; i < (u32) size; i++) {
+        curr = slot_at(bus, port, i);
+        if(curr == NULL) return false;
+        if(prev != NULL &&
+          (prev->ctx != curr->ctx || prev->read != curr->read ||prev->write != curr->write)) {
+            return false;
+        }
+        prev = curr;
+    }
+    return true;
+}
+/* Checks if the IOHandlers in the ports have unclaimed ports */
+static bool has_unclaimed_ports(IOBus *bus, u16 port, u8 size, u32 *unclaimed_counter) {
+    IOHandler *curr = NULL;
+    for (u32 i=0; i < (u32) size; i++) {
+        curr = slot_at(bus, port, i);
+        if (curr == NULL || curr->read == NULL) {
+            // Handle unclaimed spots
+            (*unclaimed_counter)++;
+            LOG(LOG_TRACE, LOGC_IO, "port %04Xh: read/write of unclaimed port", port + i);
+            return true;
+        }
+    }
+    return false;
+}
+/* Read the value from port to port+size */
 u32 io_read(IOBus *bus, u16 port, u8 size) {
-    O386_STUB_TODO(M1);
+    if(!bus) return -1;
     // Validate and count
-    if (size != 1 || size != 2 || size != 4) return -1; // Size must be 1, 2, or 4
+    if (size != 1 && size != 2 && size != 4) return -1; // Size must be 1, 2, or 4
     bus->reads++;                                       // Increment bus->reads once per call
-    
+
+    // Check for unclaimed ports
+    bool has_unclaimed = has_unclaimed_ports(bus, port, size, &bus->unclaimed_reads);
+    if(has_unclaimed) return MASK(size);
+
     // Decide whether to forward or split
     // 16-bit or 32-bit access touches ports port through port + size - 1
-
+    bool is_same = is_same_handler(bus, port, size);
+    u32 ret = 0;
     // If every port in the range belong to the same handler (same read and ctx)
     // Call the handler once, passing the full size, it decides how to handle wide access
-    
-    // If the range mixes handlers, or includes unclaimed ports
+    if(is_same) {
+        ret = bus->ports[port].read(bus->ports[port].ctx, port, size);
+    }
+    // If the range mixes handlers
     // Split into size single-byte reads, one per port, and assemble them little endian
-    return 0xFFFFFFFFu;
+    else {
+        for (u32 i = 0; i < (u32) size; i++) {
+            IOHandler *h = slot_at(bus, port, i);
+            u32 value = h->read(h->ctx, (u16) (port + i), 1);
+            ret |= (value & 0xFF) << (8*i);
+        }
+    }
+    // Mask the result based on the size
+    return ret & MASK(size);
 }
 /* Routes the request from the port and call the handler */
 void io_write(IOBus *bus, u16 port, u8 size, u32 value) {
-    O386_STUB_TODO(M1);
+    if(!bus) return;
+    // Validate size, then increment bus->writes.
+    if (size != 1 && size != 2 && size != 4) return;
+    bus->writes++;
+    
+    // Mask value to size before passing it on.
+    u32 masked_value = value & MASK(size);
+
+    // Check for unclaimed spots
+    bool has_unclaimed = has_unclaimed_ports(bus, port, size, &bus->unclaimed_writes);
+    if(has_unclaimed) return;
+    // Check if handler is same across ports
+    bool is_same = is_same_handler(bus, port, size);
+
+    // If one handler owns the whole range, call its write once with the full size.
+    if(is_same) {
+        bus->ports[port].write(bus->ports[port].ctx, port, size, masked_value);
+    }
+    // Otherwise split into byte writes. Port port + i gets (value >> 8i) & 0xFF.
+    else {
+        for (u32 i = 0; i < (u32) size; i++) {
+            IOHandler *h = slot_at(bus, port, i);
+            h->write(h->ctx,                        // Handler context
+                (u16) (port + i), 1,                // Port and size (8-bits)
+                (masked_value >> (8 * i)) & 0xFF    // Get the 8-bit value at shifted 8-bit * i
+            );  
+        }
+    }
 }
+/* Find the I/O Handler from the bus->ports list */
 const IOHandler *iobus_lookup(const IOBus *bus, u16 port) {
     // If ports[port] is claimed, read pointer is not NULL, return a pointer to that slot
-    IOHandler *handler = &bus->ports[port];
-    if(handler != NULL && handler->read != NULL) return handler;
+    const IOHandler *handler = &bus->ports[port];
+    if(handler->read != NULL) return handler;
     return NULL;    // Otherwise return null
 }

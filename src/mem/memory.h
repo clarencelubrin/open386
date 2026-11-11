@@ -9,7 +9,6 @@
 #define open386_MEM_MEMORY_H
 
 #include <stdlib.h>
-#include <string.h>
 #include "types.h"
 
 #define MEM_CONVENTIONAL_SIZE 0xA0000u
@@ -21,7 +20,7 @@
 #define MEM_EXTENDED_BASE     0x100000u
 #define MEM_A20_MASK_OFF      0xFFEFFFFFu
 #define MEM_MAX_REGIONS       16
-#define DEFAULT_RW_RETURN(s) (s==1 ? 0xFFu : (s==2 ? 0xFFFFu : (s==4 ? 0xFFFFFFFFu : 0x0)))
+#define DEFAULT_RW_RETURN(s) ((s)==1 ? 0xFFu : ((s)==2 ? 0xFFFFu : ((s)==4 ? 0xFFFFFFFFu : 0x0)))
 
 enum mem_region_kind {
     MEM_REGION_RAM = 0,
@@ -57,7 +56,7 @@ typedef struct memory {
 
 int mem_init(PhysicalMemory *mem, u32 ram_bytes);
 void mem_destroy(PhysicalMemory *mem);
-int mem_map_ram(PhysicalMemory *mem, u32 start, const u8 *data, u32 len, const char *name);
+int mem_map_ram(PhysicalMemory *mem, u32 start, u8 *data, u32 len, const char *name);
 int mem_map_rom(PhysicalMemory *mem, u32 start, const u8 *data, u32 len, const char *name);
 int mem_map_rom_alias(PhysicalMemory *mem, u32 alias_start, u32 rom_start, u32 len, const char *name);
 int mem_map_mmio(PhysicalMemory *mem, u32 start, u32 len, mmio_read_fn read, mmio_write_fn write, void *ctx,
