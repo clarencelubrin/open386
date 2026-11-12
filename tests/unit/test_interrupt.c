@@ -1,7 +1,9 @@
-/*
- * Interrupt/exception tests keyed to [i386 Table 9-6 p.172] (fault/trap/abort and return address),
- * [i386 Table 9-7 p.173] (error-code presence), [i386 Fig 9-5 p.159] (frame layouts), [i386 Fig 9-7 p.161],
- * [i386 §9.6.1.3 p.160] (TF/IF handling), [SDM 3A Table 7-5 p.3385] (double-fault classes).
+/********************************************* Interrupt Tests *********************************************
+ * @file test_interrupt.c
+ * @author Lubrin, Clarence, U.
+ * @details Interrupt/exception tests keyed to [i386 Table 9-6 p.172] (fault/trap/abort and return address),
+ *          [i386 Table 9-7 p.173] (error-code presence), [i386 Fig 9-5 p.159] (frame layouts), [i386 Fig 9-7 p.161],
+ *          [i386 §9.6.1.3 p.160] (TF/IF handling), [SDM 3A Table 7-5 p.3385] (double-fault classes).
  */
 #include "test.h"
 #include "cpu/cpu.h"

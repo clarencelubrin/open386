@@ -1,4 +1,8 @@
-/* open386 — 8042 keyboard controller + PS/2 devices (stub, M0). */
+/********************************************* Keyboard Controller *********************************************
+ * @file kbd8042.c
+ * @author Lubrin, Clarence, U.
+ * @details 8042 keyboard controller + PS/2 devices (stub, M0).
+ */
 #include "dev/kbd8042.h"
 
 void kbd_init(KBD8042 *kbd, const IRQLine *irq1, const IRQLine *irq12,

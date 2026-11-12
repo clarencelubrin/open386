@@ -1,4 +1,8 @@
-/* open386 — VGA (stub, M0). Register usage: ics-os/ics-os/kernel/hardware/vga/dexvga.c. */
+/********************************************* VGA *********************************************
+ * @file vga.c
+ * @author Lubrin, Clarence, U.
+ * @details VGA (stub, M0). Register usage: ics-os/ics-os/kernel/hardware/vga/dexvga.c.
+ */
 #include "dev/vga.h"
 
 void vga_init(VGA *vga) {

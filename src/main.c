@@ -1,6 +1,8 @@
-/*
- * open386 — entry point. Parses the configuration, builds the machine, runs it.
- * Target command line (PLAN.md §1.3): open386 -fda ics-os/ics-os/ics-os-demo-floppy.img -m 64
+/********************************************* Entry Point *********************************************
+ * @file main.c
+ * @author Lubrin, Clarence, U.
+ * @details Entry point. Parses the configuration, builds the machine, runs it.
+ *          Target command line (PLAN.md §1.3): open386 -fda ics-os/ics-os/ics-os-demo-floppy.img -m 64
  */
 #include <stdio.h>
 #include <stdlib.h>

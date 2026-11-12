@@ -2,7 +2,6 @@
  * @file cpu.c
  * @details CPU core: reset, step loop, mode tracking, control-register writes.
  * @author Lubrin, Clarence, U.
- * @cite Intel Corporation. (1986). Intel 80386 programmer's reference manual. https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
  */
 #include <stdlib.h>
 #include <string.h>
@@ -94,7 +93,12 @@ void cpu_reset(CPU *cpu) {
 
 }
 u32 cpu_step(CPU *cpu) {
-    O386_STUB_TODO(M1);
+    // Store the current EIP before any prefix byte is fetched
+    cpu->cur.start_eip = cpu->eip;
+
+    
+    // Commit ESP late, every handler does all its checks and memory writes first,
+    // and only then touches architectural registers
     return 0;
 }
 void cpu_set_intr(CPU *cpu, bool level) {

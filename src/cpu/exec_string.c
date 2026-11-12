@@ -1,4 +1,8 @@
-/* open386 — string operation handlers [i386 §3.6 p.69-72; REP p.375]. */
+/********************************************* String Operations *********************************************
+ * @file exec_string.c
+ * @author Lubrin, Clarence, U.
+ * @details String operation handlers [i386 §3.6 p.69-72; REP p.375].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

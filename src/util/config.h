@@ -1,5 +1,7 @@
-/*
- * open386 — command-line / run configuration.
+/********************************************* Configuration *********************************************
+ * @file config.h
+ * @author Lubrin, Clarence, U.
+ * @details Command-line / run configuration.
  */
 #ifndef open386_UTIL_CONFIG_H
 #define open386_UTIL_CONFIG_H

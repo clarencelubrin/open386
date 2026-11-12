@@ -2,7 +2,6 @@
  * @file memory.c
  * @details Handles memory creation, read and write operations, and memory regions.
  * @author Lubrin, Clarence, U.
- * @cite Intel Corporation. (1986). Intel 80386 programmer's reference manual. https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
  * 
  * Physical Memory: 
  * - 64MiB RAM by default (configurable), little-endian accessors read8/16/32 and write8/16/32.

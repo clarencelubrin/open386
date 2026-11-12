@@ -1,5 +1,7 @@
-/*
- * open386 — 8259A programmable interrupt controller pair (master 20h/21h, slave A0h/A1h, cascade IRQ2).
+/********************************************* PIC 8259 *********************************************
+ * @file pic8259.h
+ * @author Lubrin, Clarence, U.
+ * @details 8259A programmable interrupt controller pair (master 20h/21h, slave A0h/A1h, cascade IRQ2).
  *
  * The CPU side: INTR assertion and the interrupt-acknowledge vector [i386 §9.1 p.152]. ICS-OS programs
  * ICW1-ICW4 and masks in kernel/hardware/chips/irqhandlers.c; GRUB and the BIOS use the default vectors 08h/70h.

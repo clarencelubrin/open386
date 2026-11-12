@@ -1,4 +1,8 @@
-/* open386 — IRQ line helpers (stub, M0). */
+/********************************************* IRQ Lines *********************************************
+ * @file irq.c
+ * @author Lubrin, Clarence, U.
+ * @details IRQ line helpers (stub, M0).
+ */
 #include "dev/irq.h"
 
 void irq_line_init(IRQLine *line, irq_set_fn set, void *ctx, u8 irq) {

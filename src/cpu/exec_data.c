@@ -1,4 +1,8 @@
-/* open386 — data movement handlers [i386 §3.1 p.45-50; Ch.17]. */
+/********************************************* Data Movement Operations *********************************************
+ * @file exec_data.c
+ * @author Lubrin, Clarence, U.
+ * @details Data movement handlers [i386 §3.1 p.45-50; Ch.17].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

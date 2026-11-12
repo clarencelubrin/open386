@@ -1,7 +1,9 @@
-/*
- * open386 — task state segments and hardware task switching.
+/********************************************* Task Switching *********************************************
+ * @file task.h
+ * @author Lubrin, Clarence, U.
+ * @details Task state segments and hardware task switching.
  *
- * Ref: [i386 §7.1 p.130-132, Fig 7-1 32-bit TSS]; [i386 §7.2 p.133 Fig 7-2 TSS descriptor]; [i386 §7.3 p.134 TR];
+ * @cite [i386 §7.1 p.130-132, Fig 7-1 32-bit TSS]; [i386 §7.2 p.133 Fig 7-2 TSS descriptor]; [i386 §7.3 p.134 TR];
  *      [i386 §7.4 p.135 Fig 7-4 task gate]; [i386 §7.5 p.137-140 switch steps]; [i386 §7.6 p.141 busy bit, NT];
  *      [i386 §9.8.10 p.165 #TS conditions]; [SDM 3A §10.2.1 Fig 10-2; §10.3 p.3451 Tables 10-1/10-2;
  *       §10.4 p.3457 linking; §10.6 p.3460 Fig 10-10 16-bit TSS].

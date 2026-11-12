@@ -1,4 +1,10 @@
-/* open386 — debug registers. Ref: [i386 Ch.12 p.195-203; SDM 3B §20.2-20.3]. */
+/********************************************* Debug Registers *********************************************
+ * @file debugregs.c
+ * @author Lubrin, Clarence, U.
+ * @details Debug registers.
+ *
+ * @cite [i386 Ch.12 p.195-203; SDM 3B §20.2-20.3].
+ */
 #include "cpu/cpu.h"
 
 void debug_reset(CPU *cpu) {

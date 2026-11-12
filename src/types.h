@@ -1,7 +1,9 @@
-/*
- * open386 — common fixed-width types and helper macros.
+/********************************************* Types *********************************************
+ * @file types.h
+ * @author Lubrin, Clarence, U.
+ * @details Common fixed-width types and helper macros.
  *
- * Ref: [i386 §2.2 p.24] fundamental data types (byte, word, doubleword);
+ * @cite [i386 §2.2 p.24] fundamental data types (byte, word, doubleword);
  *      [i386 §1.3.4 p.21] hexadecimal notation used in comments.
  */
 #ifndef open386_TYPES_H

@@ -1,5 +1,7 @@
-/*
- * open386 — high-level-emulated (HLE) BIOS. PLAN.md §6.3.
+/********************************************* HLE BIOS *********************************************
+ * @file bios.h
+ * @author Lubrin, Clarence, U.
+ * @details High-level-emulated (HLE) BIOS. PLAN.md §6.3.
  *
  * The ROM at F0000h holds the IVT bootstrap, the reset-vector jump at FFFF0h and one stub per service whose
  * first bytes are a trap marker. When the CPU fetches an instruction at a registered entry point the machine

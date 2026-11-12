@@ -1,5 +1,7 @@
-/*
- * open386 — logical, linear and stack memory access from the CPU core.
+/********************************************* Memory Access *********************************************
+ * @file memaccess.h
+ * @author Lubrin, Clarence, U.
+ * @details Logical, linear and stack memory access from the CPU core.
  *
  * Pipeline [i386 Fig 5-1 p.91]: selector:offset → limit/type check on the cached descriptor → linear →
  * (paging) → physical. Ref: [i386 §6.3.1.2 p.110 limit checking incl. expand-down];

@@ -1,5 +1,7 @@
-/*
- * open386 — CPU models and feature gates (the IA-32 extensibility layer, PLAN.md §4).
+/********************************************* CPU Features *********************************************
+ * @file features.h
+ * @author Lubrin, Clarence, U.
+ * @details CPU models and feature gates (the IA-32 extensibility layer, PLAN.md §4).
  *
  * The core is the Intel386 of the 1986 manual. Every later feature is an opt-in gate whose
  * introduction is documented in [SDM 3B Ch.25 "Architecture Compatibility" p.4123].

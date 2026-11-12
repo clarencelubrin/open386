@@ -1,5 +1,7 @@
-/*
- * open386 — logging. Categories follow the source tree so a subsystem can be traced alone.
+/********************************************* Logging *********************************************
+ * @file log.h
+ * @author Lubrin, Clarence, U.
+ * @details Logging. Categories follow the source tree so a subsystem can be traced alone.
  */
 #ifndef open386_UTIL_LOG_H
 #define open386_UTIL_LOG_H

@@ -2,7 +2,6 @@
  * @file ioport.c
  * @author Lubrin, Clarence, U.
  * @details Acts as a bus between I/O devices and memory mapped I/O.
- * @cite Intel Corporation. (1986). Intel 80386 programmer's reference manual. https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
  *
  * I/O Address Space
  * - Consist of 2^16 individually addressable 8-bit ports

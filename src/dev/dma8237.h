@@ -1,6 +1,8 @@
-/*
- * open386 — 8237A DMA controllers (master 00h-0Fh with page registers 80h-8Fh; slave C0h-DFh declared, unused).
- * ICS-OS floppy driver uses channel 2 (kernel/hardware/floppy/floppy.c:345-380).
+/********************************************* DMA 8237 *********************************************
+ * @file dma8237.h
+ * @author Lubrin, Clarence, U.
+ * @details 8237A DMA controllers (master 00h-0Fh with page registers 80h-8Fh; slave C0h-DFh declared, unused).
+ *          ICS-OS floppy driver uses channel 2 (kernel/hardware/floppy/floppy.c:345-380).
  */
 #ifndef open386_DEV_DMA8237_H
 #define open386_DEV_DMA8237_H

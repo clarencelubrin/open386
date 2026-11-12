@@ -1,7 +1,9 @@
-/*
- * I/O port bus tests keyed to [i386 §8.1.1 p.145] (I/O address space: 64 Ki 8-bit ports, any two
- * consecutive form a 16-bit port, any four a 32-bit port) and [SDM 1 §20.3 p.435]
- * (unclaimed ports read all ones).
+/********************************************* I/O Port Tests *********************************************
+ * @file test_ioport.c
+ * @author Lubrin, Clarence, U.
+ * @details I/O port bus tests keyed to [i386 §8.1.1 p.145] (I/O address space: 64 Ki 8-bit ports, any two
+ *          consecutive form a 16-bit port, any four a 32-bit port) and [SDM 1 §20.3 p.435]
+ *          (unclaimed ports read all ones).
  *
  * Every test observes two things: the value io_read returns, and the exact sequence of
  * (port, size, value) calls the device handlers received. The second is the bus contract that

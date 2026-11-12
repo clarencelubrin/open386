@@ -1,4 +1,8 @@
-/* open386 — 8237A DMA (stub, M0). */
+/********************************************* DMA 8237 *********************************************
+ * @file dma8237.c
+ * @author Lubrin, Clarence, U.
+ * @details 8237A DMA (stub, M0).
+ */
 #include "dev/dma8237.h"
 
 void dma_init(DMA8237 *dma, PhysicalMemory *mem) {

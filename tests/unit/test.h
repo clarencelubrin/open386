@@ -1,6 +1,8 @@
-/*
- * open386 — minimal unit-test harness (no external dependency).
- * Each test file names the manual table it validates in its header comment (PLAN.md §7).
+/********************************************* Test Harness *********************************************
+ * @file test.h
+ * @author Lubrin, Clarence, U.
+ * @details Minimal unit-test harness (no external dependency).
+ *          Each test file names the manual table it validates in its header comment (PLAN.md §7).
  */
 #ifndef open386_TEST_H
 #define open386_TEST_H

@@ -1,4 +1,8 @@
-/* open386 — 8259A PIC pair (stub, M0). CPU side: [i386 §9.1 p.152]. */
+/********************************************* PIC 8259 *********************************************
+ * @file pic8259.c
+ * @author Lubrin, Clarence, U.
+ * @details 8259A PIC pair (stub, M0). CPU side: [i386 §9.1 p.152].
+ */
 #include "dev/pic8259.h"
 
 void pic_init(PICPair *pic, void (*intr_out)(void *ctx, bool level), void *ctx) {

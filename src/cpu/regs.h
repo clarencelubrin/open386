@@ -1,7 +1,9 @@
-/*
- * open386 — register identifiers in *encoding* order so that ModR/M fields index them directly.
+/********************************************* Registers *********************************************
+ * @file regs.h
+ * @author Lubrin, Clarence, U.
+ * @details Register identifiers in *encoding* order so that ModR/M fields index them directly.
  *
- * Ref: [i386 §2.3.1 p.29, Fig 2-5] general registers; [i386 Table 17-3 p.244] "reg" column order
+ * @cite [i386 §2.3.1 p.29, Fig 2-5] general registers; [i386 Table 17-3 p.244] "reg" column order
  *      EAX, ECX, EDX, EBX, ESP, EBP, ESI, EDI; byte registers AL, CL, DL, BL, AH, CH, DH, BH;
  *      [SDM 2D §B.1.4.5 p.3023] sreg field: ES=0, CS=1, SS=2, DS=3, FS=4, GS=5;
  *      [i386 §4.1.3 p.87, Fig 4-2] CR0/CR2/CR3; [i386 §4.1.4 p.88] DR0-DR7; [i386 §4.1.5 p.89] TR6/TR7.

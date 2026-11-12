@@ -1,7 +1,9 @@
-/*
- * open386 — page translation and the TLB.
+/********************************************* Paging *********************************************
+ * @file paging.h
+ * @author Lubrin, Clarence, U.
+ * @details Page translation and the TLB.
  *
- * Ref: [i386 §5.2 p.98-101: Fig 5-8 linear address, Fig 5-9 translation, Fig 5-10 PTE, Fig 5-11 not-present PTE,
+ * @cite [i386 §5.2 p.98-101: Fig 5-8 linear address, Fig 5-9 translation, Fig 5-10 PTE, Fig 5-11 not-present PTE,
  *       §5.2.5 TLB]; [i386 §6.4 p.126-128 page-level protection; §6.4.3 p.128 supervisor override];
  *      [i386 §9.8.14 p.169-171, Fig 9-8 error code, Fig 9-9 CR2]; [i386 §10.6 p.185-188 TLB test registers];
  *      [SDM 3A §5.3 p.3269 32-bit paging, Fig 5-4, Tables 5-3/5-5/5-6; §5.6 p.3293; §5.7 p.3297 Fig 5-12;

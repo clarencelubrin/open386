@@ -1,4 +1,8 @@
-/* open386 — curses terminal front end for VGA text mode (stub, M1; needs libncurses at build time). */
+/********************************************* Terminal Display *********************************************
+ * @file display_term.c
+ * @author Lubrin, Clarence, U.
+ * @details Curses terminal front end for VGA text mode (stub, M1; needs libncurses at build time).
+ */
 #include "ui/display.h"
 
 static int term_init(Display *d, const Config *cfg) {

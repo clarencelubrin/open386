@@ -1,6 +1,8 @@
-/*
- * Segmentation tests keyed to [i386 §5.1.1 p.92 Fig 5-3 descriptor format], [i386 §6.3.1.2 p.110 limit checking
- * incl. expand-down], [i386 §6.3.1.1 p.109 / SDM 3A Table 3-2 type codes], [i386 §14.1 p.207 real-mode loads].
+/********************************************* Segmentation Tests *********************************************
+ * @file test_segment.c
+ * @author Lubrin, Clarence, U.
+ * @details Segmentation tests keyed to [i386 §5.1.1 p.92 Fig 5-3 descriptor format], [i386 §6.3.1.2 p.110 limit checking
+ *          incl. expand-down], [i386 §6.3.1.1 p.109 / SDM 3A Table 3-2 type codes], [i386 §14.1 p.207 real-mode loads].
  */
 #include "test.h"
 #include "cpu/cpu.h"

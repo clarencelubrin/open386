@@ -1,4 +1,8 @@
-/* open386 — block-structured language handlers [i386 §3.7 p.72-78; ENTER p.295; LEAVE p.329]. */
+/********************************************* Block-Structured Language Operations *********************************************
+ * @file exec_hll.c
+ * @author Lubrin, Clarence, U.
+ * @details Block-structured language handlers [i386 §3.7 p.72-78; ENTER p.295; LEAVE p.329].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

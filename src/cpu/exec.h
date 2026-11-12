@@ -1,5 +1,7 @@
-/*
- * open386 — opcode tables and instruction handler declarations.
+/********************************************* Executor *********************************************
+ * @file exec.h
+ * @author Lubrin, Clarence, U.
+ * @details Opcode tables and instruction handler declarations.
  *
  * Handlers are grouped by the instruction classes of [i386 Ch.3 p.45-84] (one exec_*.c file each)
  * and each handler's doc comment cites its page in [i386 Ch.17 p.256-411]. Operand-form codes use the

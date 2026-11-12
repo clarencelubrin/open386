@@ -1,4 +1,8 @@
-/* open386 — IA-32 extension handlers, each gated by a CPU feature (PLAN.md §4.2; SDM Vol.2). */
+/********************************************* Extension Operations *********************************************
+ * @file exec_ext.c
+ * @author Lubrin, Clarence, U.
+ * @details IA-32 extension handlers, each gated by a CPU feature (PLAN.md §4.2; SDM Vol.2).
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

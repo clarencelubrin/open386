@@ -1,7 +1,9 @@
-/*
- * open386 — instruction decoder types.
+/********************************************* Instruction Decoder *********************************************
+ * @file decode.h
+ * @author Lubrin, Clarence, U.
+ * @details Instruction decoder types.
  *
- * Ref: [i386 §17.2 p.240-246, Fig 17-1 instruction format, Fig 17-2 ModR/M & SIB,
+ * @cite [i386 §17.2 p.240-246, Fig 17-1 instruction format, Fig 17-2 ModR/M & SIB,
  *       Tables 17-2 (16-bit ModR/M), 17-3 (32-bit ModR/M), 17-4 (SIB)];
  *      [i386 §17.1 p.239] operand-size / address-size attributes and 66h/67h prefixes;
  *      [SDM 2A §2.1 p.617-622, Tables 2-1/2-2/2-3]; [i386 §14.7 item 6 p.211] 15-byte limit → #GP.
@@ -82,6 +84,7 @@ typedef struct opcode_entry OpcodeEntry; /* cpu/exec.h */
 
 typedef struct x86_insn {
     u32 start_eip;          // EIP of the first byte; faults restore this
+
     u8  len;
     u8  bytes[X86_MAX_INSN_LEN];
 

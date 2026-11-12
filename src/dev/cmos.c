@@ -1,4 +1,8 @@
-/* open386 — MC146818 RTC/CMOS (stub, M0). */
+/********************************************* CMOS RTC *********************************************
+ * @file cmos.c
+ * @author Lubrin, Clarence, U.
+ * @details MC146818 RTC/CMOS (stub, M0).
+ */
 #include "dev/cmos.h"
 
 void cmos_init(CMOSRtc *cmos, u32 core_hz, const IRQLine *irq8) {

@@ -1,4 +1,8 @@
-/* open386 — RTL8139 NIC (stub, optional device, M7+). */
+/********************************************* RTL8139 NIC *********************************************
+ * @file rtl8139.c
+ * @author Lubrin, Clarence, U.
+ * @details RTL8139 NIC (stub, optional device, M7+).
+ */
 #include "dev/rtl8139.h"
 
 void rtl8139_init(RTL8139 *nic, PCIBus *bus, const IRQLine *irq) {

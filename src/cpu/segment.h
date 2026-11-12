@@ -1,7 +1,9 @@
-/*
- * open386 — descriptors, selectors and segment-register loading.
+/********************************************* Segmentation *********************************************
+ * @file segment.h
+ * @author Lubrin, Clarence, U.
+ * @details Descriptors, selectors and segment-register loading.
  *
- * Ref: [i386 §5.1 p.92-97: §5.1.1 descriptors Fig 5-3/5-4, §5.1.2 tables Fig 5-5, §5.1.3 selectors Fig 5-6,
+ * @cite [i386 §5.1 p.92-97: §5.1.1 descriptors Fig 5-3/5-4, §5.1.2 tables Fig 5-5, §5.1.3 selectors Fig 5-6,
  *       §5.1.4 segment registers Fig 5-7]; [i386 §6.3.1 p.107-112, Fig 6-1 protection fields];
  *      [i386 §6.3.1.1 p.109 type codes; §13.3.3 p.206 new 386 type codes; §13.3.2 p.205 reserved word];
  *      [SDM 3A §3.4.2-3.4.5 p.3243-3248, Fig 3-6/3-7/3-8/3-9, Table 3-1; §3.5 Table 3-2 p.3249];

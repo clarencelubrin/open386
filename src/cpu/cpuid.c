@@ -1,4 +1,10 @@
-/* open386 — CPUID (gated extension). Ref: [SDM 1 Ch.21; SDM 2A CPUID]. */
+/********************************************* CPUID *********************************************
+ * @file cpuid.c
+ * @author Lubrin, Clarence, U.
+ * @details CPUID (gated extension).
+ *
+ * @cite [SDM 1 Ch.21; SDM 2A CPUID].
+ */
 #include "cpu/cpu.h"
 #include "cpu/cpuid.h"
 

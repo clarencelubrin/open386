@@ -1,6 +1,8 @@
-/*
- * open386 — Realtek RTL8139 NIC on PCI. Optional (PLAN.md §1.2); the ICS-OS Makefile boots QEMU with
- * `-net nic,model=rtl8139` and the kernel has a driver in kernel/hardware/rtl8139/. Stub for M7+.
+/********************************************* RTL8139 NIC *********************************************
+ * @file rtl8139.h
+ * @author Lubrin, Clarence, U.
+ * @details Realtek RTL8139 NIC on PCI. Optional (PLAN.md §1.2); the ICS-OS Makefile boots QEMU with
+ *          `-net nic,model=rtl8139` and the kernel has a driver in kernel/hardware/rtl8139/. Stub for M7+.
  */
 #ifndef open386_DEV_RTL8139_H
 #define open386_DEV_RTL8139_H

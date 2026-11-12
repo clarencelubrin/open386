@@ -1,5 +1,7 @@
-/*
- * open386 — front-end interface: renders the VGA state and feeds host input to the 8042. PLAN.md §6.6.
+/********************************************* Display *********************************************
+ * @file display.h
+ * @author Lubrin, Clarence, U.
+ * @details Front-end interface: renders the VGA state and feeds host input to the 8042. PLAN.md §6.6.
  */
 #ifndef open386_UI_DISPLAY_H
 #define open386_UI_DISPLAY_H

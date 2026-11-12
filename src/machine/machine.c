@@ -1,4 +1,8 @@
-/* open386 — board wiring and run loop (stub, M0). PLAN.md §6.5. */
+/********************************************* Machine *********************************************
+ * @file machine.c
+ * @author Lubrin, Clarence, U.
+ * @details Board wiring and run loop (stub, M0). PLAN.md §6.5.
+ */
 #include "machine/machine.h"
 
 int machine_create(Machine *m, const Config *cfg) {

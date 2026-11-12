@@ -1,4 +1,10 @@
-/* open386 — privilege checks and gated transfers. Ref: [i386 Ch.6 p.106-129; §8.3 p.148; §15.4 p.224]. */
+/********************************************* Protection *********************************************
+ * @file protection.c
+ * @author Lubrin, Clarence, U.
+ * @details Privilege checks and gated transfers.
+ *
+ * @cite [i386 Ch.6 p.106-129; §8.3 p.148; §15.4 p.224].
+ */
 #include "cpu/cpu.h"
 #include "cpu/protection.h"
 

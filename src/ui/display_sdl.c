@@ -1,4 +1,8 @@
-/* open386 — SDL2 front end for text and graphics modes (stub, M5; compile-time optional, -Dopen386_WITH_SDL). */
+/********************************************* SDL Display *********************************************
+ * @file display_sdl.c
+ * @author Lubrin, Clarence, U.
+ * @details SDL2 front end for text and graphics modes (stub, M5; compile-time optional, -Dopen386_WITH_SDL).
+ */
 #include "ui/display.h"
 
 static int sdl_init(Display *d, const Config *cfg) {

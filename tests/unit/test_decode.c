@@ -1,6 +1,8 @@
-/*
- * Decoder tests keyed to [i386 Tables 17-2/17-3/17-4 p.243-245] (ModR/M and SIB addressing forms),
- * [i386 §17.2 p.241] prefixes, and [i386 §14.7 item 6 p.211] the 15-byte limit.
+/********************************************* Decoder Tests *********************************************
+ * @file test_decode.c
+ * @author Lubrin, Clarence, U.
+ * @details Decoder tests keyed to [i386 Tables 17-2/17-3/17-4 p.243-245] (ModR/M and SIB addressing forms),
+ *          [i386 §17.2 p.241] prefixes, and [i386 §14.7 item 6 p.211] the 15-byte limit.
  */
 #include "test.h"
 #include "cpu/cpu.h"

@@ -1,4 +1,10 @@
-/* open386 — executor entry and operand helpers. Ref: [i386 §17.2.2 p.246-255 how to read the instruction pages]. */
+/********************************************* Executor *********************************************
+ * @file exec.c
+ * @author Lubrin, Clarence, U.
+ * @details Executor entry and operand helpers.
+ *
+ * @cite [i386 §17.2.2 p.246-255 how to read the instruction pages].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

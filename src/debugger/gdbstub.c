@@ -1,4 +1,8 @@
-/* open386 — GDB remote stub (stub, M6). */
+/********************************************* GDB Stub *********************************************
+ * @file gdbstub.c
+ * @author Lubrin, Clarence, U.
+ * @details GDB remote stub (stub, M6).
+ */
 #include "debugger/gdbstub.h"
 
 int gdbstub_init(GDBStub *gdb, Machine *m, u16 port) {

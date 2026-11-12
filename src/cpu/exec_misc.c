@@ -1,4 +1,8 @@
-/* open386 — NOP, WAIT and undefined-opcode handlers [i386 §3.11 p.83; NOP p.355; WAIT p.408; §9.8.6 p.164]. */
+/********************************************* Miscellaneous Operations *********************************************
+ * @file exec_misc.c
+ * @author Lubrin, Clarence, U.
+ * @details NOP, WAIT and undefined-opcode handlers [i386 §3.11 p.83; NOP p.355; WAIT p.408; §9.8.6 p.164].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

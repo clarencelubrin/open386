@@ -1,6 +1,8 @@
-/*
- * open386 — MC146818 RTC / CMOS RAM (ports 70h/71h, IRQ8). ICS-OS reads the clock (kernel/stdlib/time.c);
- * the HLE BIOS stores memory sizes and the floppy type here.
+/********************************************* CMOS RTC *********************************************
+ * @file cmos.h
+ * @author Lubrin, Clarence, U.
+ * @details MC146818 RTC / CMOS RAM (ports 70h/71h, IRQ8). ICS-OS reads the clock (kernel/stdlib/time.c);
+ *          the HLE BIOS stores memory sizes and the floppy type here.
  */
 #ifndef open386_DEV_CMOS_H
 #define open386_DEV_CMOS_H

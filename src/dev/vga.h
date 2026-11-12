@@ -1,6 +1,8 @@
-/*
- * open386 — VGA: text mode 3 renderer, Sequencer/CRTC/Graphics/Attribute/DAC registers, planar and chain-4
- * graphics modes. Register usage by ICS-OS: kernel/hardware/vga/dexvga.c (320x200x256, 640x480x16, Mode X).
+/********************************************* VGA *********************************************
+ * @file vga.h
+ * @author Lubrin, Clarence, U.
+ * @details VGA: text mode 3 renderer, Sequencer/CRTC/Graphics/Attribute/DAC registers, planar and chain-4
+ *          graphics modes. Register usage by ICS-OS: kernel/hardware/vga/dexvga.c (320x200x256, 640x480x16, Mode X).
  */
 #ifndef open386_DEV_VGA_H
 #define open386_DEV_VGA_H

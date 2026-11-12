@@ -1,4 +1,8 @@
-/* open386 — INT 1Ah time services (00h ticks, 02h RTC time) and the IRQ0 tick handler (stub, M0). */
+/********************************************* BIOS Time Services *********************************************
+ * @file bios_time.c
+ * @author Lubrin, Clarence, U.
+ * @details INT 1Ah time services (00h ticks, 02h RTC time) and the IRQ0 tick handler (stub, M0).
+ */
 #include "bios/bios.h"
 #include "machine/machine.h"
 

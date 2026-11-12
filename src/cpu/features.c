@@ -1,6 +1,8 @@
-/*
- * open386 — CPU models and feature gates. PLAN.md §4; [SDM 3B Ch.25].
- * Model tables carry their documented reset values; CPUID leaf tables are M3/M7 work.
+/********************************************* CPU Features *********************************************
+ * @file features.c
+ * @author Lubrin, Clarence, U.
+ * @details CPU models and feature gates. PLAN.md §4; [SDM 3B Ch.25].
+ *          Model tables carry their documented reset values; CPUID leaf tables are M3/M7 work.
  */
 #include "cpu/cpu.h"
 

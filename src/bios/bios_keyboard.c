@@ -1,4 +1,8 @@
-/* open386 — INT 16h keyboard services and the IRQ1 handler feeding the BDA buffer (stub, M0). */
+/********************************************* BIOS Keyboard Services *********************************************
+ * @file bios_keyboard.c
+ * @author Lubrin, Clarence, U.
+ * @details INT 16h keyboard services and the IRQ1 handler feeding the BDA buffer (stub, M0).
+ */
 #include "bios/bios.h"
 #include "machine/machine.h"
 

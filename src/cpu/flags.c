@@ -1,6 +1,8 @@
-/*
- * open386 — EFLAGS and lazy status flags.
- * Ref: [i386 §2.3.4 p.33-35]; [i386 App. B p.417; App. C p.419; App. D p.421]; [i386 POPF p.366; IRET p.311].
+/********************************************* EFLAGS *********************************************
+ * @file flags.c
+ * @author Lubrin, Clarence, U.
+ * @details EFLAGS and lazy status flags.
+ *          Ref: [i386 §2.3.4 p.33-35]; [i386 App. B p.417; App. C p.419; App. D p.421]; [i386 POPF p.366; IRET p.311].
  */
 #include "cpu/cpu.h"
 

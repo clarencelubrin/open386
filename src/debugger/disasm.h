@@ -1,6 +1,8 @@
-/*
- * open386 — disassembler sharing the decoder tables (so trace text is a second check on the decoder).
- * Output syntax: Intel, as in [i386 Ch.17] instruction pages.
+/********************************************* Disassembler *********************************************
+ * @file disasm.h
+ * @author Lubrin, Clarence, U.
+ * @details Disassembler sharing the decoder tables (so trace text is a second check on the decoder).
+ *          Output syntax: Intel, as in [i386 Ch.17] instruction pages.
  */
 #ifndef open386_DEBUGGER_DISASM_H
 #define open386_DEBUGGER_DISASM_H

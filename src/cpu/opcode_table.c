@@ -1,8 +1,10 @@
-/*
- * open386 — opcode tables.
- * To be generated from a line-by-line transcription of [i386 App. A p.412-416] cross-checked against
- * [SDM 2D Tables A-2, A-3, A-6 p.2994-3008] by tools/gen_opcode_table.py (see tools/README.md).
- * Zero-initialised in M0: every entry decodes as invalid until the table is filled.
+/********************************************* Opcode Table *********************************************
+ * @file opcode_table.c
+ * @author Lubrin, Clarence, U.
+ * @details Opcode tables.
+ *          To be generated from a line-by-line transcription of [i386 App. A p.412-416] cross-checked against
+ *          [SDM 2D Tables A-2, A-3, A-6 p.2994-3008] by tools/gen_opcode_table.py (see tools/README.md).
+ *          Zero-initialised in M0: every entry decodes as invalid until the table is filled.
  */
 #include "cpu/exec.h"
 

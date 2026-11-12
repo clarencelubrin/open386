@@ -1,4 +1,8 @@
-/* open386 — flag control handlers [i386 §3.8 p.79; PUSHF p.371; POPF p.366; STI p.400; CLI p.284]. */
+/********************************************* Flag Control Operations *********************************************
+ * @file exec_flags.c
+ * @author Lubrin, Clarence, U.
+ * @details Flag control handlers [i386 §3.8 p.79; PUSHF p.371; POPF p.366; STI p.400; CLI p.284].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

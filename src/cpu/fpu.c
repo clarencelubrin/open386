@@ -1,4 +1,10 @@
-/* open386 — 80387. Ref: [i386 Ch.11 §11.1 p.189-192; SDM 1 Ch.8; SDM 3A Table 2-2; SDM 2D §A.5]. */
+/********************************************* FPU *********************************************
+ * @file fpu.c
+ * @author Lubrin, Clarence, U.
+ * @details 80387.
+ *
+ * @cite [i386 Ch.11 §11.1 p.189-192; SDM 1 Ch.8; SDM 3A Table 2-2; SDM 2D §A.5].
+ */
 #include "cpu/cpu.h"
 
 void fpu_reset(X87State *fpu) {

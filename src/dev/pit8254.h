@@ -1,5 +1,7 @@
-/*
- * open386 — 8253/8254 programmable interval timer (ports 40h-43h). Counter 0 → IRQ0, counter 2 → speaker.
+/********************************************* PIT 8254 *********************************************
+ * @file pit8254.h
+ * @author Lubrin, Clarence, U.
+ * @details 8253/8254 programmable interval timer (ports 40h-43h). Counter 0 → IRQ0, counter 2 → speaker.
  *
  * ICS-OS programs counter 0 for its scheduler tick (kernel/hardware/chips/ directory, IDT vector 20h task gate); the HLE
  * BIOS keeps the 18.2 Hz tick count in the BDA from the same IRQ.

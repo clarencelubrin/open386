@@ -1,4 +1,8 @@
-/* open386 — INT 13h diskette services: 00h reset, 01h status, 02h CHS read, 08h parameters, 41h EDD check (stub). */
+/********************************************* BIOS Disk Services *********************************************
+ * @file bios_disk.c
+ * @author Lubrin, Clarence, U.
+ * @details INT 13h diskette services: 00h reset, 01h status, 02h CHS read, 08h parameters, 41h EDD check (stub).
+ */
 #include "bios/bios.h"
 #include "machine/machine.h"
 

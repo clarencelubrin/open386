@@ -1,4 +1,8 @@
-/* open386 — headless front end: no rendering, no input; VGA text can still be dumped (stub, M0). */
+/********************************************* Null Display *********************************************
+ * @file display_null.c
+ * @author Lubrin, Clarence, U.
+ * @details Headless front end: no rendering, no input; VGA text can still be dumped (stub, M0).
+ */
 #include "ui/display.h"
 
 static int null_init(Display *d, const Config *cfg) {

@@ -1,4 +1,8 @@
-/* open386 — INT 10h video services used by GRUB stage2: teletype 0Eh, cursor 01h/02h/03h, mode 00h, 09h (stub). */
+/********************************************* BIOS Video Services *********************************************
+ * @file bios_video.c
+ * @author Lubrin, Clarence, U.
+ * @details INT 10h video services used by GRUB stage2: teletype 0Eh, cursor 01h/02h/03h, mode 00h, 09h (stub).
+ */
 #include "bios/bios.h"
 #include "machine/machine.h"
 

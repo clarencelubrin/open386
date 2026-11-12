@@ -1,4 +1,8 @@
-/* open386 — PCI configuration mechanism #1 (stub, M0). */
+/********************************************* PCI *********************************************
+ * @file pci.c
+ * @author Lubrin, Clarence, U.
+ * @details PCI configuration mechanism #1 (stub, M0).
+ */
 #include "dev/pci.h"
 
 void pci_init(PCIBus *bus) {

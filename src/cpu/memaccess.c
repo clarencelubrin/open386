@@ -1,9 +1,7 @@
-/* open386 — logical/linear/stack access. Ref: [i386 Fig 5-1 p.91; §6.3.1.2 p.110; §17.1.3 p.240; §14.1 p.207]. */
 /********************************************* Memory Access *********************************************
  * @file memaccess.c
  * @details Logical, linear, and stack memory access
  * @author Lubrin, Clarence, U.
- * @cite Intel Corporation. (1986). Intel 80386 programmer's reference manual. https://css.csail.mit.edu/6.858/2014/readings/i386.pdf
  */
 #include "cpu/cpu.h"
 #include "cpu/memaccess.h"
@@ -62,9 +60,31 @@ void cpu_stack_adjust(CPU *cpu, s32 delta) {
     O386_STUB_TODO(M1);
 }
 u32 cpu_logical_to_linear(CPU *cpu, u8 seg, u32 offset, u8 size, enum mem_access access) {
-    O386_STUB_TODO(M1);
     return 0;
 }
+// Exception cpu_translate_seg(CPU *cpu, SegmentIdx idx, u32 offset, u32 size, Access acc, u32 *linear) {
+//     const Segment *s = &cpu->seg[idx];  // Get the segment from the cpu segment registers
+//     // fault_ss if SEG_RES_SS, else fault_gp
+//     Exception fault_code = (idx == SEG_REG_SS) ? fault_ss(0) : fault_gp(0);
+
+//     if (!s->valid) return fault_code;   // Raise a fault when segment invalid
+//     bool code = s->type & 8;            // Check if segment is a code segment
+//     if (acc == ACC_WRITE && (code || !(s->type & 2))) return fault_code;  // No writes to code / read-only data
+//     if (acc == ACC_READ  && code && !(s->type & 2))   return fault_code;  // Execute-only code
+//     if (acc == ACC_EXEC  && !code)                    return fault_code;  // Only execute from code segment
+
+//     u32 last = offset + (size - 1);             // Get the last address based on the offset + size-1
+//     if (last < offset) return fault_code;       // Raise a fault if last wraps
+//     bool expand_down = !code && (s->type & 4);  // Expansion direction
+//     if (!expand_down) {
+//         if (last > s->limit) return fault_code; // For grows upward, last must not exceed the segment limit
+//     } else {                                    // For grows downward, the upperbound is either 4KB or 4GB based on the db bit
+//         u32 upper = s->db ? 0xFFFFFFFFu : 0xFFFFu;
+//         if (offset <= s->limit || last > upper) return fault_code;
+//     }
+//     *linear = s->base + offset;                 // Set the calculated linear address
+//     return NO_FAULT;
+// }
 void cpu_check_segment_limit(CPU *cpu, const SegCache *sc, u8 seg, u32 offset, u32 len,
                              enum mem_access access) { O386_STUB_TODO(M1); }
 void cpu_check_segment_type(CPU *cpu, const SegCache *sc, u8 seg, enum mem_access access) {

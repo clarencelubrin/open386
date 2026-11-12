@@ -1,7 +1,9 @@
-/*
- * open386 — the 80386 processor model: architectural state and the step API.
+/********************************************* CPU *********************************************
+ * @file cpu.h
+ * @author Lubrin, Clarence, U.
+ * @details The 80386 processor model: architectural state and the step API.
  *
- * Ref: [i386 Ch.2 p.22-44 basic programming model]; [i386 Ch.4 p.85-90 system registers];
+ * @cite [i386 Ch.2 p.22-44 basic programming model]; [i386 Ch.4 p.85-90 system registers];
  *      [i386 §5.1.4 p.97, Fig 5-7] segment registers with cached descriptor ("hidden part");
  *      [i386 Ch.10 p.174-175 reset state]; [i386 §9.2-9.3 p.153-155 interrupt masking and priority];
  *      [SDM 3A §2.2 p.3213, Fig 2-3 mode transitions; §12.1 Table 12-1 p.3522].
@@ -127,7 +129,7 @@ typedef struct cpu {
     bool nmi_pending;
     bool nmi_masked;                 // set on NMI delivery until IRET [i386 §9.2.1 p.154]
     u8   inhibit_interrupts;         // one-instruction shadow after MOV/POP SS and STI [i386 §9.2.4 p.154]
-    X86Insn cur;             // instruction being executed
+    X86Insn cur;                     // instruction being executed
     jmp_buf exc_jmp;                 // longjmp target for cpu_raise_exception()
     bool exc_jmp_valid;
     PendingException exc;

@@ -1,4 +1,8 @@
-/* open386 — decimal (BCD) adjust handlers [i386 §3.3 p.53-54; Ch.17]. */
+/********************************************* Decimal Adjust Operations *********************************************
+ * @file exec_decimal.c
+ * @author Lubrin, Clarence, U.
+ * @details Decimal (BCD) adjust handlers [i386 §3.3 p.53-54; Ch.17].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

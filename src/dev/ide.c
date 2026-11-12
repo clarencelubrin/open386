@@ -1,4 +1,8 @@
-/* open386 — ATA/IDE channel (stub, optional device, M7+). */
+/********************************************* IDE *********************************************
+ * @file ide.c
+ * @author Lubrin, Clarence, U.
+ * @details ATA/IDE channel (stub, optional device, M7+).
+ */
 #include "dev/ide.h"
 
 void ide_init(IDEChannel *ide, u16 base, u16 ctrl, const IRQLine *irq) {

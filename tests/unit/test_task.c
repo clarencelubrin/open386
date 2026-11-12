@@ -1,7 +1,9 @@
-/*
- * Task-switch tests keyed to [i386 Fig 7-1 p.131] (TSS offsets), [i386 §7.5 p.138-140] (switch steps),
- * [i386 §7.6.1 p.141] (busy bit), [SDM 3A Table 10-2] (busy/NT/back-link per source), [i386 §9.8.10 p.165] (#TS).
- * Mirrors the ICS-OS usage: `jmp TSS:0`, task gates for IRQ0 and #PF, manual busy-bit reset.
+/********************************************* Task Switch Tests *********************************************
+ * @file test_task.c
+ * @author Lubrin, Clarence, U.
+ * @details Task-switch tests keyed to [i386 Fig 7-1 p.131] (TSS offsets), [i386 §7.5 p.138-140] (switch steps),
+ *          [i386 §7.6.1 p.141] (busy bit), [SDM 3A Table 10-2] (busy/NT/back-link per source), [i386 §9.8.10 p.165] (#TS).
+ *          Mirrors the ICS-OS usage: `jmp TSS:0`, task gates for IRQ0 and #PF, manual busy-bit reset.
  */
 #include "test.h"
 #include "cpu/cpu.h"

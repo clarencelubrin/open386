@@ -1,4 +1,60 @@
-/* open386 — descriptors and segment loads. Ref: [i386 §5.1 p.92-97; Ch.6; §14.1; §15.1.2]. */
+/********************************************** Segmentation ********************************************
+ * @file seg.c
+ * @author Lubrin, Clarence, U.
+ * @details Implements the seg-cache loading extension point and logical to linear address translation.
+ * 
+ * Segment Selector Format
+ *  15                  3 2   1..0
+ * [        INDEX        |TI| RPL ]
+ *                         
+ * (TI) Table Indicator                 - 0=GDTR; 1=LDTR
+ * (RPL) Requestor's privilege level    - High bit: IDT (index refers to an IDT gate)
+ *                                      - Low bit : EXT (event was external to a program (e.g. hardware interrupt))
+ * 
+ * Segment-Descriptor Format for DATA SEGMENT
+ * 31               23              15               7               0
+ * [      Base      |G|B|0|A|  LIM  |P|DPL |  TYPE   |      BASE     ]
+ * [                | | | |V|       | |    |         |               ]
+ * [                | | | |L|       | |    |1|0|E|W|A|               ]
+ *      31..24                19..16       (S)            23...16
+ * [           Segment Base         |         Segment Limit          ]
+ *               15..0                           15..0
+ *
+ * Segment-Descriptor Format for EXECUTABLE SEGMENT
+ * 31               23              15               7               0
+ * [      Base      |G|D|0|A|  LIM  |P|DPL |  TYPE   |      BASE     ]
+ * [                | | | |V|       | |    |         |               ]
+ * [                | | | |L|       | |    |1|1|C|R|A|               ]
+ *      31..24                19..16       (S)            23...16
+ * [           Segment Base         |         Segment Limit          ]
+ *               15..0                           15..0
+ * 
+ * Segment-Descriptor Format for SYSTEM SEGMENT
+ * 31               23              15               7               0
+ * [      Base      |G|X|0|A|  LIM  |P|DPL |  TYPE   |      BASE     ]
+ * [                | | | |V|       | |    |         |               ]
+ * [                | | | |L|       | |    |0|       |               ]
+ *      31..24                19..16                      23...16
+ * [           Segment Base         |         Segment Limit          ]
+ *               15..0                           15..0
+ * 
+ * (A) Accessed     - set automatically by CPU when accessed
+ * (AVL) Available for use by systems programmers
+ * (B) Big          - 0=16-bit stack, use the 16-bit SP register; 
+ *                    1=32-bit mode, use the 32-bit ESP register
+ * (C) Conforming   - 0=Non-comforming
+ *                    1=Conforming (may execute at a privilege level equal to or more privileged than DPL)
+ * (D) Default      - 0=16-bit mode; 
+ *                    1=32-bit mode
+ * (DPL) Descriptor privilege level
+ * (E) Expand-down  - 0=expand up (normal data); 
+ *                    1=expand dorun only at privilege level of DPL unless transferred via a call gate)wn
+ * (G) Granularity  - 0=limit is interpreted in units of one byte; 
+ *                    1=limit is interpreted in units of 4 Kilobytes
+ * (P) Segment Present
+ * (R) Readable     - 0=Execute-only;   1=Read and executable
+ * (W) Writable     - 0=Read-only data; 1=RW-data
+ */
 #include "cpu/cpu.h"
 #include "cpu/segment.h"
 

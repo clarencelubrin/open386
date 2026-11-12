@@ -1,6 +1,8 @@
-/*
- * open386 — 82077AA floppy disk controller (ports 3F0h-3F7h, IRQ6, DMA channel 2), 1.44 MB drive A:.
- * Used by GRUB (via the BIOS INT 13h path) and directly by ICS-OS (kernel/hardware/floppy/floppy.c).
+/********************************************* Floppy Controller *********************************************
+ * @file fdc82077.h
+ * @author Lubrin, Clarence, U.
+ * @details 82077AA floppy disk controller (ports 3F0h-3F7h, IRQ6, DMA channel 2), 1.44 MB drive A:.
+ *          Used by GRUB (via the BIOS INT 13h path) and directly by ICS-OS (kernel/hardware/floppy/floppy.c).
  */
 #ifndef open386_DEV_FDC82077_H
 #define open386_DEV_FDC82077_H

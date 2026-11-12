@@ -1,5 +1,7 @@
-/*
- * open386 — PC speaker / system control port B (61h). ICS-OS: kernel/hardware/chips/speaker.c.
+/********************************************* PC Speaker *********************************************
+ * @file speaker.h
+ * @author Lubrin, Clarence, U.
+ * @details PC speaker / system control port B (61h). ICS-OS: kernel/hardware/chips/speaker.c.
  */
 #ifndef open386_DEV_SPEAKER_H
 #define open386_DEV_SPEAKER_H

@@ -1,5 +1,7 @@
-/*
- * open386 — physical address space: RAM, BIOS ROM (with its two aliases), MMIO windows, A20 mask.
+/********************************************* Memory *********************************************
+ * @file memory.h
+ * @author Lubrin, Clarence, U.
+ * @details Physical address space: RAM, BIOS ROM (with its two aliases), MMIO windows, A20 mask.
  *
  * Platform facts (PLAN.md §2.3, §6.1): 640 KiB conventional RAM, VGA window A0000h-BFFFFh, ROM F0000h-FFFFFh
  * aliased at FFFF0000h so the reset vector FFFFFFF0h [SDM 3A §12.1.4 p.3525] works, extended RAM from 100000h.

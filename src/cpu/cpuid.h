@@ -1,7 +1,9 @@
-/*
- * open386 — CPUID (IA-32 extension, gated by CPUF_CPUID).
+/********************************************* CPUID *********************************************
+ * @file cpuid.h
+ * @author Lubrin, Clarence, U.
+ * @details CPUID (IA-32 extension, gated by CPUF_CPUID).
  *
- * Ref: [SDM 1 Ch.21 p.441; §21.3 p.446 leaves]; [SDM 2A CPUID]; [SDM 3B §25.13 Table 25-1 note 2 p.4127].
+ * @cite [SDM 1 Ch.21 p.441; §21.3 p.446 leaves]; [SDM 2A CPUID]; [SDM 3B §25.13 Table 25-1 note 2 p.4127].
  * ICS-OS queries leaves 0, 1, 80000002h-80000004h (ics-os/ics-os/kernel/hardware/hardware.c:84-121).
  */
 #ifndef open386_CPU_CPUID_H

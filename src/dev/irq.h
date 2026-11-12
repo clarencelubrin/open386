@@ -1,5 +1,7 @@
-/*
- * open386 — IRQ line abstraction shared by all devices (devices never touch the CPU directly).
+/********************************************* IRQ Lines *********************************************
+ * @file irq.h
+ * @author Lubrin, Clarence, U.
+ * @details IRQ line abstraction shared by all devices (devices never touch the CPU directly).
  */
 #ifndef open386_DEV_IRQ_H
 #define open386_DEV_IRQ_H

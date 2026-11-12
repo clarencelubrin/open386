@@ -1,7 +1,9 @@
-/*
- * open386 — 80387 numeric coprocessor: CPU interface, state images and (later) arithmetic.
+/********************************************* FPU *********************************************
+ * @file fpu.h
+ * @author Lubrin, Clarence, U.
+ * @details 80387 numeric coprocessor: CPU interface, state images and (later) arithmetic.
  *
- * Ref: [i386 Ch.11 §11.1 p.189-192: ESC/WAIT, EM/MP/TS, coprocessor exceptions]; [i386 §3.9 p.80];
+ * @cite [i386 Ch.11 §11.1 p.189-192: ESC/WAIT, EM/MP/TS, coprocessor exceptions]; [i386 §3.9 p.80];
  *      [SDM 1 Ch.8 p.209-242: §8.1.2 register stack Fig 8-2, §8.1.3 status word Fig 8-4, §8.1.5 control word
  *       Fig 8-6, §8.1.7 tag word Fig 8-7, §8.1.8-8.1.9 pointers/opcode Fig 8-8, §8.1.10 FSAVE/FSTENV images
  *       Fig 8-9..8-12, §8.2 data types Fig 8-13, §8.3 instruction set, §8.4-8.7 exceptions];

@@ -1,6 +1,8 @@
-/*
- * open386 — execution trace writer. Field order matches `qemu-system-i386 -d in_asm,cpu` closely enough for
- * tools/diff_trace.py to align the two streams (PLAN.md §7).
+/********************************************* Trace *********************************************
+ * @file trace.h
+ * @author Lubrin, Clarence, U.
+ * @details Execution trace writer. Field order matches `qemu-system-i386 -d in_asm,cpu` closely enough for
+ *          tools/diff_trace.py to align the two streams (PLAN.md §7).
  */
 #ifndef open386_DEBUGGER_TRACE_H
 #define open386_DEBUGGER_TRACE_H

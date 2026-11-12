@@ -1,4 +1,8 @@
-/* open386 — trace writer (stub, M0). PLAN.md §7. */
+/********************************************* Trace *********************************************
+ * @file trace.c
+ * @author Lubrin, Clarence, U.
+ * @details Trace writer (stub, M0). PLAN.md §7.
+ */
 #include <stdarg.h>
 #include "debugger/trace.h"
 

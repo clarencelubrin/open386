@@ -1,4 +1,8 @@
-/* open386 — system instruction handlers [i386 §4.2 p.89; §6.3.5 p.122; Ch.17]. */
+/********************************************* System Operations *********************************************
+ * @file exec_system.c
+ * @author Lubrin, Clarence, U.
+ * @details System instruction handlers [i386 §4.2 p.89; §6.3.5 p.122; Ch.17].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

@@ -1,5 +1,7 @@
-/*
- * open386 — the PC/AT-style board: CPU, memory, port bus, devices, BIOS, clock and run loop. PLAN.md §6.5.
+/********************************************* Machine *********************************************
+ * @file machine.h
+ * @author Lubrin, Clarence, U.
+ * @details The PC/AT-style board: CPU, memory, port bus, devices, BIOS, clock and run loop. PLAN.md §6.5.
  */
 #ifndef open386_MACHINE_MACHINE_H
 #define open386_MACHINE_MACHINE_H

@@ -1,6 +1,8 @@
-/*
- * open386 — PCI configuration mechanism #1 (CF8h/CFCh). ICS-OS probes the bus (kernel/hardware/pcibus/ directory);
- * until a device is attached every read returns FFFFFFFFh ("no device").
+/********************************************* PCI *********************************************
+ * @file pci.h
+ * @author Lubrin, Clarence, U.
+ * @details PCI configuration mechanism #1 (CF8h/CFCh). ICS-OS probes the bus (kernel/hardware/pcibus/ directory);
+ *          until a device is attached every read returns FFFFFFFFh ("no device").
  */
 #ifndef open386_DEV_PCI_H
 #define open386_DEV_PCI_H

@@ -1,6 +1,8 @@
-/*
- * open386 — ATA/IDE primary channel (1F0h-1F7h, 3F6h, IRQ14). Optional device (PLAN.md §1.2, M7+);
- * ICS-OS has a driver in kernel/hardware/ATA/ but boots without a disk.
+/********************************************* IDE *********************************************
+ * @file ide.h
+ * @author Lubrin, Clarence, U.
+ * @details ATA/IDE primary channel (1F0h-1F7h, 3F6h, IRQ14). Optional device (PLAN.md §1.2, M7+);
+ *          ICS-OS has a driver in kernel/hardware/ATA/ but boots without a disk.
  */
 #ifndef open386_DEV_IDE_H
 #define open386_DEV_IDE_H

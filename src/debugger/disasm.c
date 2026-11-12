@@ -1,4 +1,8 @@
-/* open386 — disassembler (stub, M0). Shares tables with cpu/decode.c. */
+/********************************************* Disassembler *********************************************
+ * @file disasm.c
+ * @author Lubrin, Clarence, U.
+ * @details Disassembler (stub, M0). Shares tables with cpu/decode.c.
+ */
 #include "debugger/disasm.h"
 
 int disasm_one(const u8 *code, size_t len, const DisasmOptions *opts, char *out, size_t out_len) {

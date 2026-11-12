@@ -1,6 +1,8 @@
-/*
- * open386 — 8042 keyboard controller (ports 60h/64h), PS/2 keyboard (IRQ1) and PS/2 mouse (IRQ12),
- * plus the A20 gate and system-reset outputs. ICS-OS: kernel/hardware/keyboard/{keyboard,mouse}.c.
+/********************************************* Keyboard Controller *********************************************
+ * @file kbd8042.h
+ * @author Lubrin, Clarence, U.
+ * @details 8042 keyboard controller (ports 60h/64h), PS/2 keyboard (IRQ1) and PS/2 mouse (IRQ12),
+ *          plus the A20 gate and system-reset outputs. ICS-OS: kernel/hardware/keyboard/{keyboard,mouse}.c.
  */
 #ifndef open386_DEV_KBD8042_H
 #define open386_DEV_KBD8042_H

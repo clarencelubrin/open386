@@ -1,6 +1,8 @@
-/*
- * open386 — interactive monitor: breakpoints, stepping, state dumps that reuse the CPU's own descriptor and
- * page-table parsers (so a table bug is visible immediately). PLAN.md §7.
+/********************************************* Monitor *********************************************
+ * @file monitor.h
+ * @author Lubrin, Clarence, U.
+ * @details Interactive monitor: breakpoints, stepping, state dumps that reuse the CPU's own descriptor and
+ *          page-table parsers (so a table bug is visible immediately). PLAN.md §7.
  */
 #ifndef open386_DEBUGGER_MONITOR_H
 #define open386_DEBUGGER_MONITOR_H

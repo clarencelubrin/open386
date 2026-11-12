@@ -1,4 +1,8 @@
-/* open386 — display front-end selection and shared key translation (stub, M0). */
+/********************************************* Display *********************************************
+ * @file display.c
+ * @author Lubrin, Clarence, U.
+ * @details Display front-end selection and shared key translation (stub, M0).
+ */
 #include "ui/display.h"
 
 int display_create(Display *d, enum display_kind kind, const Config *cfg) {

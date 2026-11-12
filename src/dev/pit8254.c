@@ -1,4 +1,8 @@
-/* open386 — 8254 PIT (stub, M0). */
+/********************************************* PIT 8254 *********************************************
+ * @file pit8254.c
+ * @author Lubrin, Clarence, U.
+ * @details 8254 PIT (stub, M0).
+ */
 #include "dev/pit8254.h"
 
 void pit_init(PIT8254 *pit, u32 core_hz, const IRQLine *irq0) {

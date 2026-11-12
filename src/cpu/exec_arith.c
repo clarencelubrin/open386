@@ -1,4 +1,8 @@
-/* open386 — binary arithmetic handlers [i386 §3.2 p.50-53; Ch.17]. */
+/********************************************* Arithmetic Operations *********************************************
+ * @file exec_arith.c
+ * @author Lubrin, Clarence, U.
+ * @details Binary arithmetic handlers [i386 §3.2 p.50-53; Ch.17].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

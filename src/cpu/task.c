@@ -1,4 +1,10 @@
-/* open386 — TSS and task switching. Ref: [i386 Ch.7 p.130-144; §9.8.10 p.165; SDM 3A Ch.10 Tables 10-1/10-2]. */
+/********************************************* Task Switching *********************************************
+ * @file task.c
+ * @author Lubrin, Clarence, U.
+ * @details TSS and task switching.
+ *
+ * @cite [i386 Ch.7 p.130-144; §9.8.10 p.165; SDM 3A Ch.10 Tables 10-1/10-2].
+ */
 #include "cpu/cpu.h"
 #include "cpu/task.h"
 

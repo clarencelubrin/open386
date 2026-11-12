@@ -1,6 +1,10 @@
-/* open386 — configuration. Defaults follow ics-os/ics-os/Makefile `boot-floppy`
- * (`qemu-system-i386 -fda … -boot a -m 64M`); option spelling follows QEMU where
- * PLAN.md already uses it (-fda, -m, -cpu, -bios, -s, -S). */
+/********************************************* Configuration *********************************************
+ * @file config.c
+ * @author Lubrin, Clarence, U.
+ * @details Configuration. Defaults follow ics-os/ics-os/Makefile `boot-floppy`
+ *          (`qemu-system-i386 -fda … -boot a -m 64M`); option spelling follows QEMU where
+ *          PLAN.md already uses it (-fda, -m, -cpu, -bios, -s, -S).
+ */
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>

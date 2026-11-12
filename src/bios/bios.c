@@ -1,4 +1,8 @@
-/* open386 — HLE BIOS core: ROM construction, POST, trap dispatch, BDA helpers (stub, M0). PLAN.md §6.3. */
+/********************************************* HLE BIOS *********************************************
+ * @file bios.c
+ * @author Lubrin, Clarence, U.
+ * @details HLE BIOS core: ROM construction, POST, trap dispatch, BDA helpers (stub, M0). PLAN.md §6.3.
+ */
 #include "bios/bios.h"
 #include "machine/machine.h"
 

@@ -1,6 +1,8 @@
-/*
- * Paging tests keyed to [i386 §5.2 p.98-101 Fig 5-9/5-10], [i386 §6.4 p.126-128], [i386 §9.8.14 p.169 Fig 9-8],
- * [SDM 3A §5.3 Tables 5-3/5-5/5-6], [SDM 3B §25.30 p.4153] (no WP on the 386).
+/********************************************* Paging Tests *********************************************
+ * @file test_paging.c
+ * @author Lubrin, Clarence, U.
+ * @details Paging tests keyed to [i386 §5.2 p.98-101 Fig 5-9/5-10], [i386 §6.4 p.126-128], [i386 §9.8.14 p.169 Fig 9-8],
+ *          [SDM 3A §5.3 Tables 5-3/5-5/5-6], [SDM 3B §25.30 p.4153] (no WP on the 386).
  */
 #include "test.h"
 #include "cpu/cpu.h"

@@ -1,6 +1,8 @@
-/*
- * Feature-gate tests keyed to [SDM 3B §25.13 Table 25-1 p.4126] (new instructions), [SDM 3B §25.16 p.4128]
- * (AC/ID flags), [i386 §10.1 p.174-175] and [SDM 3A Table 12-1 p.3522] (reset values).
+/********************************************* Feature Gate Tests *********************************************
+ * @file test_features.c
+ * @author Lubrin, Clarence, U.
+ * @details Feature-gate tests keyed to [SDM 3B §25.13 Table 25-1 p.4126] (new instructions), [SDM 3B §25.16 p.4128]
+ *          (AC/ID flags), [i386 §10.1 p.174-175] and [SDM 3A Table 12-1 p.3522] (reset values).
  */
 #include "test.h"
 #include "cpu/cpu.h"

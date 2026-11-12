@@ -1,4 +1,8 @@
-/* open386 — port 61h / PC speaker (stub, M0). */
+/********************************************* PC Speaker *********************************************
+ * @file speaker.c
+ * @author Lubrin, Clarence, U.
+ * @details Port 61h / PC speaker (stub, M0).
+ */
 #include "dev/speaker.h"
 
 void speaker_init(PCSpeaker *spk, PIT8254 *pit) {

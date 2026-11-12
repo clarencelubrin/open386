@@ -1,7 +1,9 @@
-/*
- * open386 — privilege checks, far control transfers through gates, I/O protection.
+/********************************************* Protection *********************************************
+ * @file protection.h
+ * @author Lubrin, Clarence, U.
+ * @details Privilege checks, far control transfers through gates, I/O protection.
  *
- * Ref: [i386 Ch.6 p.106-129: §6.3.1.3 privilege levels, §6.3.2 data access Fig 6-3, §6.3.3 control transfers
+ * @cite [i386 Ch.6 p.106-129: §6.3.1.3 privilege levels, §6.3.2 data access Fig 6-3, §6.3.3 control transfers
  *       Fig 6-4, §6.3.4 call gates Fig 6-5/6-6/6-7, §6.3.4.1 stack switching Fig 6-8/6-9, §6.3.4.2 return
  *       Table 6-3, §6.3.5 privileged/sensitive, §6.3.6 pointer validation]; [i386 §8.3 p.148-151 IOPL/IOPB];
  *      [i386 §15.4 p.224 V86 sensitive instructions]; [SDM 3A Ch.6 p.3317-3350, Fig 6-4..6-13; Vol.1 §20.5].

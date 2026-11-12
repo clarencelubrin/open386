@@ -1,4 +1,8 @@
-/* open386 — 82077AA floppy controller (stub, M0). */
+/********************************************* Floppy Controller *********************************************
+ * @file fdc82077.c
+ * @author Lubrin, Clarence, U.
+ * @details 82077AA floppy controller (stub, M0).
+ */
 #include "dev/fdc82077.h"
 
 void fdc_init(FDC82077 *fdc, const IRQLine *irq6, DMA8237 *dma) {

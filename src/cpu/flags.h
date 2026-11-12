@@ -1,7 +1,9 @@
-/*
- * open386 — EFLAGS layout, lazy status-flag evaluation and condition codes.
+/********************************************* EFLAGS *********************************************
+ * @file flags.h
+ * @author Lubrin, Clarence, U.
+ * @details EFLAGS layout, lazy status-flag evaluation and condition codes.
  *
- * Ref: [i386 §2.3.4 p.33, Fig 2-8] EFLAGS; [i386 §4.1.1 p.85, Fig 4-1] system flags IOPL/NT/RF/VM;
+ * @cite [i386 §2.3.4 p.33, Fig 2-8] EFLAGS; [i386 §4.1.1 p.85, Fig 4-1] system flags IOPL/NT/RF/VM;
  *      [i386 App. B p.417] flag cross-reference; [i386 App. C p.419] status flag summary;
  *      [i386 App. D p.421] condition codes; [SDM 1 §3.4.3 p.81, Fig 3-8] AC/VIF/VIP/ID (post-386);
  *      [SDM 2D §B.1.4.7 p.3024] tttn condition encoding.

@@ -1,5 +1,9 @@
-/* open386 — logging. One global sink; a message is emitted when its level is at or
- * below the configured maximum and its category bit is enabled. */
+/********************************************* Logging *********************************************
+ * @file log.c
+ * @author Lubrin, Clarence, U.
+ * @details Logging. One global sink; a message is emitted when its level is at or
+ *          below the configured maximum and its category bit is enabled.
+ */
 #include <stdarg.h>
 #include "util/log.h"
 

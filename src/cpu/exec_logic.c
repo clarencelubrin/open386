@@ -1,4 +1,8 @@
-/* open386 — logical, bit test/scan, shift, rotate, SETcc and TEST handlers [i386 §3.4 p.54-65; Ch.17]. */
+/********************************************* Logical Operations *********************************************
+ * @file exec_logic.c
+ * @author Lubrin, Clarence, U.
+ * @details Logical, bit test/scan, shift, rotate, SETcc and TEST handlers [i386 §3.4 p.54-65; Ch.17].
+ */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 

@@ -1,6 +1,8 @@
-/*
- * Status-flag tests keyed to [i386 App. C p.419] (status flag summary), [i386 §2.3.4.1 p.34] flag definitions,
- * [i386 App. D p.421] condition codes, and the shift-count masking rule [i386 §14.7 item 5 p.211].
+/********************************************* Status Flag Tests *********************************************
+ * @file test_flags.c
+ * @author Lubrin, Clarence, U.
+ * @details Status-flag tests keyed to [i386 App. C p.419] (status flag summary), [i386 §2.3.4.1 p.34] flag definitions,
+ *          [i386 App. D p.421] condition codes, and the shift-count masking rule [i386 §14.7 item 5 p.211].
  */
 #include "test.h"
 #include "cpu/cpu.h"

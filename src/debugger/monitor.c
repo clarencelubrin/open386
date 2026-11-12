@@ -1,4 +1,8 @@
-/* open386 — interactive monitor (stub, M6). */
+/********************************************* Monitor *********************************************
+ * @file monitor.c
+ * @author Lubrin, Clarence, U.
+ * @details Interactive monitor (stub, M6).
+ */
 #include "debugger/monitor.h"
 
 void monitor_init(Monitor *mon, Machine *m, FILE *in, FILE *out) {

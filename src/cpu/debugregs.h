@@ -1,7 +1,9 @@
-/*
- * open386 — debug registers DR0-DR7 and #DB conditions.
+/********************************************* Debug Registers *********************************************
+ * @file debugregs.h
+ * @author Lubrin, Clarence, U.
+ * @details Debug registers DR0-DR7 and #DB conditions.
  *
- * Ref: [i386 Ch.12 p.195-203: §12.2 Fig 12-1 registers, §12.2.2 DR7, §12.2.3 DR6, §12.2.4 field recognition,
+ * @cite [i386 Ch.12 p.195-203: §12.2 Fig 12-1 registers, §12.2.2 DR7, §12.2.3 DR6, §12.2.4 field recognition,
  *       §12.3.1 #DB conditions (instruction bp fault, data bp trap, general detect, single step, task switch),
  *       §12.3.2 INT 3]; [SDM 3B §20.2 p.3822 Fig 20-1; §20.3 p.3827 Table 20-2; §25.23 p.4142 (DR4/DR5 alias,
  *       LEN=10b / R/W=10b undefined on the 386)]; reset values [SDM 3A Table 12-1 p.3523].

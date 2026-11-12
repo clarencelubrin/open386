@@ -1,7 +1,9 @@
-/*
- * open386 — exceptions, interrupts, IDT delivery and IRET.
+/********************************************* Interrupt & Exception *********************************************
+ * @file interrupt.h
+ * @author Lubrin, Clarence, U.
+ * @details Exceptions, interrupts, IDT delivery and IRET.
  *
- * Ref: [i386 Ch.9 p.152-173: Table 9-1 vectors, §9.1 classes, §9.2 masking, §9.3 priority Table 9-2,
+ * @cite [i386 Ch.9 p.152-173: Table 9-1 vectors, §9.1 classes, §9.2 masking, §9.3 priority Table 9-2,
  *       §9.4-9.5 IDT Fig 9-1/9-2/9-3, §9.6 procedures/tasks Fig 9-4/9-5/9-6, §9.7 error code Fig 9-7,
  *       §9.8 conditions, §9.9 Table 9-6, §9.10 Table 9-7];
  *      [i386 §14.3 p.209 real mode; §15.3.2 p.223 V86 entry Fig 15-3];
@@ -12,6 +14,7 @@
 
 #include "types.h"
 #include "cpu/segment.h"
+#include "util/log.h"
 
 /* Vector assignments. [i386 Table 9-1 p.153; SDM 3A Table 7-1 p.3351] */
 enum x86_exception {

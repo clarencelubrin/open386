@@ -1,6 +1,8 @@
-/*
- * open386 — GDB remote serial protocol stub over TCP, so `gdb -ex 'target remote :1234'` works with
- * ICS-OS's Kernel32.sym exactly as the ICS-OS Makefile's `boot-floppy-gdb` target does with QEMU.
+/********************************************* GDB Stub *********************************************
+ * @file gdbstub.h
+ * @author Lubrin, Clarence, U.
+ * @details GDB remote serial protocol stub over TCP, so `gdb -ex 'target remote :1234'` works with
+ *          ICS-OS's Kernel32.sym exactly as the ICS-OS Makefile's `boot-floppy-gdb` target does with QEMU.
  */
 #ifndef open386_DEBUGGER_GDBSTUB_H
 #define open386_DEBUGGER_GDBSTUB_H

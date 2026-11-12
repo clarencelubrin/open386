@@ -1,6 +1,8 @@
-/*
- * open386 — instruction decoder.
- * Ref: [i386 §17.2 p.240-246, Tables 17-2/17-3/17-4]; [SDM 2A §2.1 Tables 2-1/2-2/2-3]; [i386 §14.7 item 6 p.211].
+/********************************************* Instruction Decoder *********************************************
+ * @file decode.c
+ * @author Lubrin, Clarence, U.
+ * @details Instruction decoder.
+ *          Ref: [i386 §17.2 p.240-246, Tables 17-2/17-3/17-4]; [SDM 2A §2.1 Tables 2-1/2-2/2-3]; [i386 §14.7 item 6 p.211].
  */
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
