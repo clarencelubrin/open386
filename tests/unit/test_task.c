@@ -9,14 +9,14 @@
 
 TEST_CASE(tss32_struct_offsets_match_figure_7_1) {
     /* Pure layout check: available already in M0 since the struct is declared. */
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, cr3), TSS32_CR3);
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, eip), TSS32_EIP);
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, eflags), TSS32_EFLAGS);
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, es), TSS32_ES);
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, ldt), TSS32_LDT);
-    TEST_ASSERT_EQ_U32(offsetof(struct tss32, iomap_base), TSS32_IOMAP_BASE);
-    TEST_ASSERT_EQ_U32(sizeof(struct tss32), TSS32_SIZE);
-    TEST_ASSERT_EQ_U32(sizeof(struct tss16), TSS16_SIZE);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, cr3), TSS32_CR3);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, eip), TSS32_EIP);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, eflags), TSS32_EFLAGS);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, es), TSS32_ES);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, ldt), TSS32_LDT);
+    TEST_ASSERT_EQ_U32(offsetof(TSS32, iomap_base), TSS32_IOMAP_BASE);
+    TEST_ASSERT_EQ_U32(sizeof(TSS32), TSS32_SIZE);
+    TEST_ASSERT_EQ_U32(sizeof(TSS16), TSS16_SIZE);
 }
 TEST_CASE(jmp_to_tss_clears_old_busy_sets_new_busy) {
     TEST_SKIP(M3);

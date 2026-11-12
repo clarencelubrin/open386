@@ -57,7 +57,7 @@ enum mem_access {
 
 #define TLB_ENTRIES 1024
 
-struct tlb_entry {
+typedef struct tlb_entry {
     bool valid;
     bool user;      // U/S of both levels
     bool writable;  // R/W of both levels
@@ -65,36 +65,36 @@ struct tlb_entry {
     bool global;    // gated CPUF_PGE
     u32  linear_page;
     u32  phys_page;
-};
+} TLBEntry;
 
-struct tlb {
-    struct tlb_entry entries[TLB_ENTRIES];
+typedef struct tlb {
+    TLBEntry entries[TLB_ENTRIES];
     u64 hits;
     u64 misses;
     u64 flushes;
-};
+} TLB;
 
-struct cpu;
+typedef struct cpu CPU;
 
-void tlb_init(struct tlb *tlb);
-void tlb_flush_all(struct cpu *cpu);              /* MOV CR3, CR0.PG change, task switch */
-void tlb_flush_nonglobal(struct cpu *cpu);        /* when CPUF_PGE */
-void tlb_flush_page(struct cpu *cpu, u32 linear); /* INVLPG (gated) */
+void tlb_init(TLB *tlb);
+void tlb_flush_all(CPU *cpu);              /* MOV CR3, CR0.PG change, task switch */
+void tlb_flush_nonglobal(CPU *cpu);        /* when CPUF_PGE */
+void tlb_flush_page(CPU *cpu, u32 linear); /* INVLPG (gated) */
 
-bool paging_enabled(const struct cpu *cpu);
+bool paging_enabled(const CPU *cpu);
 /* Translate a linear address, updating A/D bits and raising #PF with CR2 set when required. */
-u32 paging_translate(struct cpu *cpu, u32 linear, enum mem_access access, bool user_mode);
+u32 paging_translate(CPU *cpu, u32 linear, enum mem_access access, bool user_mode);
 /* Debugger/BIOS variant: never faults, never touches A/D. */
-bool paging_translate_nofault(struct cpu *cpu, u32 linear, enum mem_access access, bool user_mode, u32 *phys_out);
-void paging_on_cr0_write(struct cpu *cpu, u32 old_cr0, u32 new_cr0);
-void paging_on_cr3_write(struct cpu *cpu, u32 new_cr3);
+bool paging_translate_nofault(CPU *cpu, u32 linear, enum mem_access access, bool user_mode, u32 *phys_out);
+void paging_on_cr0_write(CPU *cpu, u32 old_cr0, u32 new_cr0);
+void paging_on_cr3_write(CPU *cpu, u32 new_cr3);
 /* Page-level protection decision for one access given combined PDE/PTE bits. [i386 §6.4.2 p.127] */
-bool paging_access_allowed(const struct cpu *cpu, u32 combined_bits, enum mem_access access, bool user_mode);
+bool paging_access_allowed(const CPU *cpu, u32 combined_bits, enum mem_access access, bool user_mode);
 
 /* TLB test registers (386/486 only, gated CPUF_TEST_REGS). [i386 §10.6.2 p.185, Fig 10-3/10-4] */
-void tlb_test_write_tr6(struct cpu *cpu, u32 value);
-void tlb_test_write_tr7(struct cpu *cpu, u32 value);
-u32 tlb_test_read_tr6(struct cpu *cpu);
-u32 tlb_test_read_tr7(struct cpu *cpu);
+void tlb_test_write_tr6(CPU *cpu, u32 value);
+void tlb_test_write_tr7(CPU *cpu, u32 value);
+u32 tlb_test_read_tr6(CPU *cpu);
+u32 tlb_test_read_tr7(CPU *cpu);
 
 #endif /* open386_CPU_PAGING_H */

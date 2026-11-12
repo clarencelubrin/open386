@@ -15,10 +15,10 @@
 #include "types.h"
 
 /* 80-bit double extended precision value. [SDM 1 §4.8.2 p.104; Fig 8-13] */
-struct fp80 {
+typedef struct fp80 {
     u64 mantissa;   // explicit integer bit 63
     u16 sign_exp;   // bit 15 sign, bits 14:0 biased exponent (bias 16383)
-};
+} FP80;
 
 /* Control word. [SDM 1 Fig 8-6 p.215] */
 #define FPU_CW_IM        (1u << 0)
@@ -59,8 +59,8 @@ enum fpu_tag { FPU_TAG_VALID = 0, FPU_TAG_ZERO = 1, FPU_TAG_SPECIAL = 2, FPU_TAG
 #define FPU_TW_ALL_EMPTY 0xFFFFu
 #define FPU_TW_RESET     0x5555u /* power-up value (all zero) [SDM 3A Table 12-1] */
 
-struct x87_state {
-    struct fp80 st[8];      // physical registers R0-R7; ST(i) = R[(TOP + i) & 7]
+typedef struct x87_state {
+    FP80 st[8];      // physical registers R0-R7; ST(i) = R[(TOP + i) & 7]
     u16 control;
     u16 status;
     u16 tag;
@@ -70,7 +70,7 @@ struct x87_state {
     u16 fds;                // last data operand selector
     u16 last_opcode;        // 11 bits [SDM 1 §8.1.9 p.218]
     bool error_pending;     // unmasked exception awaiting the next ESC/WAIT → #MF [i386 §11.1.5.3 p.192]
-};
+} X87State;
 
 /* Memory image formats for FSTENV/FLDENV/FNSAVE/FRSTOR. [SDM 1 §8.1.10 p.219, Fig 8-9..8-12] */
 enum fpu_env_format {
@@ -84,34 +84,34 @@ enum fpu_env_format {
 #define FPU_SAVE16_SIZE  94
 #define FPU_SAVE32_SIZE  108
 
-struct cpu;
-struct x86_insn;
+typedef struct cpu CPU;
+typedef struct x86_insn X86Insn;
 
-void fpu_reset(struct x87_state *fpu);          /* power-up values */
-void fpu_finit(struct x87_state *fpu);          /* FNINIT: CW=037Fh SW=0 TW=FFFFh pointers=0 */
+void fpu_reset(X87State *fpu);          /* power-up values */
+void fpu_finit(X87State *fpu);          /* FNINIT: CW=037Fh SW=0 TW=FFFFh pointers=0 */
 /* EM/TS/MP arbitration before an ESC or WAIT; raises #NM when required. [i386 §11.1.3-11.1.4; SDM 3A Table 2-2] */
-void fpu_check_availability(struct cpu *cpu, bool is_wait);
+void fpu_check_availability(CPU *cpu, bool is_wait);
 /* Report a pending unmasked numeric error as #MF (or via the 387 ERROR# path) before executing the next ESC/WAIT. */
-void fpu_check_pending_error(struct cpu *cpu);
+void fpu_check_pending_error(CPU *cpu);
 /* Dispatch an ESC opcode D8-DF with its ModR/M byte. [SDM 2D Tables A-7..A-22] */
-void fpu_exec_esc(struct cpu *cpu, struct x86_insn *insn);
-enum fpu_env_format fpu_env_format_for(const struct cpu *cpu, u8 opsize);
-void fpu_store_env(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);
-void fpu_load_env(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);
-void fpu_save_state(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);    /* FNSAVE then FNINIT */
-void fpu_restore_state(struct cpu *cpu, u8 seg, u32 offset, enum fpu_env_format fmt); /* FRSTOR */
-u8 fpu_top(const struct x87_state *fpu);
-void fpu_set_top(struct x87_state *fpu, u8 top);
-enum fpu_tag fpu_tag_of(const struct fp80 *value);
-void fpu_set_tag(struct x87_state *fpu, u8 phys_reg, enum fpu_tag tag);
+void fpu_exec_esc(CPU *cpu, X86Insn *insn);
+enum fpu_env_format fpu_env_format_for(const CPU *cpu, u8 opsize);
+void fpu_store_env(CPU *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);
+void fpu_load_env(CPU *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);
+void fpu_save_state(CPU *cpu, u8 seg, u32 offset, enum fpu_env_format fmt);    /* FNSAVE then FNINIT */
+void fpu_restore_state(CPU *cpu, u8 seg, u32 offset, enum fpu_env_format fmt); /* FRSTOR */
+u8 fpu_top(const X87State *fpu);
+void fpu_set_top(X87State *fpu, u8 top);
+enum fpu_tag fpu_tag_of(const FP80 *value);
+void fpu_set_tag(X87State *fpu, u8 phys_reg, enum fpu_tag tag);
 /* Conversions between memory operand formats and fp80. [SDM 1 §4.8 p.102; Fig 8-13] */
-struct fp80 fpu_from_f32(u32 bits);
-struct fp80 fpu_from_f64(u64 bits);
-struct fp80 fpu_from_i16(s16 v);
-struct fp80 fpu_from_i32(s32 v);
-struct fp80 fpu_from_i64(s64 v);
-struct fp80 fpu_from_bcd80(const u8 bcd[10]);
-u32 fpu_to_f32(struct cpu *cpu, struct fp80 v);
-u64 fpu_to_f64(struct cpu *cpu, struct fp80 v);
+FP80 fpu_from_f32(u32 bits);
+FP80 fpu_from_f64(u64 bits);
+FP80 fpu_from_i16(s16 v);
+FP80 fpu_from_i32(s32 v);
+FP80 fpu_from_i64(s64 v);
+FP80 fpu_from_bcd80(const u8 bcd[10]);
+u32 fpu_to_f32(CPU *cpu, FP80 v);
+u64 fpu_to_f64(CPU *cpu, FP80 v);
 
 #endif /* open386_CPU_FPU_H */

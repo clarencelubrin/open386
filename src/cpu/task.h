@@ -49,7 +49,7 @@ enum tss16_offset {
 };
 
 /* In-memory image of the 32-bit TSS (little-endian, packed by construction: all fields naturally aligned). */
-struct tss32 {
+typedef struct tss32 {
     u16 back_link, rsvd0;
     u32 esp0; u16 ss0, rsvd1;
     u32 esp1; u16 ss1, rsvd2;
@@ -62,16 +62,16 @@ struct tss32 {
     u16 ldt, rsvd10;
     u16 trap;        // bit 0 = T
     u16 iomap_base;  // offset of the I/O permission bit map [i386 §8.3.2 p.149]
-};
+} TSS32;
 
-struct tss16 {
+typedef struct tss16 {
     u16 back_link;
     u16 sp0, ss0, sp1, ss1, sp2, ss2;
     u16 ip, flags;
     u16 ax, cx, dx, bx, sp, bp, si, di;
     u16 es, cs, ss, ds;
     u16 ldt;
-};
+} TSS16;
 
 /* What triggered the switch — decides privilege checks and busy/NT/back-link handling. [SDM 3A Table 10-2] */
 enum task_switch_reason {
@@ -81,23 +81,23 @@ enum task_switch_reason {
     TASK_SWITCH_IRET      // NT=1 return: old → available, new must be busy
 };
 
-struct cpu;
+typedef struct cpu CPU;
 
 /* Perform a complete task switch to `new_tss_selector` whose descriptor the caller fetched.
  * Implements the numbered steps of [i386 §7.5 p.138-140] and the checks of [SDM 3A Table 10-1]. The
  * optional error code is pushed on the new task's stack for #PF/#GP/… through task gates [i386 §9.7 p.161]. */
-void task_switch(struct cpu *cpu, u16 new_tss_selector, const struct segment_descriptor *new_tss_desc,
+void task_switch(CPU *cpu, u16 new_tss_selector, const SegmentDescriptor *new_tss_desc,
                  u32 new_tss_desc_addr, enum task_switch_reason reason, bool has_error_code, u32 error_code);
 /* Validate the new task's segment selectors in architectural order after the state load. */
-void task_validate_segments(struct cpu *cpu, const struct tss32 *tss);
+void task_validate_segments(CPU *cpu, const TSS32 *tss);
 /* Read SSn:ESPn for an inter-level transfer. #TS(TR selector) when outside the TSS limit. [i386 Fig 6-8 p.120] */
-void task_get_privileged_stack(struct cpu *cpu, u8 privilege, u16 *ss_out, u32 *esp_out);
+void task_get_privileged_stack(CPU *cpu, u8 privilege, u16 *ss_out, u32 *esp_out);
 /* I/O permission bit map check for `size` consecutive ports. [i386 §8.3.2 p.149-151; SDM 1 §20.5.2 p.438] */
-bool task_io_permitted(struct cpu *cpu, u16 port, u8 size);
-void task_save_state(struct cpu *cpu, u32 tss_base, bool is_32bit);
-void task_load_state(struct cpu *cpu, u32 tss_base, bool is_32bit);
-bool task_tss_is_32bit(const struct segment_descriptor *tss_desc);
-void task_read_tss32(struct cpu *cpu, u32 tss_base, struct tss32 *out);
-void task_write_tss32(struct cpu *cpu, u32 tss_base, const struct tss32 *in);
+bool task_io_permitted(CPU *cpu, u16 port, u8 size);
+void task_save_state(CPU *cpu, u32 tss_base, bool is_32bit);
+void task_load_state(CPU *cpu, u32 tss_base, bool is_32bit);
+bool task_tss_is_32bit(const SegmentDescriptor *tss_desc);
+void task_read_tss32(CPU *cpu, u32 tss_base, TSS32 *out);
+void task_write_tss32(CPU *cpu, u32 tss_base, const TSS32 *in);
 
 #endif /* open386_CPU_TASK_H */

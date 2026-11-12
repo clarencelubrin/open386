@@ -23,10 +23,10 @@
 #define SEL_IS_NULL(s) (((s) & 0xFFFCu) == 0)
 
 /* Raw 8-byte descriptor as stored in memory. */
-struct descriptor_raw {
+typedef struct descriptor_raw {
     u32 lo; // bytes 0-3: limit 15:0, base 15:0
     u32 hi; // bytes 4-7: base 23:16, access, limit 19:16 + flags, base 31:24
-};
+} DescriptorRaw;
 
 /* Access-rights byte (byte 5) bits. [i386 Fig 5-3 p.93; Fig 6-1 p.107] */
 #define DESC_ACCESS_P       0x80u
@@ -69,7 +69,7 @@ enum desc_sys_type {
 #define DESC_TSS_BUSY_BIT 0x2u /* type bit 1 distinguishes available (9) from busy (B) TSS */
 
 /* Decoded segment (code/data/LDT/TSS) descriptor. */
-struct segment_descriptor {
+typedef struct segment_descriptor {
     u32  base;
     u32  limit_raw;    // 20-bit field
     u32  limit;        // byte-granular: limit_raw, or (limit_raw << 12) | 0xFFF when G=1 [i386 §5.1.1 p.92]
@@ -81,59 +81,59 @@ struct segment_descriptor {
     bool db;
     bool granularity;
     bool reserved_set; // bit 21 set — reject on the 386
-};
+} SegmentDescriptor;
 
 /* Decoded gate (call/interrupt/trap/task) descriptor. [i386 Fig 6-5 p.117; Fig 9-3 p.157; Fig 7-4 p.135] */
-struct gate_descriptor {
+typedef struct gate_descriptor {
     u16  selector;
     u32  offset;       // 16-bit for 286 gates
     u8   type;
     u8   dpl;
     bool present;
     u8   param_count;  // call gates: dword count (386) / word count (286)
-};
+} GateDescriptor;
 
-struct cpu;
-struct seg_cache;
+typedef struct cpu CPU;
+typedef struct seg_cache SegCache;
 
 
-void descriptor_parse(const struct descriptor_raw *raw, struct segment_descriptor *out);
-void gate_parse(const struct descriptor_raw *raw, struct gate_descriptor *out);
-void descriptor_pack(const struct segment_descriptor *desc, struct descriptor_raw *out);
+void descriptor_parse(const DescriptorRaw *raw, SegmentDescriptor *out);
+void gate_parse(const DescriptorRaw *raw, GateDescriptor *out);
+void descriptor_pack(const SegmentDescriptor *desc, DescriptorRaw *out);
 
 /* Fetch the descriptor for `selector` from the GDT or current LDT. Checks the table limit and raises
  * `fault_vector` with `fault_error_code` when out of range. Returns the linear address of the entry for
  * later Accessed/Busy updates. [i386 §5.1.2 p.94; §6.3.1.2 p.110] */
-u32 descriptor_fetch(struct cpu *cpu, u16 selector, struct descriptor_raw *out, u8 fault_vector,
+u32 descriptor_fetch(CPU *cpu, u16 selector, DescriptorRaw *out, u8 fault_vector,
                       u32 fault_error_code);
-bool descriptor_in_table_limit(const struct cpu *cpu, u16 selector);
+bool descriptor_in_table_limit(const CPU *cpu, u16 selector);
 /* Locked read-modify-write of the Accessed bit (always performed on the 386). [SDM 3B §25.22.4 p.4142] */
-void descriptor_set_accessed(struct cpu *cpu, u32 desc_linear_addr);
-void descriptor_set_tss_busy(struct cpu *cpu, u32 desc_linear_addr, bool busy);
+void descriptor_set_accessed(CPU *cpu, u32 desc_linear_addr);
+void descriptor_set_tss_busy(CPU *cpu, u32 desc_linear_addr, bool busy);
 
 /* Load a data segment register or SS with full protected-mode checks. [i386 §6.3.2 p.113; SDM 3A §6.6-6.7] */
-void segment_load(struct cpu *cpu, enum x86_sreg reg, u16 selector);
+void segment_load(CPU *cpu, enum x86_sreg reg, u16 selector);
 /* Load CS as part of a far transfer whose checks the caller already performed. */
-void segment_load_cs(struct cpu *cpu, u16 selector, const struct segment_descriptor *desc, u8 new_cpl);
+void segment_load_cs(CPU *cpu, u16 selector, const SegmentDescriptor *desc, u8 new_cpl);
 /* Real-address / V86 load: base = selector << 4, limit and rights unchanged. [i386 §14.1; §15.1.2] */
-void segment_load_real_mode(struct cpu *cpu, enum x86_sreg reg, u16 selector);
-void segment_cache_from_descriptor(struct seg_cache *cache, u16 selector, const struct segment_descriptor *desc);
-void segment_cache_init_real_mode(struct seg_cache *cache, u16 selector);
+void segment_load_real_mode(CPU *cpu, enum x86_sreg reg, u16 selector);
+void segment_cache_from_descriptor(SegCache *cache, u16 selector, const SegmentDescriptor *desc);
+void segment_cache_init_real_mode(SegCache *cache, u16 selector);
 /* Invalidate DS/ES/FS/GS whose DPL < new CPL after an inter-level RET/IRET. [i386 §6.3.4.2 p.122] */
-void segment_invalidate_for_cpl(struct cpu *cpu, u8 new_cpl);
+void segment_invalidate_for_cpl(CPU *cpu, u8 new_cpl);
 
-void ldtr_load(struct cpu *cpu, u16 selector); /* [i386 LLDT p.334] */
-void tr_load(struct cpu *cpu, u16 selector);   /* [i386 LTR p.344]; marks the TSS busy */
+void ldtr_load(CPU *cpu, u16 selector); /* [i386 LLDT p.334] */
+void tr_load(CPU *cpu, u16 selector);   /* [i386 LTR p.344]; marks the TSS busy */
 
-bool desc_is_code(const struct segment_descriptor *d);
-bool desc_is_data(const struct segment_descriptor *d);
-bool desc_is_system(const struct segment_descriptor *d);
-bool desc_is_writable_data(const struct segment_descriptor *d);
-bool desc_is_readable_code(const struct segment_descriptor *d);
-bool desc_is_conforming_code(const struct segment_descriptor *d);
-bool desc_is_expand_down(const struct segment_descriptor *d);
-bool desc_is_tss(const struct segment_descriptor *d);
-bool desc_is_gate(const struct segment_descriptor *d);
-const char *desc_type_name(const struct segment_descriptor *d);
+bool desc_is_code(const SegmentDescriptor *d);
+bool desc_is_data(const SegmentDescriptor *d);
+bool desc_is_system(const SegmentDescriptor *d);
+bool desc_is_writable_data(const SegmentDescriptor *d);
+bool desc_is_readable_code(const SegmentDescriptor *d);
+bool desc_is_conforming_code(const SegmentDescriptor *d);
+bool desc_is_expand_down(const SegmentDescriptor *d);
+bool desc_is_tss(const SegmentDescriptor *d);
+bool desc_is_gate(const SegmentDescriptor *d);
+const char *desc_type_name(const SegmentDescriptor *d);
 
 #endif /* open386_CPU_SEGMENT_H */

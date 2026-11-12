@@ -2,88 +2,88 @@
 #include "cpu/cpu.h"
 #include "cpu/segment.h"
 
-void descriptor_parse(const struct descriptor_raw *raw, struct segment_descriptor *out) {
+void descriptor_parse(const DescriptorRaw *raw, SegmentDescriptor *out) {
     O386_STUB_TODO(M2);
 }
-void gate_parse(const struct descriptor_raw *raw, struct gate_descriptor *out) {
+void gate_parse(const DescriptorRaw *raw, GateDescriptor *out) {
     O386_STUB_TODO(M2);
 }
-void descriptor_pack(const struct segment_descriptor *desc, struct descriptor_raw *out) {
+void descriptor_pack(const SegmentDescriptor *desc, DescriptorRaw *out) {
     O386_STUB_TODO(M2);
 }
-u32 descriptor_fetch(struct cpu *cpu, u16 selector, struct descriptor_raw *out, u8 fault_vector,
+u32 descriptor_fetch(CPU *cpu, u16 selector, DescriptorRaw *out, u8 fault_vector,
                       u32 fault_error_code) { O386_STUB_TODO(M2); return 0; }
-bool descriptor_in_table_limit(const struct cpu *cpu, u16 selector) {
+bool descriptor_in_table_limit(const CPU *cpu, u16 selector) {
     O386_STUB_TODO(M2);
     return false;
 }
-void descriptor_set_accessed(struct cpu *cpu, u32 desc_linear_addr) {
+void descriptor_set_accessed(CPU *cpu, u32 desc_linear_addr) {
     O386_STUB_TODO(M2);
 }
-void descriptor_set_tss_busy(struct cpu *cpu, u32 desc_linear_addr, bool busy) {
+void descriptor_set_tss_busy(CPU *cpu, u32 desc_linear_addr, bool busy) {
     O386_STUB_TODO(M3);
 }
-void segment_load(struct cpu *cpu, enum x86_sreg reg, u16 selector) {
+void segment_load(CPU *cpu, enum x86_sreg reg, u16 selector) {
     O386_STUB_TODO(M2);
 }
-void segment_load_cs(struct cpu *cpu, u16 selector, const struct segment_descriptor *desc, u8 new_cpl) {
+void segment_load_cs(CPU *cpu, u16 selector, const SegmentDescriptor *desc, u8 new_cpl) {
     O386_STUB_TODO(M2);
 }
-void segment_load_real_mode(struct cpu *cpu, enum x86_sreg reg, u16 selector) {
+void segment_load_real_mode(CPU *cpu, enum x86_sreg reg, u16 selector) {
     O386_STUB_TODO(M1);
 }
-void segment_cache_from_descriptor(struct seg_cache *cache, u16 selector, const struct segment_descriptor *desc) {
+void segment_cache_from_descriptor(SegCache *cache, u16 selector, const SegmentDescriptor *desc) {
     O386_STUB_TODO(M2);
 }
-void segment_cache_init_real_mode(struct seg_cache *cache, u16 selector) {
+void segment_cache_init_real_mode(SegCache *cache, u16 selector) {
     O386_STUB_TODO(M1);
 }
-void segment_invalidate_for_cpl(struct cpu *cpu, u8 new_cpl) {
+void segment_invalidate_for_cpl(CPU *cpu, u8 new_cpl) {
     O386_STUB_TODO(M2);
 }
-void ldtr_load(struct cpu *cpu, u16 selector) {
+void ldtr_load(CPU *cpu, u16 selector) {
     O386_STUB_TODO(M2);
 }
-void tr_load(struct cpu *cpu, u16 selector) {
+void tr_load(CPU *cpu, u16 selector) {
     O386_STUB_TODO(M3);
 }
-bool desc_is_code(const struct segment_descriptor *d) {
+bool desc_is_code(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_data(const struct segment_descriptor *d) {
+bool desc_is_data(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_system(const struct segment_descriptor *d) {
+bool desc_is_system(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_writable_data(const struct segment_descriptor *d) {
+bool desc_is_writable_data(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_readable_code(const struct segment_descriptor *d) {
+bool desc_is_readable_code(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_conforming_code(const struct segment_descriptor *d) {
+bool desc_is_conforming_code(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_expand_down(const struct segment_descriptor *d) {
+bool desc_is_expand_down(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-bool desc_is_tss(const struct segment_descriptor *d) {
+bool desc_is_tss(const SegmentDescriptor *d) {
     O386_STUB_TODO(M3);
     return false;
 }
-bool desc_is_gate(const struct segment_descriptor *d) {
+bool desc_is_gate(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return false;
 }
-const char *desc_type_name(const struct segment_descriptor *d) {
+const char *desc_type_name(const SegmentDescriptor *d) {
     O386_STUB_TODO(M2);
     return "";
 }

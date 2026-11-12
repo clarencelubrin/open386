@@ -1,21 +1,21 @@
 /* open386 — board wiring and run loop (stub, M0). PLAN.md §6.5. */
 #include "machine/machine.h"
 
-int machine_create(struct machine *m, const struct config *cfg) {
+int machine_create(Machine *m, const Config *cfg) {
     O386_STUB_TODO(M1);
     return 0;
 }
-void machine_destroy(struct machine *m) {
+void machine_destroy(Machine *m) {
     O386_STUB_TODO(M1);
 }
-void machine_reset(struct machine *m) {
+void machine_reset(Machine *m) {
     O386_STUB_TODO(M1);
 }
-int machine_run(struct machine *m) {
+int machine_run(Machine *m) {
     O386_STUB_TODO(M1);
     return 0;
 }
-u32 machine_step(struct machine *m) {
+u32 machine_step(Machine *m) {
     O386_STUB_TODO(M1);
     return 0;
 }
@@ -45,36 +45,36 @@ bool machine_code_fetch_hook(void *ctx, u32 phys_eip) {
 void machine_cpu_halted(void *ctx) {
     O386_STUB_TODO(M1);
 }
-int machine_add_timer(struct machine *m, machine_timer_fn fire, void *ctx, const char *name) {
+int machine_add_timer(Machine *m, machine_timer_fn fire, void *ctx, const char *name) {
     O386_STUB_TODO(M1);
     return -1;
 }
-void machine_arm_timer(struct machine *m, int id, u64 deadline) {
+void machine_arm_timer(Machine *m, int id, u64 deadline) {
     O386_STUB_TODO(M1);
 }
-void machine_cancel_timer(struct machine *m, int id) {
+void machine_cancel_timer(Machine *m, int id) {
     O386_STUB_TODO(M1);
 }
-void machine_process_timers(struct machine *m) {
+void machine_process_timers(Machine *m) {
     O386_STUB_TODO(M1);
 }
-u64 machine_next_deadline(const struct machine *m) {
+u64 machine_next_deadline(const Machine *m) {
     O386_STUB_TODO(M1);
     return ~0ull;
 }
-u64 machine_cycles_from_ns(const struct machine *m, u64 ns) {
+u64 machine_cycles_from_ns(const Machine *m, u64 ns) {
     O386_STUB_TODO(M1);
     return 0;
 }
-u64 machine_cycles_from_pit_ticks(const struct machine *m, u64 ticks) {
+u64 machine_cycles_from_pit_ticks(const Machine *m, u64 ticks) {
     O386_STUB_TODO(M1);
     return 0;
 }
-int machine_attach_floppy(struct machine *m, u8 drive, const char *path) {
+int machine_attach_floppy(Machine *m, u8 drive, const char *path) {
     O386_STUB_TODO(M1);
     return 0;
 }
-int machine_load_bios_rom(struct machine *m, const char *path) {
+int machine_load_bios_rom(Machine *m, const char *path) {
     O386_STUB_TODO(M6);
     return -1;
 }

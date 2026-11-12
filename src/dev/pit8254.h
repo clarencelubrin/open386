@@ -23,7 +23,7 @@ enum pit_access {
     PIT_ACCESS_LOHI  = 3
 };
 
-struct pit_channel {
+typedef struct pit_channel {
     u16  count;         // current counting element
     u16  reload;        // count register
     u16  latch;
@@ -40,24 +40,24 @@ struct pit_channel {
     bool status_latched;
     u64  last_update_cycle;
     u64  next_event_cycle;
-};
+} PITChannel;
 
-struct pit8254 {
-    struct pit_channel ch[3];
-    struct irq_line irq0;
+typedef struct pit8254 {
+    PITChannel ch[3];
+    IRQLine irq0;
     void (*speaker_out)(void *ctx, bool level);
     void *speaker_ctx;
     u32  core_hz;       // virtual CPU clock used to convert cycles → PIT ticks
-};
+} PIT8254;
 
-void pit_init(struct pit8254 *pit, u32 core_hz, const struct irq_line *irq0);
-void pit_reset(struct pit8254 *pit);
-void pit_set_speaker_callback(struct pit8254 *pit, void (*cb)(void *ctx, bool level), void *ctx);
-void pit_set_gate(struct pit8254 *pit, u8 channel, bool level); /* port 61h bit 0 drives channel 2 */
-bool pit_get_out(const struct pit8254 *pit, u8 channel);
+void pit_init(PIT8254 *pit, u32 core_hz, const IRQLine *irq0);
+void pit_reset(PIT8254 *pit);
+void pit_set_speaker_callback(PIT8254 *pit, void (*cb)(void *ctx, bool level), void *ctx);
+void pit_set_gate(PIT8254 *pit, u8 channel, bool level); /* port 61h bit 0 drives channel 2 */
+bool pit_get_out(const PIT8254 *pit, u8 channel);
 u32 pit_io_read(void *ctx, u16 port, u8 size);
 void pit_io_write(void *ctx, u16 port, u8 size, u32 value);
-void pit_tick(struct pit8254 *pit, u64 now_cycles);              /* advance counters, raise IRQ0 edges */
-u64 pit_next_deadline(const struct pit8254 *pit);
+void pit_tick(PIT8254 *pit, u64 now_cycles);              /* advance counters, raise IRQ0 edges */
+u64 pit_next_deadline(const PIT8254 *pit);
 
 #endif /* open386_DEV_PIT8254_H */

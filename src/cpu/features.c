@@ -5,7 +5,7 @@
 #include "cpu/cpu.h"
 
 /* Strict 80386 DX, coprocessor socket empty: CR0.ET = 0. [i386 §10.1 Fig 10-1/10-2 p.175] */
-const struct cpu_model cpu_model_i386dx = {
+const CPUModel cpu_model_i386dx = {
     .name = "i386dx",
     .description = "Intel 80386 DX as documented in the 1986 Programmer's Reference Manual (no coprocessor)",
     .features = CPUF_BIT(CPUF_TEST_REGS),
@@ -22,7 +22,7 @@ const struct cpu_model cpu_model_i386dx = {
 };
 
 /* 80386 + 80387 + the post-386 instructions ICS-OS executes (PLAN.md §2.2, §4.3). */
-const struct cpu_model cpu_model_i386_icsos = {
+const CPUModel cpu_model_i386_icsos = {
     .name = "i386-icsos",
     .description = "80386 + 80387 + CPUID + Intel486 instructions (INVLPG/WBINVD/...) needed by ICS-OS",
     .features = CPUF_BIT(CPUF_FPU_387) | CPUF_BIT(CPUF_TEST_REGS) | CPUF_BIT(CPUF_CPUID) | CPUF_BIT(CPUF_ID_FLAG) |
@@ -40,14 +40,14 @@ const struct cpu_model cpu_model_i386_icsos = {
 };
 
 /* Declared for M7; values to be taken from [SDM 3B §25.13-25.25]. */
-const struct cpu_model cpu_model_i486dx = { .name = "i486dx", .description = "Intel486 DX (M7)" };
-const struct cpu_model cpu_model_pentium = { .name = "pentium", .description = "Pentium (M7)" };
+const CPUModel cpu_model_i486dx = { .name = "i486dx", .description = "Intel486 DX (M7)" };
+const CPUModel cpu_model_pentium = { .name = "pentium", .description = "Pentium (M7)" };
 
-const struct cpu_model *cpu_model_find(const char *name) {
+const CPUModel *cpu_model_find(const char *name) {
     O386_STUB_TODO(M1);
     return NULL;
 }
-int cpu_model_apply_overrides(struct cpu_model *dst, const struct cpu_model *base, const char *overrides) {
+int cpu_model_apply_overrides(CPUModel *dst, const CPUModel *base, const char *overrides) {
     O386_STUB_TODO(M1);
     return 0;
 }
@@ -62,7 +62,7 @@ int cpu_feature_from_name(const char *name) {
 void cpu_model_list(void) {
     O386_STUB_TODO(M1);
 }
-bool cpu_has_feature(const struct cpu *cpu, enum cpu_feature f) {
+bool cpu_has_feature(const CPU *cpu, enum cpu_feature f) {
     O386_STUB_TODO(M1);
     return false;
 }

@@ -24,27 +24,27 @@ enum ide_reg {
 #define IDE_STATUS_DRDY (1u << 6)
 #define IDE_STATUS_BSY  (1u << 7)
 
-struct ide_drive {
+typedef struct ide_drive {
     bool present;
     FILE *image;
     u32  sectors_total;
     u16  cylinders, heads, sectors;
-};
+} IDEDrive;
 
-struct ide_channel {
+typedef struct ide_channel {
     u16 base, ctrl;
     u8  regs[8];
     u8  control;
     u8  selected;
     u8  sector_buffer[512];
     u16 buffer_pos, buffer_len;
-    struct ide_drive drives[2];
-    struct irq_line irq;
-};
+    IDEDrive drives[2];
+    IRQLine irq;
+} IDEChannel;
 
-void ide_init(struct ide_channel *ide, u16 base, u16 ctrl, const struct irq_line *irq);
-void ide_reset(struct ide_channel *ide);
-int ide_attach_image(struct ide_channel *ide, u8 drive, const char *path);
+void ide_init(IDEChannel *ide, u16 base, u16 ctrl, const IRQLine *irq);
+void ide_reset(IDEChannel *ide);
+int ide_attach_image(IDEChannel *ide, u8 drive, const char *path);
 u32 ide_io_read(void *ctx, u16 port, u8 size);
 void ide_io_write(void *ctx, u16 port, u8 size, u32 value);
 

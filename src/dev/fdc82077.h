@@ -56,7 +56,7 @@ enum fdc_phase {
     FDC_PHASE_RESULT
 };
 
-struct fdc_drive {
+typedef struct fdc_drive {
     bool present;
     FILE *image;
     u32  image_size;
@@ -69,11 +69,11 @@ struct fdc_drive {
     bool disk_changed;
     bool write_protected;
     bool seek_done;
-};
+} FDCDrive;
 
-struct dma8237;
+typedef struct dma8237 DMA8237;
 
-struct fdc82077 {
+typedef struct fdc82077 {
     u8 dor, msr, dsr, ccr;
     u8 st0, st1, st2, st3;
     enum fdc_phase phase;
@@ -91,24 +91,24 @@ struct fdc82077 {
     bool irq_pending;
     u8   sector_buffer[512];
     u64  busy_until_cycle;
-    struct fdc_drive drives[2];
-    struct irq_line irq6;
-    struct dma8237 *dma;
+    FDCDrive drives[2];
+    IRQLine irq6;
+    DMA8237 *dma;
     bool implied_seek, fifo_enabled;
     u8   fifo_threshold;
-};
+} FDC82077;
 
-void fdc_init(struct fdc82077 *fdc, const struct irq_line *irq6, struct dma8237 *dma);
-void fdc_reset(struct fdc82077 *fdc, bool hardware);
-int fdc_attach_image(struct fdc82077 *fdc, u8 drive, const char *path, bool read_only);
-void fdc_detach_image(struct fdc82077 *fdc, u8 drive);
+void fdc_init(FDC82077 *fdc, const IRQLine *irq6, DMA8237 *dma);
+void fdc_reset(FDC82077 *fdc, bool hardware);
+int fdc_attach_image(FDC82077 *fdc, u8 drive, const char *path, bool read_only);
+void fdc_detach_image(FDC82077 *fdc, u8 drive);
 u32 fdc_io_read(void *ctx, u16 port, u8 size);
 void fdc_io_write(void *ctx, u16 port, u8 size, u32 value);
-void fdc_tick(struct fdc82077 *fdc, u64 now_cycles);
-u64 fdc_next_deadline(const struct fdc82077 *fdc);
+void fdc_tick(FDC82077 *fdc, u64 now_cycles);
+u64 fdc_next_deadline(const FDC82077 *fdc);
 /* Direct sector access used by the HLE BIOS INT 13h (bypasses the controller state machine). */
-int fdc_read_sectors_direct(struct fdc82077 *fdc, u8 drive, u8 cyl, u8 head, u8 sector, u8 count, u8 *dst);
-int fdc_write_sectors_direct(struct fdc82077 *fdc, u8 drive, u8 cyl, u8 head, u8 sector, u8 count, const u8 *src);
-u32 fdc_lba_from_chs(const struct fdc_drive *drive, u8 cyl, u8 head, u8 sector);
+int fdc_read_sectors_direct(FDC82077 *fdc, u8 drive, u8 cyl, u8 head, u8 sector, u8 count, u8 *dst);
+int fdc_write_sectors_direct(FDC82077 *fdc, u8 drive, u8 cyl, u8 head, u8 sector, u8 count, const u8 *src);
+u32 fdc_lba_from_chs(const FDCDrive *drive, u8 cyl, u8 head, u8 sector);
 
 #endif /* open386_DEV_FDC82077_H */

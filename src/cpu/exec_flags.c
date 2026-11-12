@@ -2,36 +2,36 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_clc(struct cpu *cpu, struct x86_insn *insn) {
+void op_clc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_stc(struct cpu *cpu, struct x86_insn *insn) {
+void op_stc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_cmc(struct cpu *cpu, struct x86_insn *insn) {
+void op_cmc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_cld(struct cpu *cpu, struct x86_insn *insn) {
+void op_cld(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_std(struct cpu *cpu, struct x86_insn *insn) {
+void op_std(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_cli(struct cpu *cpu, struct x86_insn *insn) {
+void op_cli(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_sti(struct cpu *cpu, struct x86_insn *insn) {
+void op_sti(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_lahf(struct cpu *cpu, struct x86_insn *insn) {
+void op_lahf(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_sahf(struct cpu *cpu, struct x86_insn *insn) {
+void op_sahf(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_pushf(struct cpu *cpu, struct x86_insn *insn) {
+void op_pushf(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_popf(struct cpu *cpu, struct x86_insn *insn) {
+void op_popf(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

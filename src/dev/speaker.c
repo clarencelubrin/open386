@@ -1,10 +1,10 @@
 /* open386 — port 61h / PC speaker (stub, M0). */
 #include "dev/speaker.h"
 
-void speaker_init(struct pcspeaker *spk, struct pit8254 *pit) {
+void speaker_init(PCSpeaker *spk, PIT8254 *pit) {
     O386_STUB_TODO(M4);
 }
-void speaker_reset(struct pcspeaker *spk) {
+void speaker_reset(PCSpeaker *spk) {
     O386_STUB_TODO(M4);
 }
 u32 speaker_io_read(void *ctx, u16 port, u8 size) {

@@ -1,17 +1,17 @@
 /* open386 — PCI configuration mechanism #1 (stub, M0). */
 #include "dev/pci.h"
 
-void pci_init(struct pci_bus *bus) {
+void pci_init(PCIBus *bus) {
     O386_STUB_TODO(M4);
 }
-void pci_reset(struct pci_bus *bus) {
+void pci_reset(PCIBus *bus) {
     O386_STUB_TODO(M4);
 }
-int pci_register_device(struct pci_bus *bus, struct pci_device *dev) {
+int pci_register_device(PCIBus *bus, PCIDevice *dev) {
     O386_STUB_TODO(M7);
     return 0;
 }
-struct pci_device *pci_find_device(struct pci_bus *bus, u8 busno, u8 slot, u8 function) {
+PCIDevice *pci_find_device(PCIBus *bus, u8 busno, u8 slot, u8 function) {
     O386_STUB_TODO(M4);
     return NULL;
 }

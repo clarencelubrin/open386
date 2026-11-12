@@ -10,7 +10,7 @@
 #include "debugger/trace.h"
 
 /* Load default config */
-void config_set_defaults(struct config *cfg) {
+void config_set_defaults(Config *cfg) {
     memset(cfg, 0, sizeof *cfg);
     cfg->ram_mb           = 64;
     cfg->cpu_model        = "i386-icsos";
@@ -76,7 +76,7 @@ static int parse_log_level(const char *s, enum log_level *lvl) {
 }
 
 /* Parse the arguments into config cfg */
-int config_parse_args(struct config *cfg, int argc, char **argv) {
+int config_parse_args(Config *cfg, int argc, char **argv) {
     enum log_level log_lvl = LOG_INFO;  // Initialize log level
     bool log_lvl_set = false;
 
@@ -218,7 +218,7 @@ void config_print_usage(const char *argv0) {
 }
 
 /* Validation of configuration set by the user */
-int config_validate(const struct config *cfg) {
+int config_validate(const Config *cfg) {
     if (cfg->ram_mb == 0 || cfg->ram_mb > 4096) {   // Validate ram size, must be 1-4096 MiB
         fprintf(stderr, "open386: RAM must be 1..4096 MiB\n");
         return -1;

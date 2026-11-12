@@ -2,39 +2,39 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_add(struct cpu *cpu, struct x86_insn *insn) {
+void op_add(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_adc(struct cpu *cpu, struct x86_insn *insn) {
+void op_adc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_sub(struct cpu *cpu, struct x86_insn *insn) {
+void op_sub(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_sbb(struct cpu *cpu, struct x86_insn *insn) {
+void op_sbb(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_cmp(struct cpu *cpu, struct x86_insn *insn) {
+void op_cmp(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_inc(struct cpu *cpu, struct x86_insn *insn) {
+void op_inc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_dec(struct cpu *cpu, struct x86_insn *insn) {
+void op_dec(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_neg(struct cpu *cpu, struct x86_insn *insn) {
+void op_neg(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_mul(struct cpu *cpu, struct x86_insn *insn) {
+void op_mul(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_imul(struct cpu *cpu, struct x86_insn *insn) {
+void op_imul(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_div(struct cpu *cpu, struct x86_insn *insn) {
+void op_div(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_idiv(struct cpu *cpu, struct x86_insn *insn) {
+void op_idiv(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

@@ -2,12 +2,12 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_nop(struct cpu *cpu, struct x86_insn *insn) {
+void op_nop(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_wait(struct cpu *cpu, struct x86_insn *insn) {
+void op_wait(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_undefined(struct cpu *cpu, struct x86_insn *insn) {
+void op_undefined(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

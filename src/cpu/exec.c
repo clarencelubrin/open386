@@ -2,17 +2,17 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void exec_instruction(struct cpu *cpu, struct x86_insn *insn) {
+void exec_instruction(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void exec_precheck(struct cpu *cpu, const struct x86_insn *insn) {
+void exec_precheck(CPU *cpu, const X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-u32 exec_read_operand(struct cpu *cpu, const struct x86_insn *insn, const struct operand *op) {
+u32 exec_read_operand(CPU *cpu, const X86Insn *insn, const Operand *op) {
     O386_STUB_TODO(M1);
     return 0;
 }
-void exec_write_operand(struct cpu *cpu, const struct x86_insn *insn, const struct operand *op, u32 value) {
+void exec_write_operand(CPU *cpu, const X86Insn *insn, const Operand *op, u32 value) {
     O386_STUB_TODO(M1);
 }
 u32 exec_sign_extend(u32 value, u8 from_size, u8 to_size) {

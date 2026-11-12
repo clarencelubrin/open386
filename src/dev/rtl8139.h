@@ -13,20 +13,20 @@
 #define RTL8139_DEVICE_ID 0x8139
 #define RTL8139_IO_SIZE   256
 
-struct rtl8139 {
-    struct pci_device pci;
+typedef struct rtl8139 {
+    PCIDevice pci;
     u8  mac[6];
     u8  regs[RTL8139_IO_SIZE];
     u16 io_base;
-    struct irq_line irq;
+    IRQLine irq;
     void (*tx_cb)(void *ctx, const u8 *frame, u32 len);
     void *tx_ctx;
-};
+} RTL8139;
 
-void rtl8139_init(struct rtl8139 *nic, struct pci_bus *bus, const struct irq_line *irq);
-void rtl8139_reset(struct rtl8139 *nic);
+void rtl8139_init(RTL8139 *nic, PCIBus *bus, const IRQLine *irq);
+void rtl8139_reset(RTL8139 *nic);
 u32 rtl8139_io_read(void *ctx, u16 port, u8 size);
 void rtl8139_io_write(void *ctx, u16 port, u8 size, u32 value);
-void rtl8139_receive(struct rtl8139 *nic, const u8 *frame, u32 len);
+void rtl8139_receive(RTL8139 *nic, const u8 *frame, u32 len);
 
 #endif /* open386_DEV_RTL8139_H */

@@ -18,10 +18,10 @@ enum gdb_stop_reason {
     GDB_STOP_SEGV        // unrecoverable guest fault surfaced to the debugger
 };
 
-struct machine;
+typedef struct machine Machine;
 
-struct gdbstub {
-    struct machine *m;
+typedef struct gdbstub {
+    Machine *m;
     int  listen_fd;
     int  client_fd;
     u16  port;
@@ -34,16 +34,16 @@ struct gdbstub {
     char tx[GDB_PACKET_MAX];
     u32  breakpoints[GDB_MAX_BREAKPOINTS];
     u8   bp_count;
-};
+} GDBStub;
 
-int gdbstub_init(struct gdbstub *gdb, struct machine *m, u16 port);
-int gdbstub_listen(struct gdbstub *gdb);
-void gdbstub_close(struct gdbstub *gdb);
+int gdbstub_init(GDBStub *gdb, Machine *m, u16 port);
+int gdbstub_listen(GDBStub *gdb);
+void gdbstub_close(GDBStub *gdb);
 /* Non-blocking: handle any pending packets; returns true if the machine should stay stopped. */
-bool gdbstub_poll(struct gdbstub *gdb, bool machine_stopped);
-void gdbstub_notify_stop(struct gdbstub *gdb, enum gdb_stop_reason reason);
-bool gdbstub_has_breakpoint(const struct gdbstub *gdb, u32 linear);
-int gdbstub_handle_packet(struct gdbstub *gdb, const char *packet, size_t len);
-int gdbstub_send_packet(struct gdbstub *gdb, const char *payload);
+bool gdbstub_poll(GDBStub *gdb, bool machine_stopped);
+void gdbstub_notify_stop(GDBStub *gdb, enum gdb_stop_reason reason);
+bool gdbstub_has_breakpoint(const GDBStub *gdb, u32 linear);
+int gdbstub_handle_packet(GDBStub *gdb, const char *packet, size_t len);
+int gdbstub_send_packet(GDBStub *gdb, const char *payload);
 
 #endif /* open386_DEBUGGER_GDBSTUB_H */

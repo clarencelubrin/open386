@@ -45,26 +45,26 @@ enum dr_len {
     DR_LEN_4 = 3
 };
 
-struct debug_state {
+typedef struct debug_state {
     bool bp_hit_pending;     // data breakpoint matched during this instruction → #DB trap after it
     u32  pending_dr6_bits;
     bool single_step_armed;  // TF was set at the start of the instruction
     bool rf_suppress;        // RF=1: ignore instruction breakpoints for this fetch [i386 §9.2.3 p.154]
-};
+} DebugState;
 
-struct cpu;
+typedef struct cpu CPU;
 
-void debug_reset(struct cpu *cpu);
+void debug_reset(CPU *cpu);
 /* Instruction breakpoint check before executing at `linear_eip`; raises #DB (fault) with DR6.Bn. */
-void debug_check_instruction_breakpoint(struct cpu *cpu, u32 linear_eip);
+void debug_check_instruction_breakpoint(CPU *cpu, u32 linear_eip);
 /* Data breakpoint check for an access; records the hit to be reported as a trap after the instruction. */
-void debug_check_data_breakpoint(struct cpu *cpu, u32 linear, u8 size, bool is_write);
+void debug_check_data_breakpoint(CPU *cpu, u32 linear, u8 size, bool is_write);
 /* Deliver pending traps (data breakpoint, single step) at the instruction boundary. */
-void debug_deliver_pending_traps(struct cpu *cpu);
+void debug_deliver_pending_traps(CPU *cpu);
 /* TSS.T handling: raise #DB with DR6.BT after a task switch into a task whose T bit is set. */
-void debug_on_task_switch(struct cpu *cpu, bool new_task_t_bit);
-u32 debug_read_dr(struct cpu *cpu, u8 n);
-void debug_write_dr(struct cpu *cpu, u8 n, u32 value); /* general-detect check, DR4/DR5 aliasing */
-bool debug_breakpoint_matches(const struct cpu *cpu, u8 n, u32 linear, u8 size, enum dr_rw access);
+void debug_on_task_switch(CPU *cpu, bool new_task_t_bit);
+u32 debug_read_dr(CPU *cpu, u8 n);
+void debug_write_dr(CPU *cpu, u8 n, u32 value); /* general-detect check, DR4/DR5 aliasing */
+bool debug_breakpoint_matches(const CPU *cpu, u8 n, u32 linear, u8 size, enum dr_rw access);
 
 #endif /* open386_CPU_DEBUGREGS_H */

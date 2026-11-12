@@ -2,6 +2,6 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_esc(struct cpu *cpu, struct x86_insn *insn) {
+void op_esc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

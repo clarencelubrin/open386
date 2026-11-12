@@ -7,35 +7,35 @@
 #include "types.h"
 #include "util/config.h"
 
-struct vga;
-struct kbd8042;
-struct display;
+typedef struct vga VGA;
+typedef struct kbd8042 KBD8042;
+typedef struct display Display;
 
-struct display_ops {
+typedef struct display_ops {
     const char *name;
-    int  (*init)(struct display *d, const struct config *cfg);
-    void (*shutdown)(struct display *d);
-    void (*render_text)(struct display *d, const struct vga *vga);
-    void (*render_graphics)(struct display *d, const struct vga *vga);
+    int  (*init)(Display *d, const Config *cfg);
+    void (*shutdown)(Display *d);
+    void (*render_text)(Display *d, const VGA *vga);
+    void (*render_graphics)(Display *d, const VGA *vga);
     /* Poll host input, pushing scan codes / mouse events into the controller. Returns false on quit. */
-    bool (*poll_input)(struct display *d, struct kbd8042 *kbd);
-};
+    bool (*poll_input)(Display *d, KBD8042 *kbd);
+} DisplayOps;
 
-struct display {
-    const struct display_ops *ops;
+typedef struct display {
+    const DisplayOps *ops;
     void *priv;
     bool headless;
     u32  frames;
-};
+} Display;
 
-extern const struct display_ops display_null_ops;  /* headless */
-extern const struct display_ops display_term_ops;  /* curses text console */
-extern const struct display_ops display_sdl_ops;   /* SDL2 (compile-time optional) */
+extern const DisplayOps display_null_ops;  /* headless */
+extern const DisplayOps display_term_ops;  /* curses text console */
+extern const DisplayOps display_sdl_ops;   /* SDL2 (compile-time optional) */
 
-int display_create(struct display *d, enum display_kind kind, const struct config *cfg);
-void display_destroy(struct display *d);
-void display_render(struct display *d, const struct vga *vga);
-bool display_poll(struct display *d, struct kbd8042 *kbd);
+int display_create(Display *d, enum display_kind kind, const Config *cfg);
+void display_destroy(Display *d);
+void display_render(Display *d, const VGA *vga);
+bool display_poll(Display *d, KBD8042 *kbd);
 /* Host key → scan code set 1 translation shared by the front ends. */
 int display_key_to_scancode(int host_key, bool pressed, u8 *out, size_t out_len);
 

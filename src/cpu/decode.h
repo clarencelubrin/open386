@@ -52,7 +52,7 @@ enum operand_kind {
     OPK_MOFFS     // moffs8/16/32: direct offset without ModR/M (MOV A0-A3)
 };
 
-struct operand {
+typedef struct operand {
     enum operand_kind kind;
     u8  size;     // bytes
     u8  reg;
@@ -60,27 +60,27 @@ struct operand {
     u32 ea;       // effective address (offset within seg)
     u32 imm;
     u16 far_sel;
-};
+} Operand;
 
-struct modrm_byte {
+typedef struct modrm_byte {
     bool present;
     u8 raw;
     u8 mod;  // bits 7:6
     u8 reg;  // bits 5:3 — register or opcode extension
     u8 rm;   // bits 2:0
-};
+} ModRMByte;
 
-struct sib_byte {
+typedef struct sib_byte {
     bool present;
     u8 raw;
     u8 scale; // bits 7:6 (ss)
     u8 index; // bits 5:3
     u8 base;  // bits 2:0
-};
+} SIBByte;
 
-struct opcode_entry; /* cpu/exec.h */
+typedef struct opcode_entry OpcodeEntry; /* cpu/exec.h */
 
-struct x86_insn {
+typedef struct x86_insn {
     u32 start_eip;          // EIP of the first byte; faults restore this
     u8  len;
     u8  bytes[X86_MAX_INSN_LEN];
@@ -92,8 +92,8 @@ struct x86_insn {
 
     bool two_byte;          // 0F xx
     u8  opcode;             // primary opcode byte (second byte when two_byte)
-    struct modrm_byte modrm;
-    struct sib_byte   sib;
+    ModRMByte modrm;
+    SIBByte   sib;
     s32 disp;
     u8  disp_size;
     u32 imm;
@@ -104,23 +104,23 @@ struct x86_insn {
     u8  opsize;             // effective operand size: 2 or 4
     u8  addrsize;           // effective address size: 2 or 4
 
-    const struct opcode_entry *entry;
-    struct operand ops[3];
+    const OpcodeEntry *entry;
+    Operand ops[3];
     u8  op_count;
-};
+} X86Insn;
 
-struct cpu;
+typedef struct cpu CPU;
 
 /* Fetch and decode one instruction at CS:EIP. Raises #GP(0) past 15 bytes, #UD for invalid encodings
  * (including LOCK on a non-lockable form, [i386 LOCK p.336]). */
-void decode_instruction(struct cpu *cpu, struct x86_insn *insn);
+void decode_instruction(CPU *cpu, X86Insn *insn);
 /* Compute the effective address for the ModR/M/SIB form in `insn`. [i386 §2.5.3.2 p.40, Fig 2-10] */
-u32 decode_effective_address(struct cpu *cpu, const struct x86_insn *insn);
+u32 decode_effective_address(CPU *cpu, const X86Insn *insn);
 /* Default segment for a memory operand: SS for BP/EBP/ESP-based forms, else DS. [i386 §2.5.3.1 p.39] */
-u8 decode_default_segment(const struct x86_insn *insn);
-/* Resolve operand descriptors (App. A codes) into struct operand entries. */
-void decode_operands(struct cpu *cpu, struct x86_insn *insn);
+u8 decode_default_segment(const X86Insn *insn);
+/* Resolve operand descriptors (App. A codes) into Operand entries. */
+void decode_operands(CPU *cpu, X86Insn *insn);
 /* Decode without touching CPU state (debugger/disassembler path). Returns length or -1. */
-int decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, struct x86_insn *insn);
+int decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, X86Insn *insn);
 
 #endif /* open386_CPU_DECODE_H */

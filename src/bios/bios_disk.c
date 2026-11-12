@@ -2,12 +2,12 @@
 #include "bios/bios.h"
 #include "machine/machine.h"
 
-void bios_int13_disk(struct bios *bios, struct cpu *cpu) {
+void bios_int13_disk(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }
-void bios_irq6_floppy(struct bios *bios, struct cpu *cpu) {
+void bios_irq6_floppy(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }
-void bios_int19_bootstrap(struct bios *bios, struct cpu *cpu) {
+void bios_int19_bootstrap(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }

@@ -2,24 +2,24 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_movs(struct cpu *cpu, struct x86_insn *insn) {
+void op_movs(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_cmps(struct cpu *cpu, struct x86_insn *insn) {
+void op_cmps(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_scas(struct cpu *cpu, struct x86_insn *insn) {
+void op_scas(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_lods(struct cpu *cpu, struct x86_insn *insn) {
+void op_lods(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_stos(struct cpu *cpu, struct x86_insn *insn) {
+void op_stos(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_ins(struct cpu *cpu, struct x86_insn *insn) {
+void op_ins(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_outs(struct cpu *cpu, struct x86_insn *insn) {
+void op_outs(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

@@ -38,12 +38,12 @@ enum cpu_feature {
 
 #define CPUF_BIT(f) (1ull << (f))
 
-struct cpuid_leaf_desc {
+typedef struct cpuid_leaf_desc {
     u32 leaf;
     u32 eax, ebx, ecx, edx;
-};
+} CPUIDLeafDesc;
 
-struct cpu_model {
+typedef struct cpu_model {
     const char *name;
     const char *description;
     u64  features;            // bitset of CPUF_BIT()
@@ -59,23 +59,23 @@ struct cpu_model {
     u8   family;              // CPUID family (3 for 386)
     u8   model;
     u8   stepping;
-    const struct cpuid_leaf_desc *cpuid_leaves;
+    const CPUIDLeafDesc *cpuid_leaves;
     size_t cpuid_leaf_count;
-};
+} CPUModel;
 
-extern const struct cpu_model cpu_model_i386dx;     /* strict 80386 (PLAN.md §4.3) */
-extern const struct cpu_model cpu_model_i386_icsos; /* 80386 + 387 + CPUID + 486 instructions; default */
-extern const struct cpu_model cpu_model_i486dx;     /* declared for M7 */
-extern const struct cpu_model cpu_model_pentium;    /* declared for M7 */
+extern const CPUModel cpu_model_i386dx;     /* strict 80386 (PLAN.md §4.3) */
+extern const CPUModel cpu_model_i386_icsos; /* 80386 + 387 + CPUID + 486 instructions; default */
+extern const CPUModel cpu_model_i486dx;     /* declared for M7 */
+extern const CPUModel cpu_model_pentium;    /* declared for M7 */
 
-const struct cpu_model *cpu_model_find(const char *name);
+const CPUModel *cpu_model_find(const char *name);
 /* Apply "+feat,-feat" overrides from the command line onto a copy of `base`. Returns 0 on success. */
-int cpu_model_apply_overrides(struct cpu_model *dst, const struct cpu_model *base, const char *overrides);
+int cpu_model_apply_overrides(CPUModel *dst, const CPUModel *base, const char *overrides);
 const char *cpu_feature_name(enum cpu_feature f);
 int cpu_feature_from_name(const char *name);
 void cpu_model_list(void);
 
-struct cpu;
-bool cpu_has_feature(const struct cpu *cpu, enum cpu_feature f);
+typedef struct cpu CPU;
+bool cpu_has_feature(const CPU *cpu, enum cpu_feature f);
 
 #endif /* open386_CPU_FEATURES_H */

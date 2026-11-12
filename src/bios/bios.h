@@ -92,14 +92,14 @@ enum e820_type {
     E820_NVS      = 4
 };
 
-struct e820_entry {
+typedef struct e820_entry {
     u64 base;
     u64 length;
     u32 type;
-};
+} E820Entry;
 #define BIOS_E820_MAX 8
 
-struct bios_disk {
+typedef struct bios_disk {
     bool present;
     u8   drive_number;      // 00h/01h floppies, 80h+ hard disks
     bool is_floppy;
@@ -108,18 +108,18 @@ struct bios_disk {
     u8   sectors_per_track;
     u16  bytes_per_sector;
     u8   cmos_type;         // floppy type nibble (4 = 1.44 MB)
-};
+} BIOSDisk;
 
-struct machine;
-struct cpu;
+typedef struct machine Machine;
+typedef struct cpu CPU;
 
-struct bios {
-    struct machine *m;
+typedef struct bios {
+    Machine *m;
     u8   rom[BIOS_ROM_SIZE];
     u32  entry_points[256];   // physical address of each vector's trap stub, 0 if none
     u32  trap_count;
-    struct bios_disk disks[4];
-    struct e820_entry e820[BIOS_E820_MAX];
+    BIOSDisk disks[4];
+    E820Entry e820[BIOS_E820_MAX];
     u8   e820_count;
     u32  base_mem_kb;         // 640
     u32  ext_mem_kb;          // above 1 MiB
@@ -132,40 +132,40 @@ struct bios {
     bool int13_extensions;    // report EDD support? GRUB falls back to CHS when false
     u32  services_handled;
     u32  services_unhandled;
-};
+} BIOS;
 
-int bios_init(struct bios *bios, struct machine *m);
-void bios_build_rom(struct bios *bios);                 /* fill rom[] with IVT stubs, reset jump, signature */
-void bios_post(struct bios *bios);                      /* IVT, BDA, CMOS, PIC/PIT defaults, then INT 19h */
-bool bios_is_entry_point(const struct bios *bios, u32 phys_addr);
+int bios_init(BIOS *bios, Machine *m);
+void bios_build_rom(BIOS *bios);                 /* fill rom[] with IVT stubs, reset jump, signature */
+void bios_post(BIOS *bios);                      /* IVT, BDA, CMOS, PIC/PIT defaults, then INT 19h */
+bool bios_is_entry_point(const BIOS *bios, u32 phys_addr);
 /* Dispatch a trapped service. Registers are read/written on the CPU; the caller then executes the stub's IRET. */
-void bios_trap(struct bios *bios, u32 phys_addr);
-void bios_set_disk(struct bios *bios, u8 index, const struct bios_disk *disk);
+void bios_trap(BIOS *bios, u32 phys_addr);
+void bios_set_disk(BIOS *bios, u8 index, const BIOSDisk *disk);
 
 /* Service handlers. Each returns with the frame's CF set/cleared via bios_set_carry(). */
-void bios_int10_video(struct bios *bios, struct cpu *cpu);
-void bios_int11_equipment(struct bios *bios, struct cpu *cpu);
-void bios_int12_memsize(struct bios *bios, struct cpu *cpu);
-void bios_int13_disk(struct bios *bios, struct cpu *cpu);
-void bios_int15_system(struct bios *bios, struct cpu *cpu);
-void bios_int16_keyboard(struct bios *bios, struct cpu *cpu);
-void bios_int19_bootstrap(struct bios *bios, struct cpu *cpu);
-void bios_int1a_time(struct bios *bios, struct cpu *cpu);
-void bios_irq0_timer(struct bios *bios, struct cpu *cpu);      /* BDA tick count, floppy motor timeout */
-void bios_irq1_keyboard(struct bios *bios, struct cpu *cpu);   /* scan code → BDA keyboard buffer */
-void bios_irq6_floppy(struct bios *bios, struct cpu *cpu);
-void bios_unhandled(struct bios *bios, struct cpu *cpu, u8 vector);
+void bios_int10_video(BIOS *bios, CPU *cpu);
+void bios_int11_equipment(BIOS *bios, CPU *cpu);
+void bios_int12_memsize(BIOS *bios, CPU *cpu);
+void bios_int13_disk(BIOS *bios, CPU *cpu);
+void bios_int15_system(BIOS *bios, CPU *cpu);
+void bios_int16_keyboard(BIOS *bios, CPU *cpu);
+void bios_int19_bootstrap(BIOS *bios, CPU *cpu);
+void bios_int1a_time(BIOS *bios, CPU *cpu);
+void bios_irq0_timer(BIOS *bios, CPU *cpu);      /* BDA tick count, floppy motor timeout */
+void bios_irq1_keyboard(BIOS *bios, CPU *cpu);   /* scan code → BDA keyboard buffer */
+void bios_irq6_floppy(BIOS *bios, CPU *cpu);
+void bios_unhandled(BIOS *bios, CPU *cpu, u8 vector);
 
 /* Helpers operating on the trapped frame (FLAGS image at SS:SP+4 in real mode). */
-void bios_set_carry(struct cpu *cpu, bool set);
-void bios_set_zero(struct cpu *cpu, bool set);
-u8 bios_bda_read8(struct bios *bios, u16 offset);
-u16 bios_bda_read16(struct bios *bios, u16 offset);
-void bios_bda_write8(struct bios *bios, u16 offset, u8 value);
-void bios_bda_write16(struct bios *bios, u16 offset, u16 value);
-void bios_bda_write32(struct bios *bios, u16 offset, u32 value);
-void bios_teletype(struct bios *bios, u8 ch, u8 attr);
-bool bios_kbd_buffer_push(struct bios *bios, u16 scancode_ascii);
-bool bios_kbd_buffer_pop(struct bios *bios, u16 *out, bool peek);
+void bios_set_carry(CPU *cpu, bool set);
+void bios_set_zero(CPU *cpu, bool set);
+u8 bios_bda_read8(BIOS *bios, u16 offset);
+u16 bios_bda_read16(BIOS *bios, u16 offset);
+void bios_bda_write8(BIOS *bios, u16 offset, u8 value);
+void bios_bda_write16(BIOS *bios, u16 offset, u16 value);
+void bios_bda_write32(BIOS *bios, u16 offset, u32 value);
+void bios_teletype(BIOS *bios, u8 ch, u8 attr);
+bool bios_kbd_buffer_push(BIOS *bios, u16 scancode_ascii);
+bool bios_kbd_buffer_pop(BIOS *bios, u16 *out, bool peek);
 
 #endif /* open386_BIOS_BIOS_H */

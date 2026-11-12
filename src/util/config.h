@@ -12,7 +12,7 @@ enum display_kind {
     DISPLAY_SDL       // SDL2 window, text + graphics modes (optional build)
 };
 
-struct config {
+typedef struct config {
     const char *floppy_a_path;
     const char *floppy_b_path;
     const char *hd_path;             // optional IDE image (M7+)
@@ -29,11 +29,11 @@ struct config {
     u64         max_instructions;    // 0 = unlimited; used by tests
     const char *vga_dump_path;       // headless: dump VGA text buffer here on exit
     bool        boot_from_floppy;    // INT 19h order: true = A: first (QEMU `-boot a`)
-};
+} Config;
 
-void config_set_defaults(struct config *cfg);
-int config_parse_args(struct config *cfg, int argc, char **argv);
+void config_set_defaults(Config *cfg);
+int config_parse_args(Config *cfg, int argc, char **argv);
 void config_print_usage(const char *argv0);
-int config_validate(const struct config *cfg);
+int config_validate(const Config *cfg);
 
 #endif /* open386_UTIL_CONFIG_H */

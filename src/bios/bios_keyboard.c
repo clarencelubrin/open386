@@ -2,17 +2,17 @@
 #include "bios/bios.h"
 #include "machine/machine.h"
 
-void bios_int16_keyboard(struct bios *bios, struct cpu *cpu) {
+void bios_int16_keyboard(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }
-void bios_irq1_keyboard(struct bios *bios, struct cpu *cpu) {
+void bios_irq1_keyboard(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }
-bool bios_kbd_buffer_push(struct bios *bios, u16 scancode_ascii) {
+bool bios_kbd_buffer_push(BIOS *bios, u16 scancode_ascii) {
     O386_STUB_TODO(M1);
     return false;
 }
-bool bios_kbd_buffer_pop(struct bios *bios, u16 *out, bool peek) {
+bool bios_kbd_buffer_pop(BIOS *bios, u16 *out, bool peek) {
     O386_STUB_TODO(M1);
     return false;
 }

@@ -72,39 +72,39 @@ enum event_source {
 #define IDT_GATE_IS_TRAP(t)  ((t) == DESC_SYS_TRAPGATE16 || (t) == DESC_SYS_TRAPGATE32)
 #define IDT_GATE_IS_32BIT(t) ((t) == DESC_SYS_INTGATE32 || (t) == DESC_SYS_TRAPGATE32)
 
-struct pending_exception {
+typedef struct pending_exception {
     bool pending;
     u8   vector;
     bool has_error_code;
     u32  error_code;
     enum event_source source;
     u32  cr2;         // for #PF
-};
+} PendingException;
 
 /* Real-mode IVT entry. [i386 §14.3 p.209] */
-struct ivt_entry {
+typedef struct ivt_entry {
     u16 offset;
     u16 segment;
-};
+} IVTEntry;
 
-struct cpu;
+typedef struct cpu CPU;
 
 /* Raise an exception from inside an instruction: records it and longjmps to the step loop. */
-O386_NORETURN void cpu_raise_exception(struct cpu *cpu, enum x86_exception vector, u32 error_code);
-O386_NORETURN void cpu_raise_exception_noerr(struct cpu *cpu, enum x86_exception vector);
-O386_NORETURN void cpu_raise_page_fault(struct cpu *cpu, u32 linear, u32 error_code);
-O386_NORETURN void cpu_raise_gp0(struct cpu *cpu);
+O386_NORETURN void cpu_raise_exception(CPU *cpu, enum x86_exception vector, u32 error_code);
+O386_NORETURN void cpu_raise_exception_noerr(CPU *cpu, enum x86_exception vector);
+O386_NORETURN void cpu_raise_page_fault(CPU *cpu, u32 linear, u32 error_code);
+O386_NORETURN void cpu_raise_gp0(CPU *cpu);
 
 /* Deliver an event (called at an instruction boundary by the step loop). */
-void cpu_deliver_event(struct cpu *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code);
-void cpu_deliver_real_mode(struct cpu *cpu, u8 vector);
-void cpu_deliver_protected_mode(struct cpu *cpu, u8 vector, enum event_source source, bool has_error_code,
+void cpu_deliver_event(CPU *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code);
+void cpu_deliver_real_mode(CPU *cpu, u8 vector);
+void cpu_deliver_protected_mode(CPU *cpu, u8 vector, enum event_source source, bool has_error_code,
                                 u32 error_code);
 /* Push the interrupt frame for a procedure gate (with optional stack switch / V86 extension). [i386 Fig 9-5, Fig 15-3] */
-void cpu_push_interrupt_frame(struct cpu *cpu, bool to_32bit_gate, bool privilege_change, bool from_v86,
+void cpu_push_interrupt_frame(CPU *cpu, bool to_32bit_gate, bool privilege_change, bool from_v86,
                               u16 old_ss, u32 old_esp, bool has_error_code, u32 error_code);
 /* IRET in all its forms: real mode, same level, inter-level, return to V86, task return (NT=1). [i386 IRET p.311] */
-void cpu_iret(struct cpu *cpu, u8 opsize);
+void cpu_iret(CPU *cpu, u8 opsize);
 
 /* Double-fault / shutdown decision for a second exception raised while delivering the first.
  * [i386 §9.8.8 p.164; SDM 3A Table 7-5 p.3385] */
@@ -115,6 +115,6 @@ bool exception_has_error_code(enum x86_exception vector); /* [i386 Table 9-7 p.1
 const char *exception_name(u8 vector);
 
 /* Event-priority arbitration at an instruction boundary. [i386 §9.3 Table 9-2; SDM 3A §7.9 Table 7-2] */
-bool cpu_service_pending_events(struct cpu *cpu);
+bool cpu_service_pending_events(CPU *cpu);
 
 #endif /* open386_CPU_INTERRUPT_H */

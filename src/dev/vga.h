@@ -46,7 +46,7 @@ enum vga_mode_kind {
     VGA_MODE_UNKNOWN
 };
 
-struct vga {
+typedef struct vga {
     u8 vram[VGA_VRAM_SIZE];
     u8 misc_output;
     u8 feature_control;
@@ -73,20 +73,20 @@ struct vga {
     u32 start_address;    // CRTC 0Ch/0Dh
     u16 cursor_pos;
     bool dirty;
-};
+} VGA;
 
-void vga_init(struct vga *vga);
-void vga_reset(struct vga *vga);
+void vga_init(VGA *vga);
+void vga_reset(VGA *vga);
 u32 vga_io_read(void *ctx, u16 port, u8 size);
 void vga_io_write(void *ctx, u16 port, u8 size, u32 value);
 u32 vga_mmio_read(void *ctx, u32 paddr, u8 size);     /* A0000h-BFFFFh with GC read modes */
 void vga_mmio_write(void *ctx, u32 paddr, u8 size, u32 value); /* write modes 0-3, plane masks */
-void vga_tick(struct vga *vga, u64 now_cycles);        /* retrace timing for 3DAh */
-void vga_update_mode(struct vga *vga);                 /* derive mode kind/resolution from registers */
+void vga_tick(VGA *vga, u64 now_cycles);        /* retrace timing for 3DAh */
+void vga_update_mode(VGA *vga);                 /* derive mode kind/resolution from registers */
 /* Text-mode snapshot: cells as (char, attr) pairs, `cells` must hold cols*rows*2 bytes. */
-void vga_render_text(const struct vga *vga, u8 *cells, u16 *cols, u16 *rows, u16 *cursor);
+void vga_render_text(const VGA *vga, u8 *cells, u16 *cols, u16 *rows, u16 *cursor);
 /* Graphics snapshot into a 32-bit XRGB framebuffer of width*height pixels. */
-void vga_render_rgb(const struct vga *vga, u32 *framebuffer, u16 *width, u16 *height);
-void vga_dump_text(const struct vga *vga, FILE *out);
+void vga_render_rgb(const VGA *vga, u32 *framebuffer, u16 *width, u16 *height);
+void vga_dump_text(const VGA *vga, FILE *out);
 
 #endif /* open386_DEV_VGA_H */

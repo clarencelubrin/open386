@@ -1,13 +1,13 @@
 /* open386 — ATA/IDE channel (stub, optional device, M7+). */
 #include "dev/ide.h"
 
-void ide_init(struct ide_channel *ide, u16 base, u16 ctrl, const struct irq_line *irq) {
+void ide_init(IDEChannel *ide, u16 base, u16 ctrl, const IRQLine *irq) {
     O386_STUB_TODO(M7);
 }
-void ide_reset(struct ide_channel *ide) {
+void ide_reset(IDEChannel *ide) {
     O386_STUB_TODO(M7);
 }
-int ide_attach_image(struct ide_channel *ide, u8 drive, const char *path) {
+int ide_attach_image(IDEChannel *ide, u8 drive, const char *path) {
     O386_STUB_TODO(M7);
     return -1;
 }

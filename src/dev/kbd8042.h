@@ -47,12 +47,12 @@
 
 #define KBD_QUEUE_SIZE 64
 
-struct kbd_queue {
+typedef struct kbd_queue {
     u8 data[KBD_QUEUE_SIZE];
     u8 head, tail, count;
-};
+} KBDQueue;
 
-struct ps2_mouse {
+typedef struct ps2_mouse {
     bool enabled;         // data reporting enabled (F4h)
     bool streaming;
     u8   sample_rate;
@@ -61,39 +61,39 @@ struct ps2_mouse {
     u8   buttons;
     s32  acc_dx, acc_dy;
     u8   pending_cmd;     // expecting an argument byte
-};
+} PS2Mouse;
 
-struct kbd8042 {
+typedef struct kbd8042 {
     u8 status;
     u8 command_byte;
     u8 output_port;       // bit 1 = A20
     u8 pending_cmd;       // controller command awaiting its data byte, 0 if none
     u8 output_buffer;
     bool output_is_aux;
-    struct kbd_queue kbd_queue;
-    struct kbd_queue aux_queue;
+    KBDQueue kbd_queue;
+    KBDQueue aux_queue;
     bool kbd_enabled;
     bool aux_enabled;
     u8   kbd_pending_cmd; // keyboard device command awaiting argument (e.g. EDh LEDs, F3h typematic)
     u8   leds;
     u8   scancode_set;
-    struct ps2_mouse mouse;
-    struct irq_line irq1;
-    struct irq_line irq12;
+    PS2Mouse mouse;
+    IRQLine irq1;
+    IRQLine irq12;
     void (*a20_set)(void *ctx, bool enabled);
     void (*system_reset)(void *ctx);
     void *ctx;
-};
+} KBD8042;
 
-void kbd_init(struct kbd8042 *kbd, const struct irq_line *irq1, const struct irq_line *irq12,
+void kbd_init(KBD8042 *kbd, const IRQLine *irq1, const IRQLine *irq12,
               void (*a20_set)(void *ctx, bool enabled), void (*system_reset)(void *ctx), void *ctx);
-void kbd_reset(struct kbd8042 *kbd);
+void kbd_reset(KBD8042 *kbd);
 u32 kbd_io_read(void *ctx, u16 port, u8 size);
 void kbd_io_write(void *ctx, u16 port, u8 size, u32 value);
 /* Host input: scan code set 1 bytes (make/break), mouse motion/buttons. */
-void kbd_push_scancode(struct kbd8042 *kbd, u8 scancode);
-void kbd_mouse_event(struct kbd8042 *kbd, s32 dx, s32 dy, u8 buttons);
-void kbd_tick(struct kbd8042 *kbd, u64 now_cycles);   /* move queued bytes into the output buffer, raise IRQs */
-bool kbd_has_pending_output(const struct kbd8042 *kbd);
+void kbd_push_scancode(KBD8042 *kbd, u8 scancode);
+void kbd_mouse_event(KBD8042 *kbd, s32 dx, s32 dy, u8 buttons);
+void kbd_tick(KBD8042 *kbd, u64 now_cycles);   /* move queued bytes into the output buffer, raise IRQs */
+bool kbd_has_pending_output(const KBD8042 *kbd);
 
 #endif /* open386_DEV_KBD8042_H */

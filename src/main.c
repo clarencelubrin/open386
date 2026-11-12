@@ -9,7 +9,7 @@
 #include "machine/machine.h"
 
 int main(int argc, char **argv) {
-    struct config cfg;
+    Config cfg;
     config_set_defaults(&cfg);
     if (config_parse_args(&cfg, argc, argv) != 0) {
         config_print_usage(argv[0]);

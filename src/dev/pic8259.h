@@ -24,7 +24,7 @@ enum pic_init_state {
     PIC_INIT_ICW4
 };
 
-struct pic8259 {
+typedef struct pic8259 {
     u8 irr;                 // interrupt request register
     u8 isr;                 // in-service register
     u8 imr;                 // interrupt mask register
@@ -40,23 +40,23 @@ struct pic8259 {
     u8 elcr;                // edge/level per line (board register)
     u8 last_irr_lines;      // for edge detection
     bool is_master;
-};
+} PIC8259;
 
-struct pic_pair {
-    struct pic8259 master;
-    struct pic8259 slave;
+typedef struct pic_pair {
+    PIC8259 master;
+    PIC8259 slave;
     void (*intr_out)(void *ctx, bool level); // drives the CPU INTR pin
     void *ctx;
-};
+} PICPair;
 
-void pic_init(struct pic_pair *pic, void (*intr_out)(void *ctx, bool level), void *ctx);
-void pic_reset(struct pic_pair *pic);
-void pic_set_irq(struct pic_pair *pic, u8 irq, bool level);   /* 0-15 */
-u8 pic_acknowledge(struct pic_pair *pic);                    /* INTA: returns vector, moves IRR→ISR; spurious IRQ7/15 */
-bool pic_has_pending(const struct pic_pair *pic);
+void pic_init(PICPair *pic, void (*intr_out)(void *ctx, bool level), void *ctx);
+void pic_reset(PICPair *pic);
+void pic_set_irq(PICPair *pic, u8 irq, bool level);   /* 0-15 */
+u8 pic_acknowledge(PICPair *pic);                    /* INTA: returns vector, moves IRR→ISR; spurious IRQ7/15 */
+bool pic_has_pending(const PICPair *pic);
 u32 pic_io_read(void *ctx, u16 port, u8 size);
 void pic_io_write(void *ctx, u16 port, u8 size, u32 value);
-int pic_highest_pending(const struct pic8259 *pic);           /* -1 if none */
-void pic_update_output(struct pic_pair *pic);
+int pic_highest_pending(const PIC8259 *pic);           /* -1 if none */
+void pic_update_output(PICPair *pic);
 
 #endif /* open386_DEV_PIC8259_H */

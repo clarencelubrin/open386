@@ -39,13 +39,13 @@
 #define CPUID_BRAND_1    0x80000003u
 #define CPUID_BRAND_2    0x80000004u
 
-struct cpu;
+typedef struct cpu CPU;
 
 /* Execute CPUID on the current EAX (and ECX sub-leaf) writing EAX..EDX. Caller has checked the gate. */
-void cpuid_execute(struct cpu *cpu);
-bool cpuid_lookup(const struct cpu_model *model, u32 leaf, struct cpuid_leaf_desc *out);
+void cpuid_execute(CPU *cpu);
+bool cpuid_lookup(const CPUModel *model, u32 leaf, CPUIDLeafDesc *out);
 /* Build leaf 1 EAX (type/family/model/stepping) and EDX feature bits from a model's gates. */
-u32 cpuid_signature_from_model(const struct cpu_model *model);
-u32 cpuid_features_from_model(const struct cpu_model *model);
+u32 cpuid_signature_from_model(const CPUModel *model);
+u32 cpuid_features_from_model(const CPUModel *model);
 
 #endif /* open386_CPU_CPUID_H */

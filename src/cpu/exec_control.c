@@ -2,48 +2,48 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void op_jmp_rel(struct cpu *cpu, struct x86_insn *insn) {
+void op_jmp_rel(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_jmp_rm(struct cpu *cpu, struct x86_insn *insn) {
+void op_jmp_rm(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_jmp_far(struct cpu *cpu, struct x86_insn *insn) {
+void op_jmp_far(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_jcc(struct cpu *cpu, struct x86_insn *insn) {
+void op_jcc(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_call_rel(struct cpu *cpu, struct x86_insn *insn) {
+void op_call_rel(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_call_rm(struct cpu *cpu, struct x86_insn *insn) {
+void op_call_rm(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_call_far(struct cpu *cpu, struct x86_insn *insn) {
+void op_call_far(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_ret_near(struct cpu *cpu, struct x86_insn *insn) {
+void op_ret_near(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_ret_far(struct cpu *cpu, struct x86_insn *insn) {
+void op_ret_far(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_loop(struct cpu *cpu, struct x86_insn *insn) {
+void op_loop(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_int_n(struct cpu *cpu, struct x86_insn *insn) {
+void op_int_n(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_int3(struct cpu *cpu, struct x86_insn *insn) {
+void op_int3(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_into(struct cpu *cpu, struct x86_insn *insn) {
+void op_into(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_iret(struct cpu *cpu, struct x86_insn *insn) {
+void op_iret(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-void op_bound(struct cpu *cpu, struct x86_insn *insn) {
+void op_bound(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }

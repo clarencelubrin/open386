@@ -65,14 +65,14 @@ enum flag_op {
     FLAGOP_COUNT
 };
 
-struct lazy_flags {
+typedef struct lazy_flags {
     enum flag_op op;
     u8  size;     // operand size in bytes
     u32 src1;
     u32 src2;
     u32 result;
     u32 aux;      // carry-in for ADC/SBB/RCx, shift count, etc.
-};
+} LazyFlags;
 
 /* Condition codes (tttn) shared by Jcc, SETcc and (gated) CMOVcc. [i386 App. D p.421] */
 enum x86_cond {
@@ -94,20 +94,20 @@ enum x86_cond {
     COND_NLE  // G
 };
 
-struct cpu;
+typedef struct cpu CPU;
 
 /* Read the architectural EFLAGS with lazily-computed status flags folded in. */
-u32 cpu_get_eflags(struct cpu *cpu);
+u32 cpu_get_eflags(CPU *cpu);
 /* Write EFLAGS honouring `mask` (caller computes the mask from CPL/IOPL/mode per POPF/IRET rules). */
-void cpu_set_eflags(struct cpu *cpu, u32 value, u32 mask);
-void flags_set_lazy(struct cpu *cpu, enum flag_op op, u8 size, u32 src1, u32 src2, u32 result, u32 aux);
-void flags_materialize(struct cpu *cpu);
-bool flags_get(struct cpu *cpu, u32 flag_bit);
-void flags_set(struct cpu *cpu, u32 flag_bit, bool value);
-bool cpu_test_condition(struct cpu *cpu, enum x86_cond cond);
+void cpu_set_eflags(CPU *cpu, u32 value, u32 mask);
+void flags_set_lazy(CPU *cpu, enum flag_op op, u8 size, u32 src1, u32 src2, u32 result, u32 aux);
+void flags_materialize(CPU *cpu);
+bool flags_get(CPU *cpu, u32 flag_bit);
+void flags_set(CPU *cpu, u32 flag_bit, bool value);
+bool cpu_test_condition(CPU *cpu, enum x86_cond cond);
 bool flags_parity_even(u8 value);
 /* Mask of EFLAGS bits that POPF/IRET may change for the current CPL/IOPL/mode. [i386 POPF p.366] */
-u32 flags_popf_writable_mask(const struct cpu *cpu, u8 opsize);
+u32 flags_popf_writable_mask(const CPU *cpu, u8 opsize);
 extern const char *const x86_cond_names[16];
 
 #endif /* open386_CPU_FLAGS_H */

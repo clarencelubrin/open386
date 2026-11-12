@@ -34,7 +34,7 @@ enum cmos_reg {
 #define CMOS_STATUS_B_SET    (1u << 7)
 #define CMOS_STATUS_A_UIP    (1u << 7)
 
-struct cmos_rtc {
+typedef struct cmos_rtc {
     u8 index;
     bool nmi_disabled;
     u8 ram[CMOS_RAM_SIZE];
@@ -42,16 +42,16 @@ struct cmos_rtc {
     u64  base_cycle;
     u32  core_hz;
     u64  next_periodic_cycle;
-    struct irq_line irq8;
-};
+    IRQLine irq8;
+} CMOSRtc;
 
-void cmos_init(struct cmos_rtc *cmos, u32 core_hz, const struct irq_line *irq8);
-void cmos_reset(struct cmos_rtc *cmos);
-void cmos_set_memory_sizes(struct cmos_rtc *cmos, u32 base_kb, u32 extended_kb);
-void cmos_set_floppy_types(struct cmos_rtc *cmos, u8 drive_a, u8 drive_b);
+void cmos_init(CMOSRtc *cmos, u32 core_hz, const IRQLine *irq8);
+void cmos_reset(CMOSRtc *cmos);
+void cmos_set_memory_sizes(CMOSRtc *cmos, u32 base_kb, u32 extended_kb);
+void cmos_set_floppy_types(CMOSRtc *cmos, u8 drive_a, u8 drive_b);
 u32 cmos_io_read(void *ctx, u16 port, u8 size);
 void cmos_io_write(void *ctx, u16 port, u8 size, u32 value);
-void cmos_tick(struct cmos_rtc *cmos, u64 now_cycles);
+void cmos_tick(CMOSRtc *cmos, u64 now_cycles);
 u8 cmos_to_bcd(u8 v);
 u8 cmos_from_bcd(u8 v);
 

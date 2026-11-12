@@ -2,9 +2,9 @@
 #include "bios/bios.h"
 #include "machine/machine.h"
 
-void bios_int1a_time(struct bios *bios, struct cpu *cpu) {
+void bios_int1a_time(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }
-void bios_irq0_timer(struct bios *bios, struct cpu *cpu) {
+void bios_irq0_timer(BIOS *bios, CPU *cpu) {
     O386_STUB_TODO(M1);
 }

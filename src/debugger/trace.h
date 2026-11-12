@@ -20,23 +20,23 @@ enum trace_flags {
     TRACE_MODE  = 1u << 8  // real/protected/V86 transitions, CR0/CR3 writes
 };
 
-struct cpu;
-struct x86_insn;
+typedef struct cpu CPU;
+typedef struct x86_insn X86Insn;
 
-struct trace {
+typedef struct trace {
     FILE *out;
     u32  mask;
     u64  lines;
     bool owns_file;
-};
+} Trace;
 
-int trace_open(struct trace *t, const char *path, u32 mask);
-void trace_close(struct trace *t);
-bool trace_enabled(const struct trace *t, u32 flag);
-void trace_instruction(struct trace *t, const struct cpu *cpu, const struct x86_insn *insn);
-void trace_registers(struct trace *t, const struct cpu *cpu);
-void trace_event(struct trace *t, const struct cpu *cpu, const char *fmt, ...);
-void trace_io(struct trace *t, bool is_write, u16 port, u8 size, u32 value);
+int trace_open(Trace *t, const char *path, u32 mask);
+void trace_close(Trace *t);
+bool trace_enabled(const Trace *t, u32 flag);
+void trace_instruction(Trace *t, const CPU *cpu, const X86Insn *insn);
+void trace_registers(Trace *t, const CPU *cpu);
+void trace_event(Trace *t, const CPU *cpu, const char *fmt, ...);
+void trace_io(Trace *t, bool is_write, u16 port, u8 size, u32 value);
 u32 trace_parse_mask(const char *spec); /* "cpu,int,io" → bits */
 
 #endif /* open386_DEBUGGER_TRACE_H */

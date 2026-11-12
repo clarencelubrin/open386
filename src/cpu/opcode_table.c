@@ -6,9 +6,9 @@
  */
 #include "cpu/exec.h"
 
-struct opcode_entry opcode_table_1byte[256];
-struct opcode_entry opcode_table_2byte[256];
-struct opcode_entry opcode_groups[OPCODE_GROUP_COUNT][8];
+OpcodeEntry opcode_table_1byte[256];
+OpcodeEntry opcode_table_2byte[256];
+OpcodeEntry opcode_groups[OPCODE_GROUP_COUNT][8];
 
 void exec_tables_init(void) {
     O386_STUB_TODO(M1);

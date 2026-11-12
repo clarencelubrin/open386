@@ -5,21 +5,21 @@
 #include "cpu/cpu.h"
 #include "cpu/exec.h"
 
-void decode_instruction(struct cpu *cpu, struct x86_insn *insn) {
+void decode_instruction(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-u32 decode_effective_address(struct cpu *cpu, const struct x86_insn *insn) {
+u32 decode_effective_address(CPU *cpu, const X86Insn *insn) {
     O386_STUB_TODO(M1);
     return 0;
 }
-u8 decode_default_segment(const struct x86_insn *insn) {
+u8 decode_default_segment(const X86Insn *insn) {
     O386_STUB_TODO(M1);
     return SEG_DS;
 }
-void decode_operands(struct cpu *cpu, struct x86_insn *insn) {
+void decode_operands(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
-int decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, struct x86_insn *insn) {
+int decode_from_bytes(const u8 *bytes, size_t len, u32 eip, bool opsize32, bool addrsize32, X86Insn *insn) {
     O386_STUB_TODO(M1);
     return -1;
 }
