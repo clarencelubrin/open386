@@ -19,10 +19,6 @@ Open386 is in early development. The emulator builds and parses its command line
 | M6 | Tooling: GDB stub, monitor, differential tracing against QEMU | Planned |
 | M7 | IA-32 expansion: i486 and Pentium CPU models | Planned |
 
-Done so far: physical memory management, the I/O port bus, CPU initialization and reset, and default operand/address size selection.
-
-See `PLAN.md` for the full design and the manual references behind each subsystem.
-
 ## Requirements
 
 - GCC or Clang with C11 support
