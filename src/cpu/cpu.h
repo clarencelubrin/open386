@@ -125,6 +125,8 @@ typedef struct cpu {
     enum cpu_mode mode;
     u8   cpl;
     bool halted;
+    bool shutdown;
+
     bool intr_line;                  // INTR pin level
     bool nmi_pending;
     bool nmi_masked;                 // set on NMI delivery until IRET [i386 §9.2.1 p.154]
@@ -132,7 +134,8 @@ typedef struct cpu {
     X86Insn cur;                     // instruction being executed
     jmp_buf exc_jmp;                 // longjmp target for cpu_raise_exception()
     bool exc_jmp_valid;
-    PendingException exc;
+    PendingException exc;            // Most recently raised exception (written by cpu_raise_exception)
+    PendingException delivering;     // Event currently being delivered by cpu_dispatch_event
     u8   exc_in_progress;            // vector of the exception being delivered (for #DF decisions), or 0xFF
     u64  cycles;
     u64  insn_count;

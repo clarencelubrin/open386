@@ -83,6 +83,7 @@ void cpu_reset(CPU *cpu) {
 
     cpu->exc_in_progress = 0xFF;
     cpu->halted = false;
+    cpu->shutdown = false;
     cpu->nmi_pending = false;
     cpu->inhibit_interrupts = 0;
     cpu->lazy.op = FLAGOP_NONE;
@@ -93,13 +94,40 @@ void cpu_reset(CPU *cpu) {
 
 }
 u32 cpu_step(CPU *cpu) {
-    // Store the current EIP before any prefix byte is fetched
+    if(cpu->shutdown) return 0;
+    // Store the current EIP and ESP before any prefix byte is fetched
     cpu->cur.start_eip = cpu->eip;
+    cpu->cur.start_esp = cpu->gpr[REG_ESP];
 
+    // call setjmp and branch on the result
+    if(setjmp(cpu->exc_jmp) == 0) {  // Normal path
+        cpu->exc_jmp_valid  = true;  // Set exc_jump_valid
+        // Fetch
+        // Decode the instruction at CS:EIP -> insn.len
+        // eip = start_eip + len            <- advance BEFORE execution
+        // Execute handler
+    } else {                         // Caught path (nonzero)
+        switch(exception_class_of(cpu->exc.vector)) {   // Check exception_class_off(exc.vector)
+            // If fault, set EIP back to cur.start_eip, restore whatever else step 1 snapshots
+            case EXC_CLASS_FAULT: 
+                cpu->eip = cpu->cur.start_eip; 
+                cpu->gpr[REG_ESP] = cpu->cur.start_esp; 
+                break;
+            case EXC_CLASS_TRAP: break;                  // If trap, leave EIP where the instruction left it
+            default:             break;
+        }
+    }
+    cpu->exc_jmp_valid  = false; // Then clear exc_jump_valid
+
+    // if pending, deliver it through cpu_dispatch_event
+    // Detect SHUTDOWN if cpu_dispatch_event return false
+    if(cpu->exc.pending && !cpu_dispatch_event(cpu, cpu->exc.vector, cpu->exc.source, cpu->exc.has_error_code, cpu->exc.error_code))
+        return 0;  
+
+    // debug_deliver_pending_traps      (later)
+    // cpu_service_pending_events       (IRQ/NMI, honoring IF and inhibit_interrupts)
     
-    // Commit ESP late, every handler does all its checks and memory writes first,
-    // and only then touches architectural registers
-    return 0;
+    return 1;                    // Return the cycle count from either path
 }
 void cpu_set_intr(CPU *cpu, bool level) {
     O386_STUB_TODO(M1);
@@ -111,13 +139,13 @@ void cpu_update_mode(CPU *cpu) {
     O386_STUB_TODO(M2);
 }
 enum cpu_mode cpu_current_mode(const CPU *cpu) {
-    // Real-address mode is in effect after a signal on the RESET pin
-    // Processor enters protected mode when CR0.PE (protection enable) bit is enabled
-    if(cpu->cr[CREG_CR0] & CR0_PE) return CPU_MODE_PROTECTED;
     // Processor can enter V86 mode by two means:
     // EFLAGS.VM=1 indicates that the new task is executin 8086 instructions, 
     // or from IRET indicates that the procedure to which control is being returned is an 8086 procedure
     if(cpu->eflags & EFLAGS_VM) return CPU_MODE_V8086;
+    // Real-address mode is in effect after a signal on the RESET pin
+    // Processor enters protected mode when CR0.PE (protection enable) bit is enabled
+    if(cpu->cr[CREG_CR0] & CR0_PE) return CPU_MODE_PROTECTED;
     return CPU_MODE_REAL;
 }
 u8 cpu_get_cpl(const CPU *cpu) {

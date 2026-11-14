@@ -84,7 +84,7 @@ typedef struct opcode_entry OpcodeEntry; /* cpu/exec.h */
 
 typedef struct x86_insn {
     u32 start_eip;          // EIP of the first byte; faults restore this
-
+    u32 start_esp;          // ESP of the first byte
     u8  len;
     u8  bytes[X86_MAX_INSN_LEN];
 

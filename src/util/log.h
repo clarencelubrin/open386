@@ -39,7 +39,7 @@ void log_init(enum log_level max_level, u32 categories, FILE *sink);
 void log_set_level(enum log_level max_level);
 void log_set_categories(u32 categories);
 bool log_enabled(enum log_level level, u32 category);
-void log_msg(enum log_level level, u32 category, const char *fmt, ...);
+void log_msg(enum log_level level, u32 category, const char *fmt, ...) __attribute__((format(printf, 3, 4)));
 const char *log_level_name(enum log_level level);
 
 #define LOG(level, cat, ...)                                                                           \

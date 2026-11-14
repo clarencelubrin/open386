@@ -92,17 +92,22 @@ void op_loop(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
 void op_int_n(CPU *cpu, X86Insn *insn) {
-    O386_STUB_TODO(M1);
+    cpu_request_event(cpu, insn->imm & 0xFF, EVENT_SOFTWARE_INT, false, 0);
 }
 void op_int3(CPU *cpu, X86Insn *insn) {
-    O386_STUB_TODO(M1);
+    cpu_request_event(cpu, 3, EVENT_INT3, false, 0);
 }
 void op_into(CPU *cpu, X86Insn *insn) {
-    O386_STUB_TODO(M1);
+    if(flags_get(cpu, EFLAGS_OF))
+        cpu_request_event(cpu, 4, EVENT_INTO, false, 0);
 }
 void op_iret(CPU *cpu, X86Insn *insn) {
     O386_STUB_TODO(M1);
 }
 void op_bound(CPU *cpu, X86Insn *insn) {
+    // Read lower/upper bounds from memory, index from register (needs operand decoding)
+    // if index < lower or index > upper
+        // cpu_raise_exception(EXC_BR)
+        // fault -> longjmp -> EIP roll back to BOUND
     O386_STUB_TODO(M1);
 }

@@ -16,6 +16,8 @@
 #include "cpu/segment.h"
 #include "util/log.h"
 
+#define MAX_INTERRUPT_DELIVERY_ATTEMPTS 4
+
 /* Vector assignments. [i386 Table 9-1 p.153; SDM 3A Table 7-1 p.3351] */
 enum x86_exception {
     EXC_DE = 0,          // divide error (fault)
@@ -45,9 +47,10 @@ enum x86_exception {
 };
 
 enum exception_class {
+    EXC_CLASS_INVALID = -1,
     EXC_CLASS_FAULT = 0, // return address = faulting instruction
     EXC_CLASS_TRAP,      // return address = next instruction
-    EXC_CLASS_ABORT      // not restartable
+    EXC_CLASS_ABORT,     // not restartable
 };
 
 /* Origin of an event, which decides EXT bit, DPL checks and inhibit rules. [i386 §3.5.3 p.68; §9.7 p.161] */
@@ -81,7 +84,6 @@ typedef struct pending_exception {
     bool has_error_code;
     u32  error_code;
     enum event_source source;
-    u32  cr2;         // for #PF
 } PendingException;
 
 /* Real-mode IVT entry. [i386 §14.3 p.209] */
@@ -98,8 +100,12 @@ O386_NORETURN void cpu_raise_exception_noerr(CPU *cpu, enum x86_exception vector
 O386_NORETURN void cpu_raise_page_fault(CPU *cpu, u32 linear, u32 error_code);
 O386_NORETURN void cpu_raise_gp0(CPU *cpu);
 
+/* Set the values of the event to signal that an instruction wants an interrupt to be handled. */
+void cpu_request_event(CPU *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code);
 /* Deliver an event (called at an instruction boundary by the step loop). */
 void cpu_deliver_event(CPU *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code);
+/* Handle and deliver multi-level exception calls. Call only at an instruction boundary. The single delivery funnel for all events */
+bool cpu_dispatch_event(CPU *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code);
 void cpu_deliver_real_mode(CPU *cpu, u8 vector);
 void cpu_deliver_protected_mode(CPU *cpu, u8 vector, enum event_source source, bool has_error_code,
                                 u32 error_code);
@@ -109,15 +115,14 @@ void cpu_push_interrupt_frame(CPU *cpu, bool to_32bit_gate, bool privilege_chang
 /* IRET in all its forms: real mode, same level, inter-level, return to V86, task return (NT=1). [i386 IRET p.311] */
 void cpu_iret(CPU *cpu, u8 opsize);
 
-/* Double-fault / shutdown decision for a second exception raised while delivering the first.
- * [i386 §9.8.8 p.164; SDM 3A Table 7-5 p.3385] */
+/* Double-fault / shutdown decision for a second exception raised while delivering the first. */
 bool exception_is_contributory(enum x86_exception vector);
 bool exception_causes_double_fault(enum x86_exception first, enum x86_exception second);
 enum exception_class exception_class_of(enum x86_exception vector);
-bool exception_has_error_code(enum x86_exception vector); /* [i386 Table 9-7 p.173] */
+bool exception_has_error_code(enum x86_exception vector); 
 const char *exception_name(u8 vector);
 
 /* Event-priority arbitration at an instruction boundary. [i386 §9.3 Table 9-2; SDM 3A §7.9 Table 7-2] */
 bool cpu_service_pending_events(CPU *cpu);
 
-#endif /* open386_CPU_INTERRUPT_H */
+#endif  /* open386_CPU_INTERRUPT_H */
