@@ -7,7 +7,7 @@
 #include "test.h"
 #include "cpu/cpu.h"
 #include "cpu/segment.h"
-
+#include "cpu_fixture.h"
 TEST_CASE(descriptor_parse_base_fragments_and_limit_granularity) {
     TEST_SKIP(M2);
 }
@@ -24,7 +24,21 @@ TEST_CASE(null_selector_into_ss_faults_into_ds_defers) {
     TEST_SKIP(M2);
 }
 TEST_CASE(real_mode_load_keeps_limit_and_rights) {
-    TEST_SKIP(M1);
+    fixture_init(0);
+    cpu.seg[SEG_DS].limit = 0x12345;
+    cpu.seg[SEG_DS].type = 0x2;
+    cpu.seg[SEG_DS].dpl = 1;
+    cpu.seg[SEG_DS].valid = false;
+
+    segment_load_real_mode(&cpu, SEG_DS, 0x1234);
+    // Assert
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].selector, 0x1234);   // selector=0x1234
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].base, 0x12340);      // base=0x12340
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].type, 0x2);          // limit/type/dpl unchanged
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].dpl, 0x1); 
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].limit, 0x12345);
+    TEST_ASSERT_EQ_U32(cpu.seg[SEG_DS].valid, true);        // valid=true
+    fixture_destroy();
 }
 TEST_CASE(accessed_bit_written_on_every_load) {
     TEST_SKIP(M2);

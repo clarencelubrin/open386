@@ -86,7 +86,10 @@ void segment_load_cs(CPU *cpu, u16 selector, const SegmentDescriptor *desc, u8 n
     O386_STUB_TODO(M2);
 }
 void segment_load_real_mode(CPU *cpu, enum x86_sreg reg, u16 selector) {
-    O386_STUB_TODO(M1);
+    cpu->seg[reg].selector = selector;          // Set the selector
+    cpu->seg[reg].base = (u32) selector << 4;   // base = sel << 4
+    cpu->seg[reg].valid = true;
+    // leave limit/rights as they are
 }
 void segment_cache_from_descriptor(SegCache *cache, u16 selector, const SegmentDescriptor *desc) {
     O386_STUB_TODO(M2);

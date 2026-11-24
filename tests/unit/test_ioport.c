@@ -35,8 +35,10 @@ static void record(void *ctx, u16 port, u8 size, u32 value, bool is_write) {
     ncalls++;
 }
 
-/* Byte reads return 0xC0 | low nibble of the port (61h -> C1h, 62h -> C2h), so split reads assemble to a recognisable word.
- * Wider reads return a fixed 32-bit pattern so the bus's size masking is visible. */
+/* 
+ * Byte reads return 0xC0 | low nibble of the port (61h -> C1h, 62h -> C2h), so split reads assemble to a recognisable word.
+ * Wider reads return a fixed 32-bit pattern so the bus's size masking is visible. 
+ */
 static u32 rec_read(void *ctx, u16 port, u8 size) {
     record(ctx, port, size, 0, false);
     return size == 1 ? (0xC0u | (port & 0x0Fu)) : 0x11223344u;

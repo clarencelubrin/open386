@@ -214,7 +214,15 @@ O386_NORETURN void cpu_raise_gp0(CPU *cpu) {
     abort();
 }
 void cpu_deliver_event(CPU *cpu, u8 vector, enum event_source source, bool has_error_code, u32 error_code) {
-    O386_STUB_TODO(M1);
+    // An interrupt wakes HLT, pushes IP = after halt
+    if(cpu->halted) cpu->halted = false;
+    if(source == EVENT_NMI) cpu->nmi_masked = true;
+    switch(cpu_current_mode(cpu)) {     // always read cpu->mode from cpu_current_mode function
+        case CPU_MODE_REAL:         cpu_deliver_real_mode(cpu, vector); break; // error code dropped
+        case CPU_MODE_PROTECTED:
+        case CPU_MODE_V8086:        cpu_deliver_protected_mode(cpu, vector, source, has_error_code, error_code); break;
+        default: LOG(LOG_ERROR, LOGC_CPU, "vector 0x%X %s. invalid cpu mode", vector, exception_name(vector)); break;
+    }
 }
 void cpu_deliver_real_mode(CPU *cpu, u8 vector) {
     O386_STUB_TODO(M1);

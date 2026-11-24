@@ -13,6 +13,8 @@
 
 #include <setjmp.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "types.h"
 #include "cpu/regs.h"
 #include "cpu/flags.h"

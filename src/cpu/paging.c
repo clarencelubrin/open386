@@ -58,11 +58,12 @@ void tlb_flush_page(CPU *cpu, u32 linear) {
     O386_STUB_TODO(M3);
 }
 bool paging_enabled(const CPU *cpu) {
-    O386_STUB_TODO(M3);
-    return false;
+    return (cpu->cr[CREG_CR0] & CR0_PG);
 }
 u32 paging_translate(CPU *cpu, u32 linear, enum mem_access access, bool user_mode) {
     O386_STUB_TODO(M3);
+    LOG(LOG_ERROR, LOGC_PAGING, "paging_translate not implemented yet.");
+    abort();
     return linear;
 }
 bool paging_translate_nofault(CPU *cpu, u32 linear, enum mem_access access, bool user_mode, u32 *phys_out) {
