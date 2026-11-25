@@ -28,8 +28,9 @@
  * - 32-bit offsets used by 80386 instructions are adequate to address the entire linear-address space
  */
 #include "mem/memory.h"
+#include "util/log.h"
 #include <string.h>
-
+#include <stdio.h>  
 /* Initialize the PhysicalMemory struct. Requires a fresh or destroyed struct. */
 int mem_init(PhysicalMemory *mem, u32 size) {
     if (!mem || size < MEM_EXTENDED_BASE) return -1;    // need at least 1 MiB of RAM
@@ -138,6 +139,7 @@ static u32 read_access(PhysicalMemory *mem, u32 paddr, u8 size) {
     u32 orig_addr = paddr;
     if (!r) {
         mem->unmapped_accesses++; 
+        LOG(LOG_ERROR, LOGC_MEM, "Address 0x%X is on unmapped memory region", paddr);
         return DEFAULT_RW_RETURN(size); 
     }
     switch (r->kind) {

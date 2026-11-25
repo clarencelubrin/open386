@@ -42,6 +42,8 @@ TEST_CASE(real_mode_load_keeps_limit_and_rights) {
 }
 TEST_CASE(accessed_bit_written_on_every_load) {
     TEST_SKIP(M2);
+    exception_wrapper(NULL, NULL);
+
 }
 
 TEST_MAIN_BEGIN("segment")

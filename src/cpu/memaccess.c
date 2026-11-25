@@ -59,8 +59,10 @@ u32 cpu_pop(CPU *cpu, u8 size) {
     return value;
 }
 u32 cpu_stack_peek(CPU *cpu, u32 byte_offset, u8 size) {
-    O386_STUB_TODO(M2);
-    return 0;
+    u32 mask = cpu_stack_mask(cpu);
+    u32 sp = cpu->gpr[REG_ESP] & mask;                          // get the current ESP, mask by SS.B pointer width
+    u32 value = cpu_read(cpu, SEG_SS, sp+byte_offset, size);                // write to the new_sp stack
+    return value;
 }
 /* Calculate the mask. Pointer width comes from SS.B.*/
 u32 cpu_stack_mask(const CPU *cpu) {
@@ -74,7 +76,6 @@ u32 cpu_logical_to_linear(CPU *cpu, u8 seg, u32 offset, u8 size, enum mem_access
     cpu_check_segment_limit(cpu, sc, seg, offset, size, access);
     // M2: cpu_check_segment_type - write to read-only, read from execute only, sc->valid
     // O386_STUB_TODO(M2);
-
     return sc->base + offset;
 }
 void cpu_check_segment_limit(CPU *cpu, const SegCache *sc, u8 seg, u32 offset, u32 len, enum mem_access access) { 

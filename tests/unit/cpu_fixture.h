@@ -46,24 +46,24 @@ static void fixture_init(u32 ram_bytes) {
 static void fixture_destroy() {
     mem_destroy(&mem);
 }
-// static RaisedException exception_wrapper(void *fn(CPU, void *), void *args) {
-//     if(setjmp(cpu.exc_jmp) == 0) {
-//         cpu.exc_jmp_valid = true;
-//         fn(cpu, args);
-//         cpu.exc_jmp_valid = false;
-//         cpu.exc_in_progress = 0xFF;
-//         cpu.exc.pending = false;
-//         return (RaisedException) {
-//             .raised=false
-//         };  
-//     } else {
-//         cpu.exc_jmp_valid = false;
-//         cpu.exc.pending = false;
-//         return (RaisedException) {
-//             .raised=true,
-//             .vector=cpu.exc.error_code,
-//             .error_code=cpu.exc.error_code
-//         };                     
-//     }
-// }
+__attribute__((unused)) static RaisedException exception_wrapper(void fn(CPU *, void *), void *args) {
+    if(setjmp(cpu.exc_jmp) == 0) {
+        cpu.exc_jmp_valid = true;
+        fn(&cpu, args);
+        cpu.exc_jmp_valid = false;
+        cpu.exc_in_progress = 0xFF;
+        cpu.exc.pending = false;
+        return (RaisedException) {
+            .raised=false,
+        };  
+    } else {
+        cpu.exc_jmp_valid = false;
+        cpu.exc.pending = false;
+        return (RaisedException) {
+            .raised=true,
+            .vector=cpu.exc.vector,
+            .error_code=cpu.exc.error_code
+        };                     
+    }
+}
 #endif

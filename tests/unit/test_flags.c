@@ -6,7 +6,7 @@
  */
 #include "test.h"
 #include "cpu/cpu.h"
-
+#include "cpu_fixture.h"
 TEST_CASE(add8_exhaustive_cf_pf_af_zf_sf_of) {
     TEST_SKIP(M1);
 }
@@ -34,6 +34,25 @@ TEST_CASE(popf_mask_iopl_only_at_cpl0_if_only_when_cpl_le_iopl) {
 TEST_CASE(reserved_bit1_always_set_and_ac_id_not_writable_on_i386dx) {
     TEST_SKIP(M2);
 }
+TEST_CASE(flag_set_and_clear_touch_only_that_bit) {
+    fixture_init(0);
+    cpu.eflags = 0x11223344;
+    flags_set(&cpu, EFLAGS_IF, false);
+    TEST_ASSERT_EQ_U32(cpu.eflags, (0x11223344 & ~EFLAGS_IF));
+
+    cpu.eflags = 0x11223344;
+    flags_set(&cpu, EFLAGS_TF, false);
+    TEST_ASSERT_EQ_U32(cpu.eflags, (0x11223344 & ~EFLAGS_TF));
+    flags_set(&cpu, EFLAGS_TF, true);
+
+    fixture_destroy();
+}
+TEST_CASE(cpu_get_eflags_forces_reserved_bit1) {
+    fixture_init(0);
+    cpu.eflags = 0;
+    TEST_ASSERT_EQ_U32(cpu_get_eflags(&cpu), EFLAGS_RSVD1);
+    fixture_destroy();
+}
 
 TEST_MAIN_BEGIN("flags")
 TEST_RUN(add8_exhaustive_cf_pf_af_zf_sf_of);
@@ -45,4 +64,6 @@ TEST_RUN(shift_count_zero_leaves_flags);
 TEST_RUN(condition_codes_match_appendix_d);
 TEST_RUN(popf_mask_iopl_only_at_cpl0_if_only_when_cpl_le_iopl);
 TEST_RUN(reserved_bit1_always_set_and_ac_id_not_writable_on_i386dx);
+TEST_RUN(flag_set_and_clear_touch_only_that_bit);
+TEST_RUN(cpu_get_eflags_forces_reserved_bit1);
 TEST_MAIN_END()
